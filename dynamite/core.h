@@ -8,10 +8,17 @@
 */
 #pragma once
 #include "../game/game.h"
+#include "jhe_main.h"
+#include "SDL.h"
+
+#undef main
 
 class Core {
 private:
 	Game* game;
+	SDL_Window* window;
+	SDL_Surface* screenSurface;
+	bool running;
 public:
 
 	/**
@@ -23,6 +30,16 @@ public:
 	* Handles events required to be updated each frame
 	*/
 	void HandleFrames();
+
+	/**
+	* Handles all the events
+	*/
+	void HandleEvents();
+
+	/**
+	* Returns true if engine is running, otherwise returns false
+	*/
+	bool IsRunning() { return this->running; };
 };
 
 
