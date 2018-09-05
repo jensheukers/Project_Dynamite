@@ -1,3 +1,13 @@
+/**
+*	Filename: renderer.cpp
+*
+*	Description: Source file for Renderer class
+*	Version: 0.1
+*
+*	© 2018, Jens Heukers
+*/
+
+
 #include "renderer.h";
 
 Renderer::Renderer() {
