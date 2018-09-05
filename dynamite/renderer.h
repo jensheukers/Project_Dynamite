@@ -10,6 +10,7 @@
 #pragma once
 #include "SDL.h"
 #include "jhe_main.h"
+#include "component\sprite.h"
 
 class Renderer {
 private:
@@ -40,4 +41,7 @@ public:
 	* Returns true if renderer has a SDL_Renderer, else returns false
 	*/
 	bool HasSdlRenderer() { return sdlRendererFound; };
+
+
+	void CreateSpriteTextureFromSurface(Sprite* sprite);
 };

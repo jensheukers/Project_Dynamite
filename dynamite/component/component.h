@@ -11,7 +11,7 @@
 #include <iostream>
 
 class Component {
-private:
+protected:
 	const char* typeName;
 public:
 	/**
