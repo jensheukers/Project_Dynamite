@@ -15,7 +15,7 @@ Sprite::Sprite(const char* path) {
 
 SDL_Surface* Sprite::GetSurface() {
 	if (this->surface == nullptr) {
-		printf("DYNAMITE: Sprite surface has to be created first, returning nullptr");
+		printf("DYNAMITE: Sprite surface has to be created first, returning nullptr\n");
 		return nullptr;
 	}
 
@@ -24,7 +24,6 @@ SDL_Surface* Sprite::GetSurface() {
 
 SDL_Texture* Sprite::GetTexture() {
 	if (this->texture == nullptr) {
-		printf("DYNAMITE: Texture has not been created, returning nullptr");
 		return nullptr;
 	}
 
@@ -39,11 +38,11 @@ void Sprite::CreateSurface(const char* path) {
 	this->surface = SDL_LoadBMP(path);
 
 	if (this->surface == NULL) {
-		printf("DYNAMITE: Surface could not be created error: %s", SDL_GetError());
+		printf("DYNAMITE: Surface could not be created error: %s\n", SDL_GetError());
 		return;
 	}
 
-	printf("DYNAMITE: Surface created!");
+	printf("DYNAMITE: Surface created!\n");
 }
 
 void Sprite::SetTexture(SDL_Texture* texture) {

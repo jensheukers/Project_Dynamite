@@ -20,9 +20,9 @@ Core::Core(char* arguments[]) {
 	std::string mainDirPathFull = arguments[0];
 
 	std::size_t found = mainDirPathFull.find_last_of("/\\");
-	mainDirPath = new String(mainDirPathFull.substr(0, found).c_str());
+	mainDirPath = mainDirPathFull.substr(0, found);
 
-	printf("DYNAMITE: %s\n", mainDirPath->Get());
+	printf("DYNAMITE: %s\n", mainDirPath.c_str());
 	
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -39,7 +39,7 @@ Core::Core(char* arguments[]) {
 
 	screenSurface = SDL_GetWindowSurface(window);
 
-	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
+	renderer = new Renderer(SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE));
 
 	game = new Game(this);
 	running = true;
@@ -53,7 +53,19 @@ Core::Core(char* arguments[]) {
 }
 
 void Core::HandleFrames() {
+	renderer->Clear();
 	game->Update();
+	HandleEntities();
+	renderer->Draw();
+}
+
+void Core::HandleEntities() {
+	for (int i = 0; i < entities.Size(); i++) {
+		Entity* temp = *entities.Get(i);
+		if (temp->HasComponent<Sprite>()) {
+			renderer->RenderEntity(temp);
+		}
+	}
 }
 
 void Core::HandleEvents() {

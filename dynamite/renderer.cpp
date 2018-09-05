@@ -48,6 +48,19 @@ void Renderer::Clear() {
 }
 
 void Renderer::RenderEntity(Entity* entity) {
+	if (entity->GetComponent<Sprite>()->GetSurface() == nullptr) {
+		printf("DYNAMITE: entity object has no surface!");
+		return;
+	}
+
+	if (entity->GetComponent<Sprite>()->GetTexture() == nullptr && entity->GetComponent<Sprite>()->GetSurface() != nullptr) {
+		CreateSpriteTextureFromSurface(entity->GetComponent<Sprite>());
+
+		if (entity->GetComponent<Sprite>()->GetTexture() == nullptr) {
+			return;
+		}
+	}
+
 	SDL_Rect rect;
 	rect.h = entity->GetComponent<Sprite>()->GetSurface()->h;
 	rect.w = entity->GetComponent<Sprite>()->GetSurface()->w;

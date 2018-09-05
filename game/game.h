@@ -9,7 +9,6 @@
 
 #pragma once
 
-
 class Core;
 
 

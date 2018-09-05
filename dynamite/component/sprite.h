@@ -12,7 +12,7 @@
 #include "component.h"
 #include "SDL.h"
 
-class Sprite : Component {
+class Sprite : public Component {
 private:
 	SDL_Texture* texture;
 	SDL_Surface* surface;

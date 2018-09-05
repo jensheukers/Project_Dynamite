@@ -9,7 +9,7 @@
 #pragma once
 
 #include "../game/game.h"
-
+#include "renderer.h"
 #include "jhe_main.h"
 #include "SDL.h"
 #include "entity.h";
@@ -18,8 +18,9 @@
 
 class Core {
 private:
-	String* mainDirPath;
+	std::string mainDirPath;
 	Game* game;
+	Renderer* renderer;
 	SDL_Window* window;
 	SDL_Surface* screenSurface;
 	bool running;
@@ -32,9 +33,19 @@ public:
 	Core(char* arguments[]);
 
 	/**
+	* Returns the executable directory path
+	*/
+	std::string GetMainDirPath() { return this->mainDirPath; };
+
+	/**
 	* Handles events required to be updated each frame
 	*/
 	void HandleFrames();
+
+	/**
+	* Handles all the entities
+	*/
+	void HandleEntities();
 
 	/**
 	* Handles all the events
