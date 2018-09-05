@@ -72,4 +72,18 @@ public:
 			}
 		}
 	}	
+
+	/**
+	* Returns true if component is found, else returns false
+	*/
+	template<typename T>
+	bool HasComponent() {
+		for (int i = 0; i < components.Size(); i++) {
+			Component* temp = *components.Get(i);
+			if (typeid(T).name() == temp->GetTypeName()) {
+				return true;
+				delete temp;
+			}
+		}
+	}
 };
