@@ -7,7 +7,9 @@
 *	© 2018, Jens Heukers
 */
 #pragma once
+
 #include "../game/game.h"
+
 #include "jhe_main.h"
 #include "SDL.h"
 

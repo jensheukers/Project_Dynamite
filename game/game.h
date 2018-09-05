@@ -9,8 +9,9 @@
 
 #pragma once
 
-//Forward declaration
+
 class Core;
+
 
 class Game {
 private:
@@ -19,7 +20,7 @@ public:
 	/**
 	* Constructor
 	*/
-	Game();
+	Game(Core* core);
 
 	/**
 	* Returns the game title

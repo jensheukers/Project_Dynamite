@@ -41,7 +41,7 @@ Core::Core(char* arguments[]) {
 
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
 
-	game = new Game();
+	game = new Game(this);
 	running = true;
 
 	printf("DYNAMITE: Game Started! \n");
