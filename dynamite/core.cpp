@@ -36,6 +36,7 @@ Core::Core() {
 	running = true;
 
 	printf("DYNAMITE: Game Started! \n");
+
 	while (IsRunning()) {
 		HandleEvents();
 		HandleFrames();

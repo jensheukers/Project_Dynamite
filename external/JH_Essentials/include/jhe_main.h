@@ -2,7 +2,7 @@
 *	Filename: jhe_main.h
 *
 *	Description: Main header file for jh_essentials.
-*	Version: 0.5
+*	Version: 0.3.1
 *
 *	© 2018, Jens Heukers
 */
@@ -19,7 +19,7 @@
 
 class Jhe {
 private:
-	const float VERSION = 0.3;
+	const float VERSION = 0.31;
 public:
 	/**
 	* Returns the current version build

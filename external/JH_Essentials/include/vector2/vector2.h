@@ -15,6 +15,10 @@ private:
 	float x;
 	float y;
 public:
+	/**
+	* Default constructor
+	*/
+	Vector2() { this->x = 0; this->y = 0; };
 
 	/**
 	* Constructor
