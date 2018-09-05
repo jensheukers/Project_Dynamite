@@ -28,3 +28,15 @@ void Renderer::RemoveSdlRenderer() {
 	this->sdlRenderer = nullptr;
 	sdlRendererFound = false;
 }
+
+void Renderer::CreateSpriteTextureFromSurface(Sprite* sprite) {
+	SDL_Texture* generatedTexture = SDL_CreateTextureFromSurface(sdlRenderer,sprite->GetSurface());
+
+	if (generatedTexture == NULL) {
+		printf("DYNAMITE: Failed to generate texture ERROR: %s", SDL_GetError());
+		delete generatedTexture;
+		return;
+	}
+
+	sprite->SetTexture(generatedTexture);
+}

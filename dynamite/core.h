@@ -12,6 +12,7 @@
 
 #include "jhe_main.h"
 #include "SDL.h"
+#include "entity.h";
 
 #undef main
 
