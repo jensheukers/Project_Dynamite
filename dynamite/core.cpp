@@ -64,3 +64,15 @@ void Core::HandleEvents() {
 		}
 	}
 }
+
+void Core::AddEntity(Entity* entity) {
+	entities.Push(entity);
+}
+
+void Core::RemoveEntity(int index) {
+	entities.Remove(index);
+}
+
+Entity* Core::GetEntity(int index) {
+	return *entities.Get(index);
+}
