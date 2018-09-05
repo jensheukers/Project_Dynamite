@@ -11,6 +11,7 @@
 #include "SDL.h"
 #include "jhe_main.h"
 #include "component\sprite.h"
+#include "entity.h"
 
 class Renderer {
 private:
@@ -46,4 +47,19 @@ public:
 	* Creates a texture from surface for sprite parameter
 	*/
 	void CreateSpriteTextureFromSurface(Sprite* sprite);
+
+	/**
+	* Clear the screen
+	*/
+	void Clear();
+
+	/**
+	* Render the sprite of the entity.
+	*/
+	void RenderEntity(Entity* entity);
+
+	/**
+	* Draw all the rendered operations on screen
+	*/
+	void Draw();
 };

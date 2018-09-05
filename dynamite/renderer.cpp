@@ -40,3 +40,25 @@ void Renderer::CreateSpriteTextureFromSurface(Sprite* sprite) {
 
 	sprite->SetTexture(generatedTexture);
 }
+
+void Renderer::Clear() {
+	SDL_SetRenderDrawColor(sdlRenderer, 0, 0, 0, 255);
+	SDL_RenderClear(sdlRenderer);
+	SDL_SetRenderDrawBlendMode(sdlRenderer, SDL_BLENDMODE_BLEND);
+}
+
+void Renderer::RenderEntity(Entity* entity) {
+	SDL_Rect rect;
+	rect.h = entity->GetComponent<Sprite>()->GetSurface()->h;
+	rect.w = entity->GetComponent<Sprite>()->GetSurface()->w;
+	rect.x = entity->GetPosition()->GetX();
+	rect.y = entity->GetPosition()->GetY();
+
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
+
+	SDL_RenderCopyEx(sdlRenderer, entity->GetComponent<Sprite>()->GetTexture(),nullptr,&rect,0,NULL,flip);
+}
+
+void Renderer::Draw() {
+	SDL_RenderPresent(sdlRenderer);
+}
