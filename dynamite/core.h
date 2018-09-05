@@ -15,6 +15,7 @@
 
 class Core {
 private:
+	String* mainDirPath;
 	Game* game;
 	SDL_Window* window;
 	SDL_Surface* screenSurface;
@@ -24,7 +25,7 @@ public:
 	/**
 	* Constructor
 	*/
-	Core();
+	Core(char* arguments[]);
 
 	/**
 	* Handles events required to be updated each frame

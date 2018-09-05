@@ -10,12 +10,21 @@
 
 #include "core.h"
 
-int main() {
-	Core core;
+int main(int argc, char* argv[]) {
+	Core core(argv);
 	return 0;
 }
 
-Core::Core() {
+Core::Core(char* arguments[]) {
+	
+	std::string mainDirPathFull = arguments[0];
+
+	std::size_t found = mainDirPathFull.find_last_of("/\\");
+	mainDirPath = new String(mainDirPathFull.substr(0, found).c_str());
+
+	printf("DYNAMITE: %s\n", mainDirPath->Get());
+	
+
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		printf("DYNAMITE: SDL Could not initialize. SDL_ERROR: $s\n", SDL_GetError());
 		return;
