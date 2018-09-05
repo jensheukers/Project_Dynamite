@@ -61,9 +61,8 @@ void Core::HandleFrames() {
 
 void Core::HandleEntities() {
 	for (int i = 0; i < entities.Size(); i++) {
-		Entity* temp = *entities.Get(i);
-		if (temp->HasComponent<Sprite>()) {
-			renderer->RenderEntity(temp);
+		if (entities.Get(i)->HasComponent<Sprite>()) {
+			renderer->RenderEntity(entities.Get(i));
 		}
 	}
 }
@@ -86,5 +85,5 @@ void Core::RemoveEntity(int index) {
 }
 
 Entity* Core::GetEntity(int index) {
-	return *entities.Get(index);
+	return entities.Get(index);
 }

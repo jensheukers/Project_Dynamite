@@ -32,13 +32,16 @@ public:
 	* Adds a component to the components Array.
 	*/
 	template<typename T>
-	void AddComponent() {
+	T* AddComponent() {
+		T* component = new T();
 		if (!std::is_base_of<Component, T>::value) {
 			printf("DYNAMITE: Type is not derived from Component, cannot add.\n");
-			return;
+			return component;
 		}
 
-		components.Push(new T());
+		components.Push(component);
+
+		return component;
 	}
 
 	/**
@@ -47,12 +50,8 @@ public:
 	template<typename T>
 	T* GetComponent() {
 		for (int i = 0; i < components.Size(); i++) {
-			Component* temp = *components.Get(i);
-			if (typeid(T).name() == temp->GetTypeName()) {
-				return dynamic_cast<T*>(temp);
-			}
-			else {
-				delete temp;
+			if (typeid(T).name() == components.Get(i)->GetTypeName()) {
+				return dynamic_cast<T*>(components.Get(i));
 			}
 		}
 
@@ -65,10 +64,8 @@ public:
 	template<typename T>
 	void RemoveComponent() {
 		for (int i = 0; i < components.Size(); i++) {
-			Component* temp = *components.Get(i);
-			if (typeid(T).name() == temp->GetTypeName()) {
+			if (typeid(T).name() == components.Get(i)->GetTypeName()) {
 				components.Remove(i);
-				delete temp;
 			}
 		}
 	}	
@@ -79,10 +76,8 @@ public:
 	template<typename T>
 	bool HasComponent() {
 		for (int i = 0; i < components.Size(); i++) {
-			Component* temp = *components.Get(i);
-			if (typeid(T).name() == temp->GetTypeName()) {
+			if (typeid(T).name() == components.Get(i)->GetTypeName()) {
 				return true;
-				delete temp;
 			}
 		}
 	}

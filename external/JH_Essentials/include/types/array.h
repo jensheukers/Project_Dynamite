@@ -65,12 +65,12 @@ public:
 	/**
 	* Returns element with the index given as parameter
 	*/
-	Type* Get(unsigned index) {
+	Type Get(unsigned index) {
 		if (index > this->size) {
 			throw std::out_of_range("Index out of range");
 		}
 		else {
-			return &elements[index];
+			return elements[index];
 		}
 	}
 };

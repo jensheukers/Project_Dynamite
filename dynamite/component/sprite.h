@@ -24,11 +24,6 @@ public:
 	Sprite() { this->typeName = typeid(*this).name(); this->sourcePath = ""; };
 
 	/**
-	* Constructor
-	*/
-	Sprite(const char* path);
-
-	/**
 	* Returns the surface if found, returns nullptr if failed
 	*/
 	SDL_Surface* GetSurface();
