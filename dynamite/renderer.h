@@ -44,9 +44,9 @@ public:
 	bool HasSdlRenderer() { return sdlRendererFound; };
 
 	/**
-	* Creates a texture from surface for sprite parameter
+	* Creates a texture from surface from surface
 	*/
-	void CreateSpriteTextureFromSurface(Sprite* sprite);
+	SDL_Texture* CreateTextureFromSurface(SDL_Surface* surface);
 
 	/**
 	* Clear the screen

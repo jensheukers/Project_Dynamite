@@ -2,7 +2,7 @@
 *	Filename: sprite.cpp
 *
 *	Description: Main Source for Sprite Component.
-*	Version: 0.2
+*	Version: 0.3
 *
 *	© 2018, Jens Heukers
 */
@@ -29,15 +29,8 @@ const char* Sprite::GetSourcePath() {
 	return this->sourcePath;
 }
 
-void Sprite::CreateSurface(const char* path) {
-	this->surface = SDL_LoadBMP(path);
-
-	if (this->surface == NULL) {
-		printf("DYNAMITE: Surface could not be created error: %s\n", SDL_GetError());
-		return;
-	}
-
-	printf("DYNAMITE: Surface created!\n");
+void Sprite::SetSurface(SDL_Surface* surface) {
+	this->surface = surface;
 }
 
 void Sprite::SetTexture(SDL_Texture* texture) {

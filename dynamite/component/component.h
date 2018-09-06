@@ -2,7 +2,7 @@
 *	Filename: component.h
 *
 *	Description: Main header file for component.
-*	Version: 0.1
+*	Version: 0.2
 *
 *	© 2018, Jens Heukers
 */

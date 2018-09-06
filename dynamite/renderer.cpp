@@ -29,16 +29,16 @@ void Renderer::RemoveSdlRenderer() {
 	sdlRendererFound = false;
 }
 
-void Renderer::CreateSpriteTextureFromSurface(Sprite* sprite) {
-	SDL_Texture* generatedTexture = SDL_CreateTextureFromSurface(sdlRenderer,sprite->GetSurface());
+SDL_Texture* Renderer::CreateTextureFromSurface(SDL_Surface* surface) {
+	SDL_Texture* generatedTexture = SDL_CreateTextureFromSurface(sdlRenderer, surface);
 
 	if (generatedTexture == NULL) {
 		printf("DYNAMITE: Failed to generate texture ERROR: %s", SDL_GetError());
 		delete generatedTexture;
-		return;
+		return  nullptr;
 	}
 
-	sprite->SetTexture(generatedTexture);
+	return generatedTexture;
 }
 
 void Renderer::Clear() {
@@ -52,13 +52,10 @@ void Renderer::RenderEntity(Entity* entity) {
 		printf("DYNAMITE: entity object has no surface!\n");
 		return;
 	}
-
-	if (entity->GetComponent<Sprite>()->GetTexture() == nullptr && entity->GetComponent<Sprite>()->GetSurface() != nullptr) {
-		CreateSpriteTextureFromSurface(entity->GetComponent<Sprite>());
-
-		if (entity->GetComponent<Sprite>()->GetTexture() == nullptr) {
-			return;
-		}
+	
+	if (entity->GetComponent<Sprite>()->GetTexture() == nullptr) {
+		printf("DYNAMITE: entity object has no texture!\n");
+		return;
 	}
 
 	SDL_Rect rect;
