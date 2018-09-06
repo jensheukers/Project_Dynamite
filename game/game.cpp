@@ -11,7 +11,6 @@
 
 Game::Game(Core* core) {
 	this->core = core;
-
 }
 
 void Game::Update() {

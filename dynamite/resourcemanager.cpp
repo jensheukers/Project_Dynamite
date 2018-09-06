@@ -15,9 +15,10 @@ ResourceManager::ResourceManager(Renderer* renderer) {
 
 SDL_Surface* ResourceManager::GetSurface(std::string path) {
 
+	printf("DYNAMITE: ~ResourceManager~ Searching surface: %s\n",path.c_str());
 	//Search if surface already exists
 	if (surfaces[path] != NULL) {
-		printf("DYNAMITE: ~ResourceManager~ Surface Found!\n");
+		printf("DYNAMITE: ~ResourceManager~ Ok\n");
 		return surfaces[path];
 	}
 	
@@ -28,10 +29,11 @@ SDL_Surface* ResourceManager::GetSurface(std::string path) {
 
 	if (surface == NULL) {
 		printf("DYNAMITE: ~ResourceManager~ Surface could not be created error: %s\n", SDL_GetError());
+
 		return nullptr;
 	}
 	else {
-		printf("DYNAMITE: ~ResourceManager~ Surface created!\n");
+		printf("DYNAMITE: ~ResourceManager~ Ok\n");
 
 		surfaces[path] = surface;
 
@@ -41,6 +43,7 @@ SDL_Surface* ResourceManager::GetSurface(std::string path) {
 }
 
 SDL_Texture* ResourceManager::GetTexture(std::string path) {
+
 	if (textures[path] != NULL) {
 		printf("DYNAMITE: ~ResourceManager~ Texture Found!\n");
 		return textures[path];

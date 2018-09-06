@@ -22,11 +22,11 @@ Core::Core(char* arguments[]) {
 	std::size_t found = mainDirPathFull.find_last_of("/\\");
 	mainDirPath = mainDirPathFull.substr(0, found);
 
-	printf("DYNAMITE: %s\n", mainDirPath.c_str());
+	printf("DYNAMITE: ~Core~ Executable path: %s\n", mainDirPath.c_str());
 	
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		printf("DYNAMITE: SDL Could not initialize. SDL_ERROR: $s\n", SDL_GetError());
+		printf("DYNAMITE: ~Core~ SDL Could not initialize. SDL_ERROR: $s\n", SDL_GetError());
 		return;
 	}
 	
@@ -34,18 +34,21 @@ Core::Core(char* arguments[]) {
 
 	if (window == NULL)
 	{
-		printf("DYNAMITE: SDL_Window could not be created! SDL_Error: %s\n", SDL_GetError());
+		printf("DYNAMITE: ~Core~ SDL_Window could not be created! SDL_Error: %s\n", SDL_GetError());
 	}
 
 	screenSurface = SDL_GetWindowSurface(window);
 
 	renderer = new Renderer(SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE));
 	resourceManager = new ResourceManager(renderer);
+
+	printf("DYNAMITE: ~Core~ Calling Game()\n");
+
 	game = new Game(this);
 
 	running = true;
 
-	printf("DYNAMITE: Game Started! \n");
+	printf("DYNAMITE: ~Core~ Game Started! \n");
 
 	while (IsRunning()) {
 		HandleEvents();
@@ -54,7 +57,8 @@ Core::Core(char* arguments[]) {
 }
 
 std::string Core::GetResourceDirectory() {
-	return this->mainDirPath.append("\\resources\\");
+	std::string convertedString = mainDirPath;
+	return convertedString.append("\\resources\\");
 }
 
 std::string Core::GetResourcePath(const char* name) {
