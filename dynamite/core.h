@@ -10,6 +10,7 @@
 
 #include "../game/game.h"
 #include "renderer.h"
+#include "resourcemanager.h"
 #include "jhe_main.h"
 #include "SDL.h"
 #include "entity.h";
@@ -19,8 +20,11 @@
 class Core {
 private:
 	std::string mainDirPath;
-	Game* game;
+
 	Renderer* renderer;
+	ResourceManager* resourceManager;
+	Game* game;
+
 	SDL_Window* window;
 	SDL_Surface* screenSurface;
 	bool running;
@@ -40,7 +44,7 @@ public:
 	/**
 	* Returns the full path to the resource given in parameters by name
 	*/
-	const char* GetResourcePath(const char* name);
+	std::string GetResourcePath(const char* name);
 
 	/**
 	* Handles events required to be updated each frame
@@ -76,6 +80,11 @@ public:
 	* Returns entity from the entitites Array where index matches Array Index
 	*/
 	Entity* GetEntity(int index);
+
+	/**
+	* Returns the resource manager
+	*/
+	ResourceManager* GetResourceManager() { return this->resourceManager; };
 };
 
 

@@ -40,8 +40,9 @@ Core::Core(char* arguments[]) {
 	screenSurface = SDL_GetWindowSurface(window);
 
 	renderer = new Renderer(SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE));
-
+	resourceManager = new ResourceManager(renderer);
 	game = new Game(this);
+
 	running = true;
 
 	printf("DYNAMITE: Game Started! \n");
@@ -53,11 +54,11 @@ Core::Core(char* arguments[]) {
 }
 
 std::string Core::GetResourceDirectory() {
-	return this->mainDirPath.append("//resources//");
+	return this->mainDirPath.append("\\resources\\");
 }
 
-const char* Core::GetResourcePath(const char* name) {
-	return this->GetResourceDirectory().append(name).c_str();
+std::string Core::GetResourcePath(const char* name) {
+	return this->GetResourceDirectory().append(name);
 }
 
 void Core::HandleFrames() {

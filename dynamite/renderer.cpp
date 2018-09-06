@@ -33,7 +33,7 @@ SDL_Texture* Renderer::CreateTextureFromSurface(SDL_Surface* surface) {
 	SDL_Texture* generatedTexture = SDL_CreateTextureFromSurface(sdlRenderer, surface);
 
 	if (generatedTexture == NULL) {
-		printf("DYNAMITE: Failed to generate texture ERROR: %s", SDL_GetError());
+		printf("DYNAMITE: ~Renderer~ Failed to generate texture ERROR: %s\n", SDL_GetError());
 		delete generatedTexture;
 		return  nullptr;
 	}
@@ -49,12 +49,12 @@ void Renderer::Clear() {
 
 void Renderer::RenderEntity(Entity* entity) {
 	if (entity->GetComponent<Sprite>()->GetSurface() == nullptr) {
-		printf("DYNAMITE: entity object has no surface!\n");
+		printf("DYNAMITE: ~Renderer~ entity object has no surface!\n");
 		return;
 	}
 	
 	if (entity->GetComponent<Sprite>()->GetTexture() == nullptr) {
-		printf("DYNAMITE: entity object has no texture!\n");
+		printf("DYNAMITE: ~Renderer~ entity object has no texture!\n");
 		return;
 	}
 
