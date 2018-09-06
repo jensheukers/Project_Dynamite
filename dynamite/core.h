@@ -33,9 +33,14 @@ public:
 	Core(char* arguments[]);
 
 	/**
-	* Returns the executable directory path
+	* Returns the resources directory path
 	*/
-	std::string GetMainDirPath() { return this->mainDirPath; };
+	std::string GetResourceDirectory();
+
+	/**
+	* Returns the full path to the resource given in parameters by name
+	*/
+	const char* GetResourcePath(const char* name);
 
 	/**
 	* Handles events required to be updated each frame

@@ -8,6 +8,7 @@
 */
 
 #pragma once
+#include "../dynamite/entity.h"
 
 class Core;
 

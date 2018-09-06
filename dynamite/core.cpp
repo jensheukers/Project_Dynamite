@@ -52,6 +52,14 @@ Core::Core(char* arguments[]) {
 	}
 }
 
+std::string Core::GetResourceDirectory() {
+	return this->mainDirPath.append("//resources//");
+}
+
+const char* Core::GetResourcePath(const char* name) {
+	return this->GetResourceDirectory().append(name).c_str();
+}
+
 void Core::HandleFrames() {
 	renderer->Clear();
 	game->Update();

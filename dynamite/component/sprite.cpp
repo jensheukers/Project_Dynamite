@@ -11,7 +11,6 @@
 
 SDL_Surface* Sprite::GetSurface() {
 	if (this->surface == nullptr) {
-		printf("DYNAMITE: Sprite surface has to be created first, returning nullptr\n");
 		return nullptr;
 	}
 

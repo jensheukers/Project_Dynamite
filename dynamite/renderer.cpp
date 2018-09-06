@@ -49,7 +49,7 @@ void Renderer::Clear() {
 
 void Renderer::RenderEntity(Entity* entity) {
 	if (entity->GetComponent<Sprite>()->GetSurface() == nullptr) {
-		printf("DYNAMITE: entity object has no surface!");
+		printf("DYNAMITE: entity object has no surface!\n");
 		return;
 	}
 
