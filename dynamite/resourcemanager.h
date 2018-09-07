@@ -2,7 +2,7 @@
 *	Filename: resourcemanager.h
 *
 *	Description: Main Header for ResourceManager.
-*	Version: 0.1
+*	Version: 0.2
 *
 *	© 2018, Jens Heukers
 */

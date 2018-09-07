@@ -2,7 +2,7 @@
 *	Filename: resourcemanager.cpp
 *
 *	Description: Main Source for ResourceManager.
-*	Version: 0.1
+*	Version: 0.2
 *
 *	© 2018, Jens Heukers
 */
@@ -16,6 +16,7 @@ ResourceManager::ResourceManager(Renderer* renderer) {
 SDL_Surface* ResourceManager::GetSurface(std::string path) {
 
 	printf("DYNAMITE: ~ResourceManager~ Searching surface: %s\n",path.c_str());
+
 	//Search if surface already exists
 	if (surfaces[path] != NULL) {
 		printf("DYNAMITE: ~ResourceManager~ Ok\n");
@@ -24,6 +25,7 @@ SDL_Surface* ResourceManager::GetSurface(std::string path) {
 	
 
 	printf("DYNAMITE: ~ResourceManager~ Surface not found, Attempting to create surface : %s\n", path.c_str());
+
 	//else create a new surface
 	SDL_Surface* surface = SDL_LoadBMP(path.c_str());
 
@@ -44,11 +46,13 @@ SDL_Surface* ResourceManager::GetSurface(std::string path) {
 
 SDL_Texture* ResourceManager::GetTexture(std::string path) {
 
+	//Search if surface already exists
 	if (textures[path] != NULL) {
 		printf("DYNAMITE: ~ResourceManager~ Texture Found!\n");
 		return textures[path];
 	}
 	else {
+		//Create a new texture
 		SDL_Texture* texture = renderer->CreateTextureFromSurface(GetSurface(path));
 
 		textures[path] = texture;
