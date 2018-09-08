@@ -9,6 +9,7 @@
 #pragma once
 
 #include "../game/game.h"
+#include "event/input.h"
 #include "renderer.h"
 #include "resourcemanager.h"
 #include "jhe_main.h"
@@ -23,11 +24,13 @@ private:
 
 	Renderer* renderer;
 	ResourceManager* resourceManager;
+	Input* input;
 	Game* game;
 
 	SDL_Window* window;
 	SDL_Surface* screenSurface;
 	bool running;
+
 	Array<Entity*> entities;
 public:
 
@@ -45,16 +48,6 @@ public:
 	* Returns the full path to the resource given in parameters by name
 	*/
 	std::string GetResourcePath(const char* name);
-
-	/**
-	* Handles events required to be updated each frame
-	*/
-	void HandleFrames();
-
-	/**
-	* Handles all the entities
-	*/
-	void HandleEntities();
 
 	/**
 	* Handles all the events
@@ -85,6 +78,22 @@ public:
 	* Returns the resource manager
 	*/
 	ResourceManager* GetResourceManager() { return this->resourceManager; };
+
+	/**
+	* Calls input->KeyPressed Method, returns value.
+	*/
+	bool GetKeyPressed(KeyCode keyCode) { return input->KeyPressed(keyCode); };
+
+	/**
+	* Calls input->KeyDown Method, returns value.
+	*/
+	bool GetKeyDown(KeyCode keyCode) { return input->KeyDown(keyCode); };
+
+	/**
+	* Calls input->KeyUp Method, returns value.
+	*/
+	bool GetKeyUp(KeyCode keyCode) { return input->KeyUp(keyCode); };
+	
 };
 
 

@@ -11,7 +11,6 @@
 
 class Core;
 
-
 class Game {
 private:
 	Core* core;

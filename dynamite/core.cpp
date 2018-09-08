@@ -41,6 +41,7 @@ Core::Core(char* arguments[]) {
 
 	renderer = new Renderer(SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE));
 	resourceManager = new ResourceManager(renderer);
+	input = new Input();
 
 	printf("DYNAMITE: ~Core~ Calling Game()\n");
 
@@ -50,9 +51,21 @@ Core::Core(char* arguments[]) {
 
 	printf("DYNAMITE: ~Core~ Game Started! \n");
 
+	//Game loop
 	while (IsRunning()) {
 		HandleEvents();
-		HandleFrames();
+
+		//Update the game 
+		game->Update();
+
+		//Handle rendering to screen
+		renderer->Clear();
+		for (int i = 0; i < entities.Size(); i++) {
+			if (entities.Get(i)->HasComponent<Sprite>()) {
+				renderer->RenderEntity(entities.Get(i));
+			}
+		}
+		renderer->Draw();
 	}
 }
 
@@ -65,26 +78,17 @@ std::string Core::GetResourcePath(const char* name) {
 	return this->GetResourceDirectory().append(name);
 }
 
-void Core::HandleFrames() {
-	renderer->Clear();
-	game->Update();
-	HandleEntities();
-	renderer->Draw();
-}
-
-void Core::HandleEntities() {
-	for (int i = 0; i < entities.Size(); i++) {
-		if (entities.Get(i)->HasComponent<Sprite>()) {
-			renderer->RenderEntity(entities.Get(i));
-		}
-	}
-}
-
 void Core::HandleEvents() {
+	input->HandleKeys();
+
 	SDL_Event sdlEvent;
 	while (SDL_PollEvent(&sdlEvent)) { //Handle events
 		if (sdlEvent.type == SDL_QUIT) {
 			running = false;
+		}
+
+		if (sdlEvent.type == SDL_KEYDOWN) {
+			input->HandleKeyEvent(sdlEvent.key.keysym.sym);
 		}
 	}
 }
