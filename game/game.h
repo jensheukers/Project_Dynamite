@@ -8,6 +8,7 @@
 */
 
 #pragma once
+#include "vector2\vector2.h"
 
 class Core;
 
@@ -28,17 +29,10 @@ public:
 	}
 
 	/**
-	* Returns the x dimension of the window
+	* Returns the dimensions of the window.
 	*/
-	static int GetWindowDimensionsX() {
-		return 800;
-	}
-
-	/**
-	* Returns the y dimension of the window
-	*/
-	static int GetWindowDimensionsY() {
-		return 600;
+	static Vector2 GetWindowDimensions() {
+		return Vector2(800,600);
 	}
 
 	/**

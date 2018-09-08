@@ -30,7 +30,7 @@ Core::Core(char* arguments[]) {
 		return;
 	}
 	
-	window = SDL_CreateWindow(Game::GetGameName(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Game::GetWindowDimensionsX(), Game::GetWindowDimensionsY(), SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow(Game::GetGameName(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Game::GetWindowDimensions().GetX(), Game::GetWindowDimensions().GetY(), SDL_WINDOW_SHOWN);
 
 	if (window == NULL)
 	{
