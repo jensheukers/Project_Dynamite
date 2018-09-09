@@ -14,4 +14,5 @@ Game::Game(Core* core) {
 }
 
 void Game::Update() {
+
 }

@@ -94,6 +94,15 @@ public:
 	*/
 	bool GetKeyUp(KeyCode keyCode) { return input->KeyUp(keyCode); };
 	
+	/**
+	* Calls input->AddAxis method
+	*/
+	void AddAxis(std::string name, KeyCode positive, KeyCode negative) { input->AddAxis(name, positive, negative); };
+
+	/**
+	* Calls input->GetAxis method, returns value
+	*/
+	float GetAxis(std::string name) { return input->GetAxis(name); };
 };
 
 

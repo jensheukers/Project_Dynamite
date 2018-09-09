@@ -2,7 +2,7 @@
 *	Filename: input.h
 *
 *	Description: Main Header file for Input class.
-*	Version: 0.1
+*	Version: 0.3
 *
 *	© 2018, Jens Heukers
 */
@@ -12,8 +12,6 @@
 #include "SDL.h"
 #include <iostream>
 #include <map>
-
-
 /**
 * Enum containing all translations for keyboard codes
 */
@@ -97,7 +95,7 @@ enum KeyCode {
 	F9 = SDLK_F9,
 	F10 = SDLK_F10,
 	F11 = SDLK_F11,
-	F12 = SDLK_F12,
+	F12= SDLK_F12,
 	//---------------------
 	//---------------------
 	Alpha0 = SDLK_0,
@@ -141,8 +139,37 @@ enum KeyCode {
 	//---------------------
 };
 
+class Axis {
+private:
+	std::string name;
+	KeyCode positive;
+	KeyCode negative;
+public:
+	Axis() {};
+
+	/**
+	* Constructor
+	*/
+	Axis(std::string name, KeyCode positive, KeyCode negative) {
+		this->name = name;
+		this->positive = positive;
+		this->negative = negative;
+	}
+
+	/**
+	* Returns the positive Keycode value/
+	*/
+	int GetPositive() { return this->positive; }
+
+	/**
+	* Returns the negative Keycode value.
+	*/
+	int GetNegative() { return this->negative; }
+};
+
 class Input {
 private:
+	std::map<std::string, Axis> axises;
 	std::map<SDL_Keycode, bool> keys;
 	std::map<SDL_Keycode, bool> keysLast;
 public:
@@ -153,9 +180,14 @@ public:
 	void HandleKeys();
 
 	/**
-	* Handles a KeyEvent.
+	* Handles KeyEvent if key is pressed.
 	*/
-	void HandleKeyEvent(SDL_Keycode key);
+	void HandleKeyPressEvent(SDL_Keycode key);
+
+	/**
+	* Handles KeyEvent if key is release.
+	*/
+	void HandleKeyReleaseEvent(SDL_Keycode key);
 
 	/**
 	* Returns true if key is pressed in both this frame and last fram, else returns false.
@@ -171,4 +203,14 @@ public:
 	* Returns true if key is up this frame and down last frame, else returns false.
 	*/
 	bool KeyUp(SDL_Keycode key);
+
+	/**
+	* Adds a new axis to the axises list.
+	*/
+	void AddAxis(std::string name, KeyCode positive, KeyCode negative);
+
+	/**
+	* Returns 1 if positive axis key is pressed, returns -1 if negative axis key is pressed, otherwise returns 0.
+	*/
+	float GetAxis(std::string name);
 };

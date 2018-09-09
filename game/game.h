@@ -32,7 +32,7 @@ public:
 	* Returns the dimensions of the window.
 	*/
 	static Vector2 GetWindowDimensions() {
-		return Vector2(800,600);
+		return Vector2(1080,720);
 	}
 
 	/**

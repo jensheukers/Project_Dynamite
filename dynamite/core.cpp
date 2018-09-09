@@ -53,6 +53,7 @@ Core::Core(char* arguments[]) {
 
 	//Game loop
 	while (IsRunning()) {
+		//Handle Events
 		HandleEvents();
 
 		//Update the game 
@@ -79,16 +80,18 @@ std::string Core::GetResourcePath(const char* name) {
 }
 
 void Core::HandleEvents() {
-	input->HandleKeys();
-
 	SDL_Event sdlEvent;
 	while (SDL_PollEvent(&sdlEvent)) { //Handle events
-		if (sdlEvent.type == SDL_QUIT) {
-			running = false;
-		}
-
-		if (sdlEvent.type == SDL_KEYDOWN) {
-			input->HandleKeyEvent(sdlEvent.key.keysym.sym);
+		switch (sdlEvent.type) {
+			case SDL_QUIT:
+				running = false;
+				break;
+			case SDL_KEYDOWN:
+				input->HandleKeyPressEvent(sdlEvent.key.keysym.sym);
+				break;
+			case SDL_KEYUP:
+				input->HandleKeyReleaseEvent(sdlEvent.key.keysym.sym);
+				break;
 		}
 	}
 }
