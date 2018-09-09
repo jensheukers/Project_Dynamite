@@ -10,9 +10,13 @@
 #include "input.h"
 
 
-void Input::HandleKeys() {
+void Input::Handle() {
 	for (int i = 0; i < keys.size(); i++) {
 		keysLast[i] = keys[i];
+	}
+
+	for (int ii = 0; ii < buttons.size(); ii++) {
+		buttonsLast[ii] = buttons[ii];
 	}
 }
 
@@ -22,6 +26,18 @@ void Input::HandleKeyPressEvent(SDL_Keycode key) {
 
 void Input::HandleKeyReleaseEvent(SDL_Keycode key) {
 	keys[key] = false;
+}
+
+void Input::HandleButtonPressEvent(int button) {
+	buttons[button] = true;
+}
+
+void Input::HandleButtonReleaseEvent(int button) {
+	buttons[button] = false;
+}
+
+void Input::HandleMouseMotion(Vector2 position) {
+	mousePosition.Set(position.GetX(), position.GetY());
 }
 
 bool Input::KeyPressed(SDL_Keycode key) {
@@ -42,6 +58,24 @@ bool Input::KeyUp(SDL_Keycode key) {
 	return false;
 }
 
+bool Input::ButtonPressed(int buttonCode) {
+	return buttons[buttonCode];
+}
+
+bool Input::ButtonDown(int buttonCode) {
+	if (buttons[buttonCode] && !buttonsLast[buttonCode]) {
+		return true;
+	}
+	return false;
+}
+
+bool Input::ButtonUp(int buttonCode) {
+	if (!buttons[buttonCode] && buttonsLast[buttonCode]) {
+		return true;
+	}
+	return false;
+}
+
 void Input::AddAxis(std::string name, KeyCode positive, KeyCode negative) {
 	axises[name] = Axis(name, positive, negative);
 }
@@ -57,3 +91,4 @@ float Input::GetAxis(std::string name) {
 
 	return 0;
 }
+

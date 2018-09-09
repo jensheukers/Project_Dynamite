@@ -92,6 +92,16 @@ void Core::HandleEvents() {
 			case SDL_KEYUP:
 				input->HandleKeyReleaseEvent(sdlEvent.key.keysym.sym);
 				break;
+			case SDL_MOUSEMOTION:
+				input->HandleMouseMotion(Vector2(sdlEvent.motion.x, sdlEvent.motion.y));
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				input->HandleButtonPressEvent(sdlEvent.button.button);
+				break;
+
+			case SDL_MOUSEBUTTONUP:
+				input->HandleButtonReleaseEvent(sdlEvent.button.button);
+				break;
 		}
 	}
 }

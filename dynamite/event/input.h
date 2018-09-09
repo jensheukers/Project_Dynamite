@@ -10,8 +10,21 @@
 
 #pragma once
 #include "SDL.h"
+#include "vector2\vector2.h"
 #include <iostream>
 #include <map>
+
+/**
+* Enum containing all translations for buttons
+*/
+enum MouseCode {
+	Left = SDL_BUTTON_LEFT,
+	Right = SDL_BUTTON_RIGHT,
+	Middle = SDL_BUTTON_MIDDLE,
+	X1 = SDL_BUTTON_X1,
+	X2 = SDL_BUTTON_X2
+};
+
 /**
 * Enum containing all translations for keyboard codes
 */
@@ -172,12 +185,15 @@ private:
 	std::map<std::string, Axis> axises;
 	std::map<SDL_Keycode, bool> keys;
 	std::map<SDL_Keycode, bool> keysLast;
+	std::map<int, bool> buttons;
+	std::map<int, bool> buttonsLast;
+	Vector2 mousePosition;
 public:
 
 	/**
-	* Handles all the keys, each frame sets Key[Key] to KeyLast[Key].
+	* Handles all the keys, buttons each frame sets Key[Key] to KeyLast[Key] & Button[Int] to ButtonLast[Int].
 	*/
-	void HandleKeys();
+	void Handle();
 
 	/**
 	* Handles KeyEvent if key is pressed.
@@ -190,12 +206,27 @@ public:
 	void HandleKeyReleaseEvent(SDL_Keycode key);
 
 	/**
-	* Returns true if key is pressed in both this frame and last fram, else returns false.
+	* Handles KeyEvent if key is pressed.
+	*/
+	void HandleButtonPressEvent(int button);
+
+	/**
+	* Handles KeyEvent if key is release.
+	*/
+	void HandleButtonReleaseEvent(int button);
+
+	/**
+	* Handles the mouse motion
+	*/
+	void HandleMouseMotion(Vector2 position);
+
+	/**
+	* Returns true if key is down, else returns false.
 	*/
 	bool KeyPressed(SDL_Keycode key);
 
 	/**
-	* Returns true if key is down, else returns false.
+	* Returns true if key is pressed in both this frame and last frame, else returns false.
 	*/
 	bool KeyDown(SDL_Keycode key);
 
@@ -203,6 +234,21 @@ public:
 	* Returns true if key is up this frame and down last frame, else returns false.
 	*/
 	bool KeyUp(SDL_Keycode key);
+
+	/**
+	* Returns true if button is down, else returns false.
+	*/
+	bool ButtonPressed(int buttonCode);
+
+	/**
+	* Returns true if button is down both in this frame and last frame, else returns false.
+	*/
+	bool ButtonDown(int buttonCode);
+
+	/**
+	* Returns true if key is up this frame and down last frame, else returns false.
+	*/
+	bool ButtonUp(int buttonCode);
 
 	/**
 	* Adds a new axis to the axises list.

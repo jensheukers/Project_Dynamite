@@ -95,6 +95,21 @@ public:
 	bool GetKeyUp(KeyCode keyCode) { return input->KeyUp(keyCode); };
 	
 	/**
+	* Calls input->ButtonPressed Method, returns value.
+	*/
+	bool GetButtonPressed(int buttonCode) { return input->ButtonPressed(buttonCode); };
+
+	/**
+	* Calls input->ButtonDown Method, returns value.
+	*/
+	bool GetButtonDown(int buttonCode) { return input->ButtonDown(buttonCode); };
+
+	/**
+	* Calls input->ButtonUp Method, returns value.
+	*/
+	bool GetButtonUp(int buttonCode) { return input->ButtonUp(buttonCode); };
+
+	/**
 	* Calls input->AddAxis method
 	*/
 	void AddAxis(std::string name, KeyCode positive, KeyCode negative) { input->AddAxis(name, positive, negative); };
