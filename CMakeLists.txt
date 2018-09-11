@@ -17,11 +17,14 @@ set(SDL2_DIR "external/SDL2")
 set(JH_Essentials_DIR "external/JH_Essentials")
 
 include_directories(${SDL2_DIR}/include ${JH_Essentials_DIR}/include)
-link_directories(${SDL2_DIR}/lib/x64 ${JH_Essentials_DIR}/lib/x64)
+link_directories(${SDL2_DIR}/lib/x64 ${JH_Essentials_DIR}/lib/x64 ${SDL2_DIR}/lib/x86 ${JH_Essentials_DIR}/lib/x86)
 
 # Add Executable
 
 add_executable(Project_Dynamite ${MAIN} ${GAME} ${COMPONENT} ${EVENT})
+
+set(CMAKE_CXX_FLAGS_RELEASE "/MD")
+set(CMAKE_CXX_FLAGS_DEBUG "/MD")
 
 # Link libraries
 target_link_libraries(Project_Dynamite SDL2 SDL2main JH_Essentials opengl32.lib)
