@@ -4,7 +4,9 @@
 *.vcxproj.user
 *targetver.h
 .vs/
+*.dir/
 Debug
+Release
 build
 latex
 html
