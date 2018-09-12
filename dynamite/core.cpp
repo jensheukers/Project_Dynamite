@@ -80,6 +80,7 @@ std::string Core::GetResourcePath(const char* name) {
 }
 
 void Core::HandleEvents() {
+	input->Handle();
 	SDL_Event sdlEvent;
 	while (SDL_PollEvent(&sdlEvent)) { //Handle events
 		switch (sdlEvent.type) {
