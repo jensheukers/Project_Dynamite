@@ -12,6 +12,7 @@
 #include "jhe_main.h"
 #include "component\sprite.h"
 #include "entity.h"
+#include "camera.h"
 
 class Renderer {
 private:
@@ -56,7 +57,7 @@ public:
 	/**
 	* Render the sprite of the entity.
 	*/
-	void RenderEntity(Entity* entity);
+	void RenderEntity(Entity* entity, Camera* activeCamera);
 
 	/**
 	* Draw all the rendered operations on screen

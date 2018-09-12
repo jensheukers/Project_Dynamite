@@ -14,7 +14,8 @@
 #include "resourcemanager.h"
 #include "jhe_main.h"
 #include "SDL.h"
-#include "entity.h";
+#include "entity.h"
+#include "camera.h"
 
 #undef main
 
@@ -29,8 +30,10 @@ private:
 
 	SDL_Window* window;
 	SDL_Surface* screenSurface;
+
 	bool running;
 
+	Camera* activeCamera;
 	Array<Entity*> entities;
 public:
 
@@ -118,6 +121,26 @@ public:
 	* Calls input->GetAxis method, returns value
 	*/
 	float GetAxis(std::string name) { return input->GetAxis(name); };
+	
+	/**
+	* Sets the current active camera.
+	*/
+	void SetActiveCamera(Camera* camera) { this->activeCamera = camera; };
+
+	/**
+	* Returns the active camera.
+	*/
+	Camera* GetActiveCamera() { return this->activeCamera; };
+
+	/**
+	* Removes the active camera.
+	*/
+	void RemoveActiveCamera() { this->activeCamera = nullptr; };
+
+	/**
+	* Returns true if a active camera is present, else returns false
+	*/
+	bool HasActiveCamera();
 };
 
 

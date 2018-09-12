@@ -41,14 +41,14 @@ void Input::HandleMouseMotion(Vector2 position) {
 }
 
 bool Input::KeyPressed(SDL_Keycode key) {
-	return keys[key];
-}
-
-bool Input::KeyDown(SDL_Keycode key) {
 	if (keys[key] && !keysLast[key]) {
 		return true;
 	}
 	return false;
+}
+
+bool Input::KeyDown(SDL_Keycode key) {
+	return keys[key];
 }
 
 bool Input::KeyUp(SDL_Keycode key) {
@@ -81,11 +81,11 @@ void Input::AddAxis(std::string name, KeyCode positive, KeyCode negative) {
 }
 
 float Input::GetAxis(std::string name) {
-	if (KeyDown(axises.at(name).GetPositive())) {
+	if (KeyDown(axises[name].GetPositive())) {
 		return 1;
 	}
 
-	if (KeyDown(axises.at(name).GetNegative())) {
+	if (KeyDown(axises[name].GetNegative())) {
 		return -1;
 	}
 

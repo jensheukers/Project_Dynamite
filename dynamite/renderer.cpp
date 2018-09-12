@@ -47,7 +47,7 @@ void Renderer::Clear() {
 	SDL_SetRenderDrawBlendMode(sdlRenderer, SDL_BLENDMODE_BLEND);
 }
 
-void Renderer::RenderEntity(Entity* entity) {
+void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 	if (entity->GetComponent<Sprite>()->GetSurface() == nullptr) {
 		printf("DYNAMITE: ~Renderer~ entity object has no surface!\n");
 		return;
@@ -61,8 +61,8 @@ void Renderer::RenderEntity(Entity* entity) {
 	SDL_Rect rect;
 	rect.h = entity->GetComponent<Sprite>()->GetSurface()->h;
 	rect.w = entity->GetComponent<Sprite>()->GetSurface()->w;
-	rect.x = entity->GetPosition()->GetX();
-	rect.y = entity->GetPosition()->GetY();
+	rect.x = entity->GetPosition()->GetX() - activeCamera->GetPosition()->GetX();
+	rect.y = entity->GetPosition()->GetY() - activeCamera->GetPosition()->GetY();
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 

@@ -25,12 +25,14 @@ Core::Core(char* arguments[]) {
 	printf("DYNAMITE: ~Core~ Executable path: %s\n", mainDirPath.c_str());
 	
 
+	activeCamera = nullptr;
+
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		printf("DYNAMITE: ~Core~ SDL Could not initialize. SDL_ERROR: $s\n", SDL_GetError());
 		return;
 	}
 	
-	window = SDL_CreateWindow(Game::GetGameName(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Game::GetWindowDimensions().GetX(), Game::GetWindowDimensions().GetY(), SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow(Game::GetGameName(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)Game::GetWindowDimensions().GetX(), (int)Game::GetWindowDimensions().GetY(), SDL_WINDOW_SHOWN);
 
 	if (window == NULL)
 	{
@@ -51,6 +53,11 @@ Core::Core(char* arguments[]) {
 
 	printf("DYNAMITE: ~Core~ Game Started! \n");
 
+
+	if (!HasActiveCamera()) {
+		printf("DYNAMITE: ~Core~ No active camera found, please create a camera and set it as active\n");
+	}
+
 	//Game loop
 	while (IsRunning()) {
 		//Handle Events
@@ -62,8 +69,8 @@ Core::Core(char* arguments[]) {
 		//Handle rendering to screen
 		renderer->Clear();
 		for (int i = 0; i < entities.Size(); i++) {
-			if (entities.Get(i)->HasComponent<Sprite>()) {
-				renderer->RenderEntity(entities.Get(i));
+			if (entities.Get(i)->HasComponent<Sprite>() && HasActiveCamera()) {
+				renderer->RenderEntity(entities.Get(i), activeCamera);
 			}
 		}
 		renderer->Draw();
@@ -80,6 +87,7 @@ std::string Core::GetResourcePath(const char* name) {
 }
 
 void Core::HandleEvents() {
+	input->Handle();
 	SDL_Event sdlEvent;
 	while (SDL_PollEvent(&sdlEvent)) { //Handle events
 		switch (sdlEvent.type) {
@@ -116,4 +124,11 @@ void Core::RemoveEntity(int index) {
 
 Entity* Core::GetEntity(int index) {
 	return entities.Get(index);
+}
+
+bool Core::HasActiveCamera() {
+	if (this->activeCamera != nullptr) {
+		return true;
+	}
+	return false;
 }
