@@ -61,8 +61,8 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 	SDL_Rect rect;
 	rect.h = entity->GetComponent<Sprite>()->GetSurface()->h;
 	rect.w = entity->GetComponent<Sprite>()->GetSurface()->w;
-	rect.x = entity->GetPosition()->GetX() - activeCamera->GetPosition()->GetX();
-	rect.y = entity->GetPosition()->GetY() - activeCamera->GetPosition()->GetY();
+	rect.x = entity->position.GetX() - activeCamera->GetXCoord();
+	rect.y = entity->position.GetY() - activeCamera->GetYCoord();
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 

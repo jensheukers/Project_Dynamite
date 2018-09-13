@@ -18,17 +18,17 @@ private:
 	Array<Component*> components;
 public:
 
-	Vector2* position;
+	Vector2 position;
 
 	/**
 	* Constructor
 	*/
-	Entity() { this->position = new Vector2(0, 0); };
+	Entity() { this->position = Vector2(0, 0); };
 
 	/**
 	* Constructor
 	*/
-	Entity(Vector2* position) { this->position = position; };
+	Entity(Vector2 position) { this->position = position; };
 
 	/**
 	* Adds a component to the components Array.
@@ -81,6 +81,18 @@ public:
 			if (typeid(T).name() == components.Get(i)->GetTypeName()) {
 				return true;
 			}
+		}
+	}
+
+
+
+	/**
+	* Destructor
+	*/
+	~Entity() {
+
+		for (int i = 0; i < components.Size(); i++) {
+			delete components.Get(i);
 		}
 	}
 };
