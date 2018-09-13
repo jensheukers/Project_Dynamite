@@ -16,8 +16,10 @@
 class Entity {
 private:
 	Array<Component*> components;
-	Vector2* position;
 public:
+
+	Vector2* position;
+
 	/**
 	* Constructor
 	*/
@@ -81,9 +83,4 @@ public:
 			}
 		}
 	}
-
-	/**
-	* Returns the Vector2 instance of the entity
-	*/
-	Vector2* GetPosition() { return this->position; }
 };

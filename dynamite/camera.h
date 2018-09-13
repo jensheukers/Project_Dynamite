@@ -7,8 +7,8 @@
 *	© 2018, Jens Heukers
 */
 
-
 #pragma once
+
 #include "vector2\vector2.h"
 class Camera {
 private:
@@ -23,10 +23,10 @@ public:
 	/**
 	* Constructor.
 	*/
-	Camera(Vector2* position) { this->position = position; };
+	Camera(Vector2 position) { this->position = &position; };
 
 	/**
 	* Returns the Vector2 position of the camera.
 	*/
-	Vector2* GetPosition() { return this->position; };
+	void SetPosition(Vector2 position) { this->position = &position; };
 };
