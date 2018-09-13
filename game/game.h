@@ -9,14 +9,12 @@
 
 #pragma once
 #include "vector2\vector2.h"
-#include "../dynamite/entity.h"
 
 class Core;
 
 class Game {
 private:
 	Core* core;
-	Entity* entity;
 public:
 	/**
 	* Constructor
