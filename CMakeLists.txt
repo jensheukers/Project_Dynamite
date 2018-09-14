@@ -19,7 +19,7 @@ set(JH_Essentials_DIR "external/JH_Essentials")
 set(GLEW_DIR "external/glew")
 
 include_directories(${SDL2_DIR}/include ${JH_Essentials_DIR}/include ${GLEW_DIR}/include)
-link_directories(${SDL2_DIR}/lib/x64 ${JH_Essentials_DIR}/lib/x64 ${GLEW_DIR}/lib/Release/x64 ${SDL2_DIR}/lib/x86 ${JH_Essentials_DIR}/lib/x86 ${GLEW_DIR}/lib/Release/Win32)
+link_directories(${SDL2_DIR}/lib/x64 ${JH_Essentials_DIR}/lib/x64 ${GLEW_DIR}/lib/x64 ${SDL2_DIR}/lib/x86 ${JH_Essentials_DIR}/lib/x86 ${GLEW_DIR}/lib/Win32)
 
 # Add Executable
 
@@ -29,7 +29,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "/MD")
 set(CMAKE_CXX_FLAGS_DEBUG "/MD")
 
 # Link libraries
-target_link_libraries(Project_Dynamite SDL2 SDL2main JH_Essentials opengl32.lib)
+target_link_libraries(Project_Dynamite SDL2 SDL2main JH_Essentials opengl32.lib glew32.lib glew32s.lib)
 
 # TODO: Set Commands
 add_custom_command(TARGET Project_Dynamite POST_BUILD 
