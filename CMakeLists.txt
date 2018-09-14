@@ -11,17 +11,19 @@ file(GLOB MAIN "dynamite/*.cpp" "dynamite/*.h" )
 file(GLOB GAME "game/*.cpp" "game/*.h") 
 file(GLOB COMPONENT "dynamite/component/*.h" "dynamite/component/*.cpp")
 file(GLOB EVENT "dynamite/event/*.h" "dynamite/event/*.cpp")
+file(GLOB IMGUI "dynamite/imgui/*.h" "dynamite/imgui/*.cpp")
 
 # Includes
 set(SDL2_DIR "external/SDL2")
 set(JH_Essentials_DIR "external/JH_Essentials")
+set(GLEW_DIR "external/glew")
 
-include_directories(${SDL2_DIR}/include ${JH_Essentials_DIR}/include)
-link_directories(${SDL2_DIR}/lib/x64 ${JH_Essentials_DIR}/lib/x64 ${SDL2_DIR}/lib/x86 ${JH_Essentials_DIR}/lib/x86)
+include_directories(${SDL2_DIR}/include ${JH_Essentials_DIR}/include ${GLEW_DIR}/include)
+link_directories(${SDL2_DIR}/lib/x64 ${JH_Essentials_DIR}/lib/x64 ${GLEW_DIR}/lib/Release/x64 ${SDL2_DIR}/lib/x86 ${JH_Essentials_DIR}/lib/x86 ${GLEW_DIR}/lib/Release/Win32)
 
 # Add Executable
 
-add_executable(Project_Dynamite ${MAIN} ${GAME} ${COMPONENT} ${EVENT})
+add_executable(Project_Dynamite ${MAIN} ${GAME} ${COMPONENT} ${EVENT} ${IMGUI})
 
 set(CMAKE_CXX_FLAGS_RELEASE "/MD")
 set(CMAKE_CXX_FLAGS_DEBUG "/MD")
@@ -34,7 +36,11 @@ add_custom_command(TARGET Project_Dynamite POST_BUILD
 					COMMAND ${CMAKE_COMMAND} -E copy
 						${CMAKE_SOURCE_DIR}/SDL2.dll $<TARGET_FILE_DIR:Project_Dynamite>)
 
-
+add_custom_command(TARGET Project_Dynamite POST_BUILD 
+					COMMAND ${CMAKE_COMMAND} -E copy
+						${CMAKE_SOURCE_DIR}/glew32.dll $<TARGET_FILE_DIR:Project_Dynamite>)
+						
+						
 add_custom_command(TARGET Project_Dynamite POST_BUILD 
 					COMMAND ${CMAKE_COMMAND} -E make_directory
 						$<TARGET_FILE_DIR:Project_Dynamite>/resources)
@@ -49,6 +55,7 @@ source_group("dynamite" FILES ${MAIN})
 source_group("game" FILES ${GAME})
 source_group("component" FILES ${COMPONENT})
 source_group("event" FILES ${EVENT})
+source_group("imgui" FILES ${IMGUI})
 
 
 
