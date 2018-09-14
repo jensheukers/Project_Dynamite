@@ -8,6 +8,7 @@ CMakeFiles/
 *.dir/
 cmake_install.cmake
 CMakeCache.txt
+imgui.ini
 Debug
 Release
 build
