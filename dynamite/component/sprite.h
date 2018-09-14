@@ -17,21 +17,17 @@ private:
 	SDL_Texture* texture;
 	SDL_Surface* surface;
 	const char* sourcePath;
+	float scale;
 public:
 	/**
 	* Default Constructor
 	*/
-	Sprite() { this->typeName = typeid(*this).name(); this->sourcePath = ""; };
+	Sprite() { this->typeName = typeid(*this).name(); this->sourcePath = ""; this->scale = 1; };
 
 	/**
 	* Returns the surface if found, returns nullptr if failed
 	*/
 	SDL_Surface* GetSurface();
-
-	/**
-	* Returns the texture if found, returns nullptr if failed
-	*/
-	SDL_Texture* GetTexture();
 
 	/**
 	* Returns the source path
@@ -44,7 +40,34 @@ public:
 	void SetSurface(SDL_Surface* path);
 
 	/**
-	* Sets the texture to parameter given
+	* Sets the scale of the sprite
 	*/
-	void SetTexture(SDL_Texture* texture);
+	void SetScale(float scale) {
+
+		if (scale < 0) {
+			this->scale = 0;
+		}
+		else {
+			this->scale = scale;
+		}
+	}
+
+	/**
+	* Gets the scale of the sprite
+	*/
+	float GetScale() { return this->scale; };
+
+	/**
+	* Increases the scale by 0.01f
+	*/
+	void IncreaseScale() {
+		SetScale(GetScale() + 0.01f);
+	}
+
+	/**
+	* Decreases the scale by 0.01f
+	*/
+	void DecreaseScale() {
+		SetScale(GetScale() - 0.01f);
+	}
 };

@@ -9,6 +9,7 @@
 
 
 #include "renderer.h";
+#include "SDL_opengl.h"
 
 Renderer::Renderer() {
 	sdlRendererFound = false;
@@ -29,22 +30,18 @@ void Renderer::RemoveSdlRenderer() {
 	sdlRendererFound = false;
 }
 
-SDL_Texture* Renderer::CreateTextureFromSurface(SDL_Surface* surface) {
-	SDL_Texture* generatedTexture = SDL_CreateTextureFromSurface(sdlRenderer, surface);
+void Renderer::InitOpenGL() {
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
 
-	if (generatedTexture == NULL) {
-		printf("DYNAMITE: ~Renderer~ Failed to generate texture ERROR: %s\n", SDL_GetError());
-		delete generatedTexture;
-		return  nullptr;
-	}
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 
-	return generatedTexture;
+	glClearColor(0.f,0.f,0.f,1.f);
 }
 
 void Renderer::Clear() {
-	SDL_SetRenderDrawColor(sdlRenderer, 0, 0, 0, 255);
-	SDL_RenderClear(sdlRenderer);
-	SDL_SetRenderDrawBlendMode(sdlRenderer, SDL_BLENDMODE_BLEND);
+	glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
@@ -53,22 +50,19 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 		return;
 	}
 	
-	if (entity->GetComponent<Sprite>()->GetTexture() == nullptr) {
-		printf("DYNAMITE: ~Renderer~ entity object has no texture!\n");
-		return;
-	}
+	SDL_Surface surface = *entity->GetComponent<Sprite>()->GetSurface();
 
-	SDL_Rect rect;
-	rect.h = entity->GetComponent<Sprite>()->GetSurface()->h;
-	rect.w = entity->GetComponent<Sprite>()->GetSurface()->w;
-	rect.x = entity->position.GetX() - activeCamera->GetXCoord();
-	rect.y = entity->position.GetY() - activeCamera->GetYCoord();
+	//Multiply the scale with 0.01 to have a size more relative to screen
+	float scale = entity->GetComponent<Sprite>()->GetScale() * 0.01f;
 
-	SDL_RendererFlip flip = SDL_FLIP_NONE;
-
-	SDL_RenderCopyEx(sdlRenderer, entity->GetComponent<Sprite>()->GetTexture(),nullptr,&rect,0,NULL,flip);
+	glBegin(GL_QUADS);
+		glVertex2f(entity->position.GetX() * scale, entity->position.GetY()  * scale);
+		glVertex2f((entity->position.GetX() + surface.w)  * scale, entity->position.GetY()  * scale);
+		glVertex2f((entity->position.GetX() + surface.w)  * scale, (entity->position.GetY() + surface.h) * scale);
+		glVertex2f(entity->position.GetX()  * scale, (entity->position.GetY() + surface.h) * scale);
+	glEnd();
 }
 
-void Renderer::Draw() {
-	SDL_RenderPresent(sdlRenderer);
+void Renderer::Draw(SDL_Window* window) {
+	SDL_GL_SwapWindow(window);
 }

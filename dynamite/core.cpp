@@ -31,8 +31,8 @@ Core::Core(char* arguments[]) {
 		printf("DYNAMITE: ~Core~ SDL Could not initialize. SDL_ERROR: $s\n", SDL_GetError());
 		return;
 	}
-	
-	window = SDL_CreateWindow(Game::GetGameName(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)Game::GetWindowDimensions().GetX(), (int)Game::GetWindowDimensions().GetY(), SDL_WINDOW_SHOWN);
+
+	window = SDL_CreateWindow(Game::GetGameName(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)Game::GetWindowDimensions().GetX(), (int)Game::GetWindowDimensions().GetY(), SDL_WINDOW_OPENGL);
 
 	if (window == NULL)
 	{
@@ -40,8 +40,12 @@ Core::Core(char* arguments[]) {
 	}
 
 	screenSurface = SDL_GetWindowSurface(window);
+	SDL_GLContext context = SDL_GL_CreateContext(window);
+
+	SDL_GL_MakeCurrent(window,context);
 
 	renderer = new Renderer(SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE));
+	renderer->InitOpenGL();
 	resourceManager = new ResourceManager(renderer);
 	input = new Input();
 
@@ -53,6 +57,8 @@ Core::Core(char* arguments[]) {
 
 	printf("DYNAMITE: ~Core~ Game Started! \n");
 
+
+	Entity temp;
 
 	if (!HasActiveCamera()) {
 		printf("DYNAMITE: ~Core~ No active camera found, please create a camera and set it as active\n");
@@ -68,12 +74,13 @@ Core::Core(char* arguments[]) {
 
 		//Handle rendering to screen
 		renderer->Clear();
+
 		for (int i = 0; i < entities.Size(); i++) {
 			if (entities.Get(i)->HasComponent<Sprite>() && HasActiveCamera()) {
 				renderer->RenderEntity(entities.Get(i), activeCamera);
 			}
 		}
-		renderer->Draw();
+		renderer->Draw(window);
 	}
 }
 

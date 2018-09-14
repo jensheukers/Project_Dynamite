@@ -17,22 +17,10 @@ SDL_Surface* Sprite::GetSurface() {
 	return this->surface;
 }
 
-SDL_Texture* Sprite::GetTexture() {
-	if (this->texture == nullptr) {
-		return nullptr;
-	}
-
-	return this->texture;
-}
-
 const char* Sprite::GetSourcePath() {
 	return this->sourcePath;
 }
 
 void Sprite::SetSurface(SDL_Surface* surface) {
 	this->surface = surface;
-}
-
-void Sprite::SetTexture(SDL_Texture* texture) {
-	this->texture = texture;
 }

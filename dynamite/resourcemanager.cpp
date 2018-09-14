@@ -43,20 +43,3 @@ SDL_Surface* ResourceManager::GetSurface(std::string path) {
 	}
 	return nullptr;
 }
-
-SDL_Texture* ResourceManager::GetTexture(std::string path) {
-
-	//Search if surface already exists
-	if (textures[path] != NULL) {
-		printf("DYNAMITE: ~ResourceManager~ Texture Found!\n");
-		return textures[path];
-	}
-	else {
-		//Create a new texture
-		SDL_Texture* texture = renderer->CreateTextureFromSurface(GetSurface(path));
-
-		textures[path] = texture;
-		return texture;
-	}
-	return nullptr;
-}

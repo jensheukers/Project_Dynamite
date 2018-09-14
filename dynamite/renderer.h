@@ -50,6 +50,11 @@ public:
 	SDL_Texture* CreateTextureFromSurface(SDL_Surface* surface);
 
 	/**
+	* Sets all the properties for OpenGL Rendering, returns true if success, else returns false
+	*/
+	void InitOpenGL();
+
+	/**
 	* Clear the screen
 	*/
 	void Clear();
@@ -62,5 +67,5 @@ public:
 	/**
 	* Draw all the rendered operations on screen
 	*/
-	void Draw();
+	void Draw(SDL_Window* window);
 };
