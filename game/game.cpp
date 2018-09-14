@@ -8,10 +8,13 @@
 
 #include "../dynamite/core.h"
 #include "game.h"
+#include "../dynamite/imgui/imgui.h"
+
 
 Game::Game(Core* core) {
 	this->core = core;
 }
 
 void Game::Update() {
+
 }

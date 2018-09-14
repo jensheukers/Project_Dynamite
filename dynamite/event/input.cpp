@@ -11,7 +11,7 @@
 
 
 void Input::Handle() {
-	for (int i = 0; i < keys.size(); i++) {
+	for (int i = 0; i < 284; i++) {
 		keysLast[i] = keys[i];
 	}
 
@@ -20,11 +20,11 @@ void Input::Handle() {
 	}
 }
 
-void Input::HandleKeyPressEvent(SDL_Keycode key) {
+void Input::HandleKeyPressEvent(int key) {
 	keys[key] = true;
 }
 
-void Input::HandleKeyReleaseEvent(SDL_Keycode key) {
+void Input::HandleKeyReleaseEvent(int key) {
 	keys[key] = false;
 }
 
@@ -40,18 +40,18 @@ void Input::HandleMouseMotion(Vector2 position) {
 	mousePosition.Set(position.GetX(), position.GetY());
 }
 
-bool Input::KeyPressed(SDL_Keycode key) {
+bool Input::KeyPressed(int key) {
 	if (keys[key] && !keysLast[key]) {
 		return true;
 	}
 	return false;
 }
 
-bool Input::KeyDown(SDL_Keycode key) {
+bool Input::KeyDown(int key) {
 	return keys[key];
 }
 
-bool Input::KeyUp(SDL_Keycode key) {
+bool Input::KeyUp(int key) {
 	if (!keys[key] && keysLast[key]) {
 		return true;
 	}
@@ -76,7 +76,7 @@ bool Input::ButtonUp(int buttonCode) {
 	return false;
 }
 
-void Input::AddAxis(std::string name, KeyCode positive, KeyCode negative) {
+void Input::AddAxis(std::string name, int positive, int negative) {
 	axises[name] = Axis(name, positive, negative);
 }
 

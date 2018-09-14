@@ -37,6 +37,7 @@ private:
 	SDL_Surface* screenSurface;
 
 	bool running;
+	bool commandPromptActive;
 
 	Camera* activeCamera;
 	Array<Entity*> entities;
@@ -90,17 +91,17 @@ public:
 	/**
 	* Calls input->KeyPressed Method, returns value.
 	*/
-	bool GetKeyPressed(KeyCode keyCode) { return input->KeyPressed(keyCode); };
+	bool GetKeyPressed(int keyCode) { return input->KeyPressed(keyCode); };
 
 	/**
 	* Calls input->KeyDown Method, returns value.
 	*/
-	bool GetKeyDown(KeyCode keyCode) { return input->KeyDown(keyCode); };
+	bool GetKeyDown(int keyCode) { return input->KeyDown(keyCode); };
 
 	/**
 	* Calls input->KeyUp Method, returns value.
 	*/
-	bool GetKeyUp(KeyCode keyCode) { return input->KeyUp(keyCode); };
+	bool GetKeyUp(int keyCode) { return input->KeyUp(keyCode); };
 	
 	/**
 	* Calls input->ButtonPressed Method, returns value.
@@ -120,7 +121,7 @@ public:
 	/**
 	* Calls input->AddAxis method
 	*/
-	void AddAxis(std::string name, KeyCode positive, KeyCode negative) { input->AddAxis(name, positive, negative); };
+	void AddAxis(std::string name, int positive, int negative) { input->AddAxis(name, positive, negative); };
 
 	/**
 	* Calls input->GetAxis method, returns value

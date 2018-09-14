@@ -30,140 +30,140 @@ enum MouseCode {
 */
 enum KeyCode {
 	//---------------------
-	Space = SDLK_SPACE,
-	Enter = SDLK_KP_ENTER,
-	CapsLock = SDLK_CAPSLOCK,
-	Backspace = SDLK_BACKSPACE,
-	Tab = SDLK_TAB,
-	Escape = SDLK_ESCAPE,
+	Space = SDL_SCANCODE_SPACE,
+	Enter = SDL_SCANCODE_KP_ENTER,
+	CapsLock = SDL_SCANCODE_CAPSLOCK,
+	Backspace = SDL_SCANCODE_BACKSPACE,
+	Tab = SDL_SCANCODE_TAB,
+	Escape = SDL_SCANCODE_ESCAPE,
 	Grave = SDL_SCANCODE_GRAVE,
 	//---------------------
 	//---------------------
-	Delete = SDLK_DELETE,
-	Insert = SDLK_INSERT,
-	Home = SDLK_HOME,
-	End = SDLK_END,
-	PageUp = SDLK_PAGEUP,
-	PageDown = SDLK_PAGEDOWN,
-	PrintScreen = SDLK_PRINTSCREEN,
-	ScrollLock = SDLK_SCROLLLOCK,
-	PauseBreak = SDLK_PAUSE,
+	Delete = SDL_SCANCODE_DELETE,
+	Insert = SDL_SCANCODE_INSERT,
+	Home = SDL_SCANCODE_HOME,
+	End = SDL_SCANCODE_END,
+	PageUp = SDL_SCANCODE_PAGEUP,
+	PageDown = SDL_SCANCODE_PAGEDOWN,
+	PrintScreen = SDL_SCANCODE_PRINTSCREEN,
+	ScrollLock = SDL_SCANCODE_SCROLLLOCK,
+	PauseBreak = SDL_SCANCODE_PAUSE,
 	//---------------------
 	//---------------------
-	LeftShift = SDLK_LSHIFT,
-	RightShift = SDLK_RSHIFT,
-	LeftAlt = SDLK_LALT,
-	RightAlt = SDLK_RALT,
-	LeftCtrl = SDLK_LCTRL,
-	RightCtrl = SDLK_RCTRL,
-	LGui = SDLK_LGUI,
-	RGui = SDLK_RGUI,
+	LeftShift = SDL_SCANCODE_LSHIFT,
+	RightShift = SDL_SCANCODE_RSHIFT,
+	LeftAlt = SDL_SCANCODE_LALT,
+	RightAlt = SDL_SCANCODE_RALT,
+	LeftCtrl = SDL_SCANCODE_LCTRL,
+	RightCtrl = SDL_SCANCODE_RCTRL,
+	LGui = SDL_SCANCODE_LGUI,
+	RGui = SDL_SCANCODE_RGUI,
 	//---------------------
 	//---------------------
-	ArrowUp = SDLK_UP,
-	ArrowDown = SDLK_DOWN,
-	ArrowRight = SDLK_RIGHT,
-	ArrowLeft = SDLK_LEFT,
+	ArrowUp = SDL_SCANCODE_UP,
+	ArrowDown = SDL_SCANCODE_DOWN,
+	ArrowRight = SDL_SCANCODE_RIGHT,
+	ArrowLeft = SDL_SCANCODE_LEFT,
 	//---------------------
 	//---------------------
-	Numpad_0 = SDLK_KP_0,
-	Numpad_1 = SDLK_KP_1,
-	Numpad_2 = SDLK_KP_2,
-	Numpad_3 = SDLK_KP_3,
-	Numpad_4 = SDLK_KP_4,
-	Numpad_5 = SDLK_KP_5,
-	Numpad_6 = SDLK_KP_6,
-	Numpad_7 = SDLK_KP_7,
-	Numpad_8 = SDLK_KP_8,
-	Numpad_9 = SDLK_KP_9,
-	NumLock = SDLK_NUMLOCKCLEAR,
-	Numpad_Devide = SDLK_KP_DIVIDE,
-	Numpad_Multiply = SDLK_KP_MULTIPLY,
-	Numpad_Minus = SDLK_KP_MINUS,
-	Numpad_Plus = SDLK_KP_PLUS,
-	Numpad_Enter = SDLK_KP_ENTER,
-	Numpad_Dot = SDLK_KP_PERIOD,
+	Numpad_0 = SDL_SCANCODE_KP_0,
+	Numpad_1 = SDL_SCANCODE_KP_1,
+	Numpad_2 = SDL_SCANCODE_KP_2,
+	Numpad_3 = SDL_SCANCODE_KP_3,
+	Numpad_4 = SDL_SCANCODE_KP_4,
+	Numpad_5 = SDL_SCANCODE_KP_5,
+	Numpad_6 = SDL_SCANCODE_KP_6,
+	Numpad_7 = SDL_SCANCODE_KP_7,
+	Numpad_8 = SDL_SCANCODE_KP_8,
+	Numpad_9 = SDL_SCANCODE_KP_9,
+	NumLock = SDL_SCANCODE_NUMLOCKCLEAR,
+	Numpad_Devide = SDL_SCANCODE_KP_DIVIDE,
+	Numpad_Multiply = SDL_SCANCODE_KP_MULTIPLY,
+	Numpad_Minus = SDL_SCANCODE_KP_MINUS,
+	Numpad_Plus = SDL_SCANCODE_KP_PLUS,
+	Numpad_Enter = SDL_SCANCODE_KP_ENTER,
+	Numpad_Dot = SDL_SCANCODE_KP_PERIOD,
 	//---------------------
 	//---------------------
-	Plus = SDLK_PLUS,
-	Minus = SDLK_MINUS,
-	LeftBracket = SDLK_LEFTBRACKET,
-	RightBracket = SDLK_RIGHTBRACKET,
-	BackSlash = SDLK_BACKSLASH,
-	SemiColumn = SDLK_SEMICOLON,
+	Plus = SDL_SCANCODE_EQUALS,
+	Minus = SDL_SCANCODE_MINUS,
+	LeftBracket = SDL_SCANCODE_LEFTBRACKET,
+	RightBracket = SDL_SCANCODE_RIGHTBRACKET,
+	BackSlash = SDL_SCANCODE_BACKSLASH,
+	SemiColumn = SDL_SCANCODE_SEMICOLON,
 	Aphostrove = SDL_SCANCODE_APOSTROPHE,
-	Comma = SDLK_COMMA,
-	Dot = SDLK_PERIOD,
-	Slash = SDLK_SLASH,
+	Comma = SDL_SCANCODE_COMMA,
+	Dot = SDL_SCANCODE_PERIOD,
+	Slash = SDL_SCANCODE_SLASH,
 	//---------------------
 	//---------------------
-	F1 = SDLK_F1,
-	F2 = SDLK_F2,
-	F3 = SDLK_F3,
-	F4 = SDLK_F4,
-	F5 = SDLK_F5,
-	F6 = SDLK_F6,
-	F7 = SDLK_F7,
-	F8 = SDLK_F8,
-	F9 = SDLK_F9,
-	F10 = SDLK_F10,
-	F11 = SDLK_F11,
-	F12= SDLK_F12,
+	F1 = SDL_SCANCODE_F1,
+	F2 = SDL_SCANCODE_F2,
+	F3 = SDL_SCANCODE_F3,
+	F4 = SDL_SCANCODE_F4,
+	F5 = SDL_SCANCODE_F5,
+	F6 = SDL_SCANCODE_F6,
+	F7 = SDL_SCANCODE_F7,
+	F8 = SDL_SCANCODE_F8,
+	F9 = SDL_SCANCODE_F9,
+	F10 = SDL_SCANCODE_F10,
+	F11 = SDL_SCANCODE_F11,
+	F12= SDL_SCANCODE_F12,
 	//---------------------
 	//---------------------
-	Alpha0 = SDLK_0,
-	Alpha1 = SDLK_1,
-	Alpha2 = SDLK_2,
-	Alpha3 = SDLK_3,
-	Alpha4 = SDLK_4,
-	Alpha5 = SDLK_5,
-	Alpha6 = SDLK_6,
-	Alpha7 = SDLK_7,
-	Alpha8 = SDLK_8,
-	Alpha9 = SDLK_9,
+	Alpha0 = SDL_SCANCODE_0,
+	Alpha1 = SDL_SCANCODE_1,
+	Alpha2 = SDL_SCANCODE_2,
+	Alpha3 = SDL_SCANCODE_3,
+	Alpha4 = SDL_SCANCODE_4,
+	Alpha5 = SDL_SCANCODE_5,
+	Alpha6 = SDL_SCANCODE_6,
+	Alpha7 = SDL_SCANCODE_7,
+	Alpha8 = SDL_SCANCODE_8,
+	Alpha9 = SDL_SCANCODE_9,
 	//---------------------
 	//---------------------
-	A = SDLK_a,
-	B = SDLK_b,
-	C = SDLK_c,
-	D = SDLK_d,
-	E = SDLK_e,
-	F = SDLK_f,
-	G = SDLK_g,
-	H = SDLK_h,
-	I = SDLK_i,
-	J = SDLK_j,
-	K = SDLK_k,
-	L = SDLK_l,
-	M = SDLK_m,
-	N = SDLK_n,
-	O = SDLK_o,
-	P = SDLK_p,
-	Q = SDLK_q,
-	R = SDLK_r,
-	S = SDLK_s,
-	T = SDLK_t,
-	U = SDLK_u,
-	V = SDLK_v,
-	W = SDLK_w,
-	X = SDLK_x,
-	Y = SDLK_y,
-	Z = SDLK_z
+	A = SDL_SCANCODE_A,
+	B = SDL_SCANCODE_B,
+	C = SDL_SCANCODE_C,
+	D = SDL_SCANCODE_D,
+	E = SDL_SCANCODE_E,
+	F = SDL_SCANCODE_F,
+	G = SDL_SCANCODE_G,
+	H = SDL_SCANCODE_H,
+	I = SDL_SCANCODE_I,
+	J = SDL_SCANCODE_J,
+	K = SDL_SCANCODE_K,
+	L = SDL_SCANCODE_L,
+	M = SDL_SCANCODE_M,
+	N = SDL_SCANCODE_N,
+	O = SDL_SCANCODE_O,
+	P = SDL_SCANCODE_P,
+	Q = SDL_SCANCODE_Q,
+	R = SDL_SCANCODE_R,
+	S = SDL_SCANCODE_S,
+	T = SDL_SCANCODE_T,
+	U = SDL_SCANCODE_U,
+	V = SDL_SCANCODE_V,
+	W = SDL_SCANCODE_W,
+	X = SDL_SCANCODE_X,
+	Y = SDL_SCANCODE_Y,
+	Z = SDL_SCANCODE_Z
 	//---------------------
 };
 
 class Axis {
 private:
 	std::string name;
-	KeyCode positive;
-	KeyCode negative;
+	int positive;
+	int negative;
 public:
 	Axis() {};
 
 	/**
 	* Constructor
 	*/
-	Axis(std::string name, KeyCode positive, KeyCode negative) {
+	Axis(std::string name, int positive, int negative) {
 		this->name = name;
 		this->positive = positive;
 		this->negative = negative;
@@ -183,8 +183,9 @@ public:
 class Input {
 private:
 	std::map<std::string, Axis> axises;
-	std::map<SDL_Keycode, bool> keys;
-	std::map<SDL_Keycode, bool> keysLast;
+	bool keys[284];
+	bool keysLast[284];
+
 	std::map<int, bool> buttons;
 	std::map<int, bool> buttonsLast;
 	Vector2 mousePosition;
@@ -198,12 +199,12 @@ public:
 	/**
 	* Handles KeyEvent if key is pressed.
 	*/
-	void HandleKeyPressEvent(SDL_Keycode key);
+	void HandleKeyPressEvent(int key);
 
 	/**
 	* Handles KeyEvent if key is release.
 	*/
-	void HandleKeyReleaseEvent(SDL_Keycode key);
+	void HandleKeyReleaseEvent(int key);
 
 	/**
 	* Handles KeyEvent if key is pressed.
@@ -223,17 +224,17 @@ public:
 	/**
 	* Returns true if key is down, else returns false.
 	*/
-	bool KeyPressed(SDL_Keycode key);
+	bool KeyPressed(int key);
 
 	/**
 	* Returns true if key is pressed in both this frame and last frame, else returns false.
 	*/
-	bool KeyDown(SDL_Keycode key);
+	bool KeyDown(int key);
 
 	/**
 	* Returns true if key is up this frame and down last frame, else returns false.
 	*/
-	bool KeyUp(SDL_Keycode key);
+	bool KeyUp(int key);
 
 	/**
 	* Returns true if button is down, else returns false.
@@ -253,7 +254,7 @@ public:
 	/**
 	* Adds a new axis to the axises list.
 	*/
-	void AddAxis(std::string name, KeyCode positive, KeyCode negative);
+	void AddAxis(std::string name, int positive, int negative);
 
 	/**
 	* Returns 1 if positive axis key is pressed, returns -1 if negative axis key is pressed, otherwise returns 0.

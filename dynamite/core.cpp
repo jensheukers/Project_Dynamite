@@ -76,6 +76,7 @@ Core::Core(char* arguments[]) {
 	game = new Game(this);
 
 	running = true;
+	commandPromptActive = false;
 
 	printf("DYNAMITE: ~Core~ Game Started! \n");
 
@@ -89,17 +90,47 @@ Core::Core(char* arguments[]) {
 		//Handle Events
 		HandleEvents();
 
-		//Update the game 
-		game->Update();
 
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplSDL2_NewFrame(window);
 		ImGui::NewFrame();
 
-		ImGui::Render();
+		//Update the game 
+		game->Update();
+
+
+		//Command Prompt
+		if (GetKeyDown(KeyCode::Slash) && GetKeyDown(KeyCode::Minus)) {
+			commandPromptActive = true;
+		}
+
+		if (commandPromptActive) {
+			char input[50];
+
+			ImGui::Begin("Command Prompt");
+			ImGui::InputText("Input", input, sizeof(input));
+
+			if (ImGui::Button("Run"))
+			{
+				printf("DYNAMITE: ~Core~ Console commands are still W.I.P\n");
+			}
+
+			ImGui::End();
+		}
+
+		if (GetKeyPressed(KeyCode::Grave)) {
+			if (!commandPromptActive) {
+				commandPromptActive = true;
+			}
+			else {
+				commandPromptActive = false;
+			}
+		}
+
 		//Handle rendering to screen
 		renderer->Clear();
 
+		ImGui::Render();
 		for (int i = 0; i < entities.Size(); i++) {
 			if (entities.Get(i)->HasComponent<Sprite>() && HasActiveCamera()) {
 				renderer->RenderEntity(entities.Get(i), activeCamera);
@@ -124,15 +155,16 @@ void Core::HandleEvents() {
 	input->Handle();
 	SDL_Event sdlEvent;
 	while (SDL_PollEvent(&sdlEvent)) { //Handle events
+		ImGui_ImplSDL2_ProcessEvent(&sdlEvent);
 		switch (sdlEvent.type) {
 			case SDL_QUIT:
 				running = false;
 				break;
 			case SDL_KEYDOWN:
-				input->HandleKeyPressEvent(sdlEvent.key.keysym.sym);
+				input->HandleKeyPressEvent(sdlEvent.key.keysym.scancode);
 				break;
 			case SDL_KEYUP:
-				input->HandleKeyReleaseEvent(sdlEvent.key.keysym.sym);
+				input->HandleKeyReleaseEvent(sdlEvent.key.keysym.scancode);
 				break;
 			case SDL_MOUSEMOTION:
 				input->HandleMouseMotion(Vector2(sdlEvent.motion.x, sdlEvent.motion.y));
