@@ -10,6 +10,7 @@
 
 #include "renderer.h";
 #include "SDL_opengl.h"
+#include "../game/game.h"
 
 Renderer::Renderer() {
 	sdlRendererFound = false;
@@ -37,6 +38,8 @@ void Renderer::InitOpenGL() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
+	glOrtho(0.0f, (int)Game::GetWindowDimensions().GetX(), (int)Game::GetWindowDimensions().GetY(), 0.0f, 0.0f, 1.0f);
+
 	glClearColor(0.f,0.f,0.f,1.f);
 }
 
@@ -52,8 +55,8 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 	
 	SDL_Surface surface = *entity->GetComponent<Sprite>()->GetSurface();
 
-	//Multiply the scale with 0.01 to have a size more relative to screen
-	float scale = entity->GetComponent<Sprite>()->GetScale() * 0.01f;
+	float scale = entity->GetComponent<Sprite>()->GetScale();
+
 
 	glBegin(GL_QUADS);
 		glVertex2f(entity->position.GetX() * scale, entity->position.GetY()  * scale);

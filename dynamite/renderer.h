@@ -45,11 +45,6 @@ public:
 	bool HasSdlRenderer() { return sdlRendererFound; };
 
 	/**
-	* Creates a texture from surface from surface
-	*/
-	SDL_Texture* CreateTextureFromSurface(SDL_Surface* surface);
-
-	/**
 	* Sets all the properties for OpenGL Rendering, returns true if success, else returns false
 	*/
 	void InitOpenGL();

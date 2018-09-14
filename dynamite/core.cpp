@@ -32,6 +32,8 @@ Core::Core(char* arguments[]) {
 		return;
 	}
 
+	const char* glsl_version = "#version 130\n";
+
 	window = SDL_CreateWindow(Game::GetGameName(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)Game::GetWindowDimensions().GetX(), (int)Game::GetWindowDimensions().GetY(), SDL_WINDOW_OPENGL);
 
 	if (window == NULL)
@@ -49,6 +51,26 @@ Core::Core(char* arguments[]) {
 	resourceManager = new ResourceManager(renderer);
 	input = new Input();
 
+	//Initialize GLEW
+	glewExperimental = true;
+	GLenum err = glewInit();
+	if (err != GLEW_OK) {
+		printf("DYNAMITE: ~Core~ Glew could not be initialized. GLEW_ERROR: %s\n", glewGetErrorString(err));
+	}
+
+	// Setup Dear ImGui binding
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
+
+	ImGui_ImplSDL2_InitForOpenGL(window, context);
+	ImGui_ImplOpenGL3_Init(glsl_version);
+
+	//Imgui Style
+	ImGui::StyleColorsDark();
+
+
 	printf("DYNAMITE: ~Core~ Calling Game()\n");
 
 	game = new Game(this);
@@ -57,8 +79,6 @@ Core::Core(char* arguments[]) {
 
 	printf("DYNAMITE: ~Core~ Game Started! \n");
 
-
-	Entity temp;
 
 	if (!HasActiveCamera()) {
 		printf("DYNAMITE: ~Core~ No active camera found, please create a camera and set it as active\n");
@@ -72,6 +92,11 @@ Core::Core(char* arguments[]) {
 		//Update the game 
 		game->Update();
 
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplSDL2_NewFrame(window);
+		ImGui::NewFrame();
+
+		ImGui::Render();
 		//Handle rendering to screen
 		renderer->Clear();
 
@@ -80,6 +105,8 @@ Core::Core(char* arguments[]) {
 				renderer->RenderEntity(entities.Get(i), activeCamera);
 			}
 		}
+
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		renderer->Draw(window);
 	}
 }
