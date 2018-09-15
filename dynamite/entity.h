@@ -17,13 +17,14 @@ class Entity {
 private:
 	Array<Component*> components;
 	std::string tag;
+	float rotation;
 public:
 	Vector2 position;
 
 	/**
 	* Constructor
 	*/
-	Entity() { this->position = Vector2(0, 0); this->tag = "Entity"; };
+	Entity() { this->position = Vector2(0, 0); this->tag = "Entity"; this->rotation = 0; };
 
 	/**
 	* Constructor
@@ -106,11 +107,21 @@ public:
 	*/
 	int GetComponentsSize() { return this->components.Size(); }
 
+
+	/**
+	* Returns the component found by the matching id
+	*/
+	Component* GetComponentById(int id) { return components.Get(id); }
+
 	/**
 	* Get component type with index of components array
 	*/
 	const char* GetComponentType(int id) {
-		return this->components.Get(id)->GetTypeName();
+
+		if (id < this->components.Size()) {
+			return this->components.Get(id)->GetTypeName();
+		}
+		return nullptr;
 	}
 
 	/**
@@ -122,4 +133,20 @@ public:
 	* Sets the tag of the entity
 	*/
 	void SetTag(std::string tag) { this->tag = tag; };
+
+	/**
+	* Set the rotation
+	*/
+	void SetRotation(float rotation) { 
+		if (rotation > 360) {
+			rotation = 0;
+		}
+
+		this->rotation = rotation; 
+	};
+
+	/**
+	* Get the rotation
+	*/
+	float  GetRotation() { return this->rotation; };
 };

@@ -17,10 +17,6 @@ SDL_Surface* Sprite::GetSurface() {
 	return this->surface;
 }
 
-const char* Sprite::GetSourcePath() {
-	return this->sourcePath;
-}
-
 void Sprite::SetSurface(SDL_Surface* surface) {
 	this->surface = surface;
 }

@@ -9,6 +9,7 @@
 
 #pragma once
 #include <iostream>
+#include "../imgui/imgui.h"
 
 class Component {
 protected:
@@ -23,6 +24,12 @@ public:
 	* Returns the typename.
 	*/
 	const char* GetTypeName() { return this->typeName; };
+
+	virtual void EditorSettings() {
+		ImGui::Begin("");
+		ImGui::Text("Component has no editor settings!");
+		ImGui::End();
+	}
 
 	/**
 	* Destructor

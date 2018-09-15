@@ -56,7 +56,11 @@ void Editor::Update() {
 
 		float position[] = { selectedEntity->position.GetX(), selectedEntity->position.GetY() };
 		ImGui::InputFloat2("Position", position, 2, 0);
+		float rotation = selectedEntity->GetRotation();
+		ImGui::SliderFloat("Rotation", &rotation, 0.0f, 360.0f);
+
 		selectedEntity->position = Vector2(position[0], position[1]);
+		selectedEntity->SetRotation(rotation);
 		ImGui::Text("\n");
 
 		ImGui::Text("Change Entity Tag: ");
@@ -73,12 +77,56 @@ void Editor::Update() {
 			printf("DYNAMITE: ~Editor~ Entity %i tag changed to: %s\n", selectedEntityId ,tagFixed);
 		}
 
-		ImGui::BeginChild("Components");
+		/*ImGui::BeginChild("Components");
 		ImGui::Text("\n");
 		ImGui::Text("Components:");
 		for (int i = 0; i < selectedEntity->GetComponentsSize(); i++)
 			ImGui::Text("%04d: %s", i, selectedEntity->GetComponentType(i));
-		ImGui::EndChild();
+			ImGui::Button("Settings");
+		ImGui::EndChild();*/
+
+		ImGui::Text("\n");
+		ImGui::Text("Components:");
+
+
+		const char* components[100];
+		int componentsCurrentSelectedIndex;
+
+		for (int i = 0; i < 100; i++) {
+			components[i] = " ";
+		}
+
+		for (int i = 0; i < selectedEntity->GetComponentsSize(); i++) {
+			components[i] = selectedEntity->GetComponentType(i);
+		}
+
+		ImGui::ListBox("", &componentsCurrentSelectedIndex, components, IM_ARRAYSIZE(components), 5);
+	
+		for (int ii = 0; ii < selectedEntity->GetComponentsSize(); ii++) {
+			if (selectedEntity->GetComponentType(componentsCurrentSelectedIndex) != nullptr) {
+				if (selectedEntity->GetComponentType(componentsCurrentSelectedIndex) == components[ii]) {
+					currentSelectedComponent = selectedEntity->GetComponentById(ii);
+				}
+			}
+		}
+
+		if (!showComponentSettings) {
+			if (ImGui::Button("Component Settings"))
+			{
+				showComponentSettings = true;
+			}
+		}
+		else {
+			if (ImGui::Button("Close"))
+			{
+				showComponentSettings = false;
+			}
+		}
+
+		if (showComponentSettings) {
+			currentSelectedComponent->EditorSettings();
+		}
+
 
 	}
 

@@ -15,7 +15,9 @@
 class Editor : public Game {
 private:
 	Entity* selectedEntity = nullptr;
+	Component* currentSelectedComponent = nullptr;
 	int selectedEntityId;
+	bool showComponentSettings;
 public:
 	/**
 	* Constructor

@@ -49,21 +49,29 @@ void Renderer::Clear() {
 
 void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 	if (entity->GetComponent<Sprite>()->GetSurface() == nullptr) {
-		printf("DYNAMITE: ~Renderer~ entity object has no surface!\n");
+		//printf("DYNAMITE: ~Renderer~ entity object has no surface!\n");
 		return;
 	}
 	
 	SDL_Surface surface = *entity->GetComponent<Sprite>()->GetSurface();
 
-	float scale = entity->GetComponent<Sprite>()->GetScale();
+	float scaleX = entity->GetComponent<Sprite>()->GetScale().GetX();
+	float scaleY = entity->GetComponent<Sprite>()->GetScale().GetY();
 
+	glPushMatrix();
+
+	glTranslatef(entity->position.GetX() * scaleX, entity->position.GetY() * scaleX, 0);
+	glRotatef(entity->GetRotation(), 0.0, 0.0, 1.0);
+	glTranslatef(-entity->position.GetX() * scaleX, -entity->position.GetY() * scaleY, 0);
 
 	glBegin(GL_QUADS);
-		glVertex2f(entity->position.GetX() * scale, entity->position.GetY()  * scale);
-		glVertex2f((entity->position.GetX() + surface.w)  * scale, entity->position.GetY()  * scale);
-		glVertex2f((entity->position.GetX() + surface.w)  * scale, (entity->position.GetY() + surface.h) * scale);
-		glVertex2f(entity->position.GetX()  * scale, (entity->position.GetY() + surface.h) * scale);
+		glVertex2f(entity->position.GetX() * scaleX, entity->position.GetY()  * scaleY);
+		glVertex2f((entity->position.GetX() + surface.w)  * scaleX, entity->position.GetY()  * scaleY);
+		glVertex2f((entity->position.GetX() + surface.w)  * scaleX, (entity->position.GetY() + surface.h) * scaleY);
+		glVertex2f(entity->position.GetX()  * scaleX, (entity->position.GetY() + surface.h) * scaleY);
 	glEnd();
+
+	glPopMatrix();
 }
 
 void Renderer::Draw(SDL_Window* window) {

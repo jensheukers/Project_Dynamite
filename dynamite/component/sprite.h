@@ -10,29 +10,25 @@
 
 #pragma once
 #include "component.h"
+#include "vector2\vector2.h"
 #include "SDL.h"
 
 class Sprite : public Component {
 private:
 	SDL_Texture* texture;
 	SDL_Surface* surface;
-	const char* sourcePath;
-	float scale;
+	Vector2 scale;
 public:
 	/**
 	* Default Constructor
 	*/
-	Sprite() { this->typeName = typeid(*this).name(); this->sourcePath = ""; this->scale = 1; };
+	Sprite() { this->typeName = typeid(*this).name(); this->scale = Vector2(1,1); };
 
 	/**
 	* Returns the surface if found, returns nullptr if failed
 	*/
 	SDL_Surface* GetSurface();
 
-	/**
-	* Returns the source path
-	*/
-	const char* GetSourcePath();
 
 	/**
 	* Creates a new surface, by loading image bmp file
@@ -42,32 +38,45 @@ public:
 	/**
 	* Sets the scale of the sprite
 	*/
-	void SetScale(float scale) {
+	void SetScale(Vector2 scale) {
 
-		if (scale < 0) {
-			this->scale = 0;
+		if (scale.GetX() < 0) {
+			scale = Vector2(0,scale.GetY());
 		}
-		else {
-			this->scale = scale;
+
+		if (scale.GetY() < 0) {
+			scale = Vector2(scale.GetX(), 0);
 		}
+
+		this->scale = scale;
 	}
 
 	/**
 	* Gets the scale of the sprite
 	*/
-	float GetScale() { return this->scale; };
+	Vector2 GetScale() { return this->scale; };
 
 	/**
 	* Increases the scale by 0.01f
 	*/
 	void IncreaseScale() {
-		SetScale(GetScale() + 0.01f);
+		SetScale(Vector2(GetScale().GetX() + 0.01f, GetScale().GetY() + 0.01f));
 	}
 
 	/**
 	* Decreases the scale by 0.01f
 	*/
 	void DecreaseScale() {
-		SetScale(GetScale() - 0.01f);
+		SetScale(Vector2(GetScale().GetX() - 0.01f, GetScale().GetY() - 0.01f));
+	}
+
+	void EditorSettings() {
+		ImGui::Begin("Sprite");
+		float position[] = { scale.GetX(), scale.GetY() };
+		ImGui::InputFloat2("Scale", position, 2, 0);
+
+		scale = Vector2(position[0], position[1]);
+
+		ImGui::End();
 	}
 };
