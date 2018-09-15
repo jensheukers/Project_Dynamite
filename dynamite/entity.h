@@ -16,14 +16,14 @@
 class Entity {
 private:
 	Array<Component*> components;
+	std::string tag;
 public:
-
 	Vector2 position;
 
 	/**
 	* Constructor
 	*/
-	Entity() { this->position = Vector2(0, 0); };
+	Entity() { this->position = Vector2(0, 0); this->tag = "Entity"; };
 
 	/**
 	* Constructor
@@ -35,9 +35,14 @@ public:
 	*/
 	template<typename T>
 	T* AddComponent() {
+		
+		if (HasComponent<T>()) {
+			std::cout << "DYNAMITE: ~Entity~ Warning: Component " << typeid(T).name() << " already exists on Entity!\n";
+		}
+
 		T* component = new T();
 		if (!std::is_base_of<Component, T>::value) {
-			printf("DYNAMITE: Type is not derived from Component, cannot add.\n");
+			printf("DYNAMITE: ~Entity~ Type is not derived from Component, cannot add.\n");
 			return component;
 		}
 
@@ -95,4 +100,26 @@ public:
 			delete components.Get(i);
 		}
 	}
+
+	/**
+	* Get the size of the components array
+	*/
+	int GetComponentsSize() { return this->components.Size(); }
+
+	/**
+	* Get component type with index of components array
+	*/
+	const char* GetComponentType(int id) {
+		return this->components.Get(id)->GetTypeName();
+	}
+
+	/**
+	* Returns the tag of the entity
+	*/
+	const char* GetTag() { return tag.c_str(); };
+
+	/**
+	* Sets the tag of the entity
+	*/
+	void SetTag(std::string tag) { this->tag = tag; };
 };

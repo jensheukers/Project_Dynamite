@@ -13,9 +13,15 @@
 class Core;
 
 class Game {
-private:
+protected:
 	Core* core;
 public:
+
+	/**
+	* Constructor
+	*/
+	Game() {};
+
 	/**
 	* Constructor
 	*/
@@ -36,7 +42,14 @@ public:
 	}
 
 	/**
+	* If true editor will be launched instead of game, else  false.
+	*/
+	static bool LaunchEditorMode() {
+		return false;
+	}
+
+	/**
 	* Update method gets called each frame.
 	*/
-	void Update();
+	virtual void Update();
 };

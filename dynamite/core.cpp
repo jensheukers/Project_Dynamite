@@ -73,7 +73,12 @@ Core::Core(char* arguments[]) {
 
 	printf("DYNAMITE: ~Core~ Calling Game()\n");
 
-	game = new Game(this);
+	if (!Game::LaunchEditorMode()) {
+		game = new Game(this);
+	}
+	else {
+		game = new Editor(this);
+	}
 
 	running = true;
 	commandPromptActive = false;

@@ -15,6 +15,7 @@
 #include "imgui/imgui_impl_opengl3.h"
 
 #include "../game/game.h"
+#include "editor.h"
 #include "event/input.h"
 #include "renderer.h"
 #include "resourcemanager.h"
@@ -82,6 +83,16 @@ public:
 	* Returns entity from the entitites Array where index matches Array Index
 	*/
 	Entity* GetEntity(int index);
+
+	/**
+	* Returns the amount of entities in the entities list
+	*/
+	int GetEntiesCount() { return this->entities.Size(); };
+
+	/*
+	* Returns the entities list
+	**/
+	Array<Entity*> GetEnties() { return this->entities; };
 
 	/**
 	* Returns the resource manager
