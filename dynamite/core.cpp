@@ -9,6 +9,7 @@
 
 
 #include "core.h"
+#include <chrono>
 
 int main(int argc, char* argv[]) {
 	Core core(argv);
@@ -24,7 +25,6 @@ Core::Core(char* arguments[]) {
 
 	printf("DYNAMITE: ~Core~ Executable path: %s\n", mainDirPath.c_str());
 	
-
 	activeCamera = nullptr;
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -92,6 +92,7 @@ Core::Core(char* arguments[]) {
 
 	//Game loop
 	while (IsRunning()) {
+
 		//Handle Events
 		HandleEvents();
 
@@ -136,7 +137,7 @@ Core::Core(char* arguments[]) {
 		renderer->Clear();
 
 		ImGui::Render();
-		for (int i = 0; i < entities.Size(); i++) {
+		for (unsigned i = 0; i < entities.Size(); i++) {
 			if (entities.Get(i)->HasComponent<Sprite>() && HasActiveCamera()) {
 				renderer->RenderEntity(entities.Get(i), activeCamera);
 			}
@@ -172,7 +173,7 @@ void Core::HandleEvents() {
 				input->HandleKeyReleaseEvent(sdlEvent.key.keysym.scancode);
 				break;
 			case SDL_MOUSEMOTION:
-				input->HandleMouseMotion(Vector2(sdlEvent.motion.x, sdlEvent.motion.y));
+				input->HandleMouseMotion(Vector2((float)sdlEvent.motion.x, (float)sdlEvent.motion.y));
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 				input->HandleButtonPressEvent(sdlEvent.button.button);

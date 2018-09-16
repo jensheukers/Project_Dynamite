@@ -57,7 +57,7 @@ public:
 	*/
 	template<typename T>
 	T* GetComponent() {
-		for (int i = 0; i < components.Size(); i++) {
+		for (unsigned i = 0; i < components.Size(); i++) {
 			if (typeid(T).name() == components.Get(i)->GetTypeName()) {
 				return dynamic_cast<T*>(components.Get(i));
 			}
@@ -83,11 +83,12 @@ public:
 	*/
 	template<typename T>
 	bool HasComponent() {
-		for (int i = 0; i < components.Size(); i++) {
+		for (unsigned i = 0; i < components.Size(); i++) {
 			if (typeid(T).name() == components.Get(i)->GetTypeName()) {
 				return true;
 			}
 		}
+		return false;
 	}
 
 
@@ -97,7 +98,7 @@ public:
 	*/
 	~Entity() {
 
-		for (int i = 0; i < components.Size(); i++) {
+		for (unsigned i = 0; i < components.Size(); i++) {
 			delete components.Get(i);
 		}
 	}
@@ -116,7 +117,7 @@ public:
 	/**
 	* Get component type with index of components array
 	*/
-	const char* GetComponentType(int id) {
+	const char* GetComponentType(unsigned id) {
 
 		if (id < this->components.Size()) {
 			return this->components.Get(id)->GetTypeName();

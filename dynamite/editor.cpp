@@ -20,9 +20,24 @@ Editor::Editor(Core* core) {
 void Editor::Update() {
 	
 	//ImGui Stuff
+	ImGui::Begin("Dynamite",nullptr, ImGuiWindowFlags_MenuBar);
+
+	if (ImGui::BeginMenuBar())
+	{
+		if (ImGui::BeginMenu("Scene"))
+		{
+			if (ImGui::MenuItem("Open", "Ctrl+O")) { /* Do stuff */ }
+			if (ImGui::MenuItem("Save", "Ctrl+S")) { /* Do stuff */ }
+			ImGui::EndMenu();
+		}
+		ImGui::EndMenuBar();
+	}
+
+	ImGui::End();
+
+
 
 	ImGui::Begin("Hierarchy");
-	char* listbox_items[9999];
 
 	for (int i = 0; i < 9999; i++) {
 		listbox_items[i] = " ";
@@ -74,7 +89,7 @@ void Editor::Update() {
 			std::string tagFixed = tag;
 
 			selectedEntity->SetTag(tagFixed);
-			printf("DYNAMITE: ~Editor~ Entity %i tag changed to: %s\n", selectedEntityId ,tagFixed);
+			printf("DYNAMITE: ~Editor~ Entity %i tag changed to: %s\n", selectedEntityId , tagFixed.c_str());
 		}
 
 		/*ImGui::BeginChild("Components");
@@ -111,7 +126,7 @@ void Editor::Update() {
 		}
 
 		if (!showComponentSettings) {
-			if (ImGui::Button("Component Settings"))
+			if (ImGui::Button("Component Settings") && currentSelectedComponent != nullptr)
 			{
 				showComponentSettings = true;
 			}

@@ -40,6 +40,8 @@ private:
 	bool running;
 	bool commandPromptActive;
 
+	bool LastFrameTime;
+
 	Camera* activeCamera;
 	Array<Entity*> entities;
 public:

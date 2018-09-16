@@ -36,7 +36,7 @@ public:
 		size++;
 		Type* newArray = new Type[size];
 		
-		for (int i = 0; i < size - 1; i++) {
+		for (unsigned i = 0; i < size - 1; i++) {
 			newArray[i] = elements[i];
 		}
 
@@ -52,7 +52,7 @@ public:
 		Type* newArray = new Type[size];
 
 		unsigned count = 0;
-		for (int i = 0; i < size + 1; i++) {
+		for (unsigned i = 0; i < size + 1; i++) {
 			if (i != index) {
 				newArray[count] = elements[i];
 				count++;

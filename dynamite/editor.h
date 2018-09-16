@@ -16,6 +16,7 @@ class Editor : public Game {
 private:
 	Entity* selectedEntity = nullptr;
 	Component* currentSelectedComponent = nullptr;
+	char* listbox_items[9999];
 	int selectedEntityId;
 	bool showComponentSettings;
 public:
