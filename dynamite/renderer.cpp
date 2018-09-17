@@ -61,20 +61,28 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 	float scaleY = entity->GetComponent<Sprite>()->GetScale().GetY();
 	float camX = activeCamera->GetXCoord();
 	float camY = activeCamera->GetYCoord();
+	float baseScale = 1;
 
 
 	//Rotation
 	glPushMatrix();
-	glTranslatef((entity->position.GetX() * scaleX) + camX, (entity->position.GetY() * scaleX) + camY, 0);
+	glTranslatef((entity->position.GetX()) + camX, (entity->position.GetY()) + camY, 0);
 	glRotatef(entity->GetRotation(), 0.0, 0.0, 1.0);
-	glTranslatef((-entity->position.GetX() * scaleX) - camX, (-entity->position.GetY() * scaleY) - camY, 0);
+	glTranslatef((-entity->position.GetX()) - camX, (-entity->position.GetY()) - camY, 0);
 
 	//Draw vertecies
+	Vector2 lu = Vector2(entity->position.GetX(), entity->position.GetY());
+	Vector2 ru = Vector2(entity->position.GetX(), entity->position.GetY());
+	Vector2 rd = Vector2(entity->position.GetX(), entity->position.GetY());
+	Vector2 ld = Vector2(entity->position.GetX(), entity->position.GetY());
+
+
+
 	glBegin(GL_QUADS);
-		glTexCoord2f(0, 0); glVertex2f((entity->position.GetX() * scaleX) + camX, (entity->position.GetY()  * scaleY) + camY);
-		glTexCoord2f(0, 1); glVertex2f(((entity->position.GetX() + surface->w)  * scaleX) + camX, (entity->position.GetY()  * scaleY) + camY);
-		glTexCoord2f(1, 1); glVertex2f(((entity->position.GetX() + surface->w)  * scaleX) + camX, ((entity->position.GetY() + surface->h) * scaleY) + camY);
-		glTexCoord2f(1, 0); glVertex2f((entity->position.GetX()  * scaleX) + camX, ((entity->position.GetY() + surface->h) * scaleY) + camY);
+		glVertex2f(lu.GetX(), lu.GetY()); //LU
+		glVertex2f(ru.GetX() + (scaleX * surface->w), ru.GetY()); //RU
+		glVertex2f(rd.GetX() + (scaleX * surface->w), rd.GetY() + (scaleY * surface->h)); //RD
+		glVertex2f(ld.GetX(), rd.GetY() + (scaleY * surface->h)); //LD
 	glEnd();
 
 	glPopMatrix();

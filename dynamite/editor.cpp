@@ -14,6 +14,16 @@
 
 
 Editor::Editor(Core* core) {
+
+	Entity* enity = new Entity();
+	enity->AddComponent<Sprite>()->SetSurface(core->GetResourceManager()->GetSurface(core->GetResourcePath("cube.bmp")));
+	core->AddEntity(enity);
+
+	Entity* enity2 = new Entity();
+	enity2->AddComponent<Sprite>()->SetSurface(core->GetResourceManager()->GetSurface(core->GetResourcePath("cube.bmp")));
+	core->AddEntity(enity2);
+
+	core->SetActiveCamera(new Camera());
 	this->core = core;
 }
 
@@ -33,6 +43,8 @@ void Editor::Update() {
 		ImGui::EndMenuBar();
 	}
 
+	ImGui::SetWindowSize(ImVec2(Game::GetWindowDimensions().GetX(),15));
+	ImGui::SetWindowPos(ImVec2(0, 0), true);
 	ImGui::End();
 
 
@@ -48,6 +60,9 @@ void Editor::Update() {
 		listbox_items[i] = (char*)core->GetEntity(i)->GetTag();
 	}
 	ImGui::ListBox("", &listbox_item_current, listbox_items, IM_ARRAYSIZE(listbox_items), 20);
+
+	ImGui::SetWindowSize(ImVec2(150, 400));
+	ImGui::SetWindowPos(ImVec2(0, 50), true);
 	ImGui::End();
 
 	if (listbox_item_current < core->GetEntiesCount()) {
@@ -145,5 +160,8 @@ void Editor::Update() {
 
 	}
 
+
+	ImGui::SetWindowSize(ImVec2(250, 400));
+	ImGui::SetWindowPos(ImVec2(Game::GetWindowDimensions().GetX() - 250, 50), true);
 	ImGui::End();
 }
