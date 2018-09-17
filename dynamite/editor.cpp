@@ -14,16 +14,6 @@
 
 
 Editor::Editor(Core* core) {
-
-	Entity* enity = new Entity();
-	enity->AddComponent<Sprite>()->SetSurface(core->GetResourceManager()->GetSurface(core->GetResourcePath("cube.bmp")));
-	core->AddEntity(enity);
-
-	Entity* enity2 = new Entity();
-	enity2->AddComponent<Sprite>()->SetSurface(core->GetResourceManager()->GetSurface(core->GetResourcePath("cube.bmp")));
-	core->AddEntity(enity2);
-
-	core->SetActiveCamera(new Camera());
 	this->core = core;
 }
 
