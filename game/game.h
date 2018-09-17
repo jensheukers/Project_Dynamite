@@ -45,7 +45,7 @@ public:
 	* If true editor will be launched instead of game, else  false.
 	*/
 	static bool LaunchEditorMode() {
-		return true;
+		return false;
 	}
 
 	/**

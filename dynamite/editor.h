@@ -11,9 +11,11 @@
 #include "../game/game.h"
 #include "entity.h"
 #include "imgui/imgui.h"
+#include "camera.h"
 
 class Editor : public Game {
 private:
+	Camera* camera;
 	Entity* selectedEntity = nullptr;
 	Component* currentSelectedComponent = nullptr;
 	char* listbox_items[9999];

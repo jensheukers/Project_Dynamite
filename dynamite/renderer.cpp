@@ -71,10 +71,10 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 	glTranslatef((-entity->position.GetX()) - camX, (-entity->position.GetY()) - camY, 0);
 
 	//Draw vertecies
-	Vector2 lu = Vector2(entity->position.GetX(), entity->position.GetY());
-	Vector2 ru = Vector2(entity->position.GetX(), entity->position.GetY());
-	Vector2 rd = Vector2(entity->position.GetX(), entity->position.GetY());
-	Vector2 ld = Vector2(entity->position.GetX(), entity->position.GetY());
+	Vector2 lu = Vector2(entity->position.GetX() + camX, entity->position.GetY() + camY);
+	Vector2 ru = Vector2(entity->position.GetX() + camX, entity->position.GetY() + camY);
+	Vector2 rd = Vector2(entity->position.GetX() + camX, entity->position.GetY() + camY);
+	Vector2 ld = Vector2(entity->position.GetX() + camX, entity->position.GetY() + camY);
 
 
 

@@ -15,10 +15,40 @@
 
 Editor::Editor(Core* core) {
 	this->core = core;
+
+	camera = new Camera();
+	camera->SetPosition(Vector2(Game::GetWindowDimensions().GetX() / 2, Game::GetWindowDimensions().GetY() / 2));
+	core->SetActiveCamera(camera);
+
+	//Setup Imgui Styling
+	ImGuiStyle& style = ImGui::GetStyle();
+	style.WindowRounding = 0.0f;
+	style.Colors[ImGuiCol_TitleBg] = ImVec4(0.8f, 0.0f, 0.0f, 1.00f);
+	style.Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.8f, 0.0f, 0.0f, 0.0f);
+	style.Colors[ImGuiCol_TitleBgActive] = ImVec4(0.8f, 0.0f, 0.0f, 1.00f);
+	style.Colors[ImGuiCol_FrameBg] = ImVec4(0.5f, 0.0f, 0.0f, 1.00f);
+	style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.5f, 0.0f, 0.0f, 1.00f);
+	style.Colors[ImGuiCol_FrameBgActive] = ImVec4(0.5f, 0.0f, 0.0f, 1.00f);
+	style.Colors[ImGuiCol_Header] = ImVec4(0.3f, 0.0f, 0.0f, 1.00f);
+	style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.3f, 0.0f, 0.0f, 1.00f);
+	style.Colors[ImGuiCol_HeaderActive] = ImVec4(0.3f, 0.0f, 0.0f, 1.00f);
+	style.Colors[ImGuiCol_ResizeGrip] = ImVec4(0.8f, 0.0f, 0.0f, 1.00f);
+	style.Colors[ImGuiCol_ResizeGripActive] = ImVec4(0.8f, 0.0f, 0.0f, 0.0f);
+	style.Colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.8f, 0.0f, 0.0f, 1.00f);
+
+	//Setup camera controls
+	core->AddAxis("Horizontal", KeyCode::ArrowLeft, KeyCode::ArrowRight);
+	core->AddAxis("Vertical", KeyCode::ArrowUp, KeyCode::ArrowDown);
 }
 
 void Editor::Update() {
 	
+	//Camera controls
+	float x = core->GetAxis("Horizontal");
+	float y = core->GetAxis("Vertical");
+
+	camera->SetPosition(Vector2(camera->GetXCoord() + x, camera->GetYCoord() + y));
+
 	//ImGui Stuff
 	ImGui::Begin("Dynamite",nullptr, ImGuiWindowFlags_MenuBar);
 
