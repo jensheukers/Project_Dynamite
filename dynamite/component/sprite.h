@@ -28,8 +28,7 @@ public:
 	* Returns the surface if found, returns nullptr if failed
 	*/
 	SDL_Surface* GetSurface();
-
-
+	
 	/**
 	* Creates a new surface, by loading image bmp file
 	*/

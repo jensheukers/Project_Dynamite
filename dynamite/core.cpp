@@ -102,6 +102,10 @@ Core::Core(char* arguments[]) {
 		ImGui::NewFrame();
 
 		//Update the game 
+		for (int i = 0; i < entities.Size(); i++) {
+			entities.Get(i)->UpdateComponents();
+		}
+
 		game->Update();
 
 
@@ -187,6 +191,7 @@ void Core::HandleEvents() {
 }
 
 void Core::AddEntity(Entity* entity) {
+	entity->SetCore(this);
 	entities.Push(entity);
 }
 

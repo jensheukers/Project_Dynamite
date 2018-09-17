@@ -161,7 +161,3 @@ public:
 	*/
 	bool HasActiveCamera();
 };
-
-
-
-

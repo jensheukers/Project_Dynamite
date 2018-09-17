@@ -9,7 +9,6 @@
 
 #include "editor.h"
 #include <iostream>
-#include "component\sprite.h"
 #include "core.h"
 
 
