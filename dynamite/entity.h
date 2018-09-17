@@ -72,6 +72,7 @@ public:
 		}
 		else {
 			Component* convertedComponent = component;
+			convertedComponent->Start(core, this);
 			convertedComponent->Start(core);
 		}
 

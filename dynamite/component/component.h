@@ -11,11 +11,15 @@
 #include <iostream>
 #include "../imgui/imgui.h"
 
+
+class Entity;
+
 class Core;
 
 class Component {
 protected:
 	const char* typeName;
+	Entity* parent;
 public:
 	/**
 	* Constructor
@@ -35,6 +39,12 @@ public:
 		ImGui::Text("Component has no editor settings!");
 		ImGui::End();
 	}
+
+
+	/**
+	* Sets the parent Entity
+	*/
+	void Start(Core* core, Entity* parent) { this->parent = parent; };
 
 	/**
 	* Start gets called right as component is added to Entity.
