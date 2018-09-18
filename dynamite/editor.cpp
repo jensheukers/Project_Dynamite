@@ -19,6 +19,7 @@ Editor::Editor(Core* core) {
 	camera->SetPosition(Vector2(Game::GetWindowDimensions().GetX() / 2, Game::GetWindowDimensions().GetY() / 2));
 	core->SetActiveCamera(camera);
 
+
 	//Setup Imgui Styling
 	ImGuiStyle& style = ImGui::GetStyle();
 	style.WindowRounding = 0.0f;

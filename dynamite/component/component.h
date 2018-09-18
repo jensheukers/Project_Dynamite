@@ -2,7 +2,6 @@
 *	Filename: component.h
 *
 *	Description: Main header file for component.
-*	Version: 0.2
 *
 *	© 2018, Jens Heukers
 */
@@ -10,11 +9,11 @@
 #pragma once
 #include <iostream>
 #include "../imgui/imgui.h"
+#include "vector2\vector2.h"
 
-
-class Entity;
-
+//Forward declarations
 class Core;
+class Entity;
 
 class Component {
 protected:
@@ -24,7 +23,7 @@ public:
 	/**
 	* Constructor
 	*/
-	Component() { this->typeName = typeid(*this).name(); };
+	Component();
 
 	/**
 	* Returns the typename.
@@ -34,22 +33,18 @@ public:
 	/**
 	* Settings that are displayed in the editor.
 	*/
-	virtual void EditorSettings() {
-		ImGui::Begin("");
-		ImGui::Text("Component has no editor settings!");
-		ImGui::End();
-	}
+	virtual void EditorSettings();
 
 
 	/**
 	* Sets the parent Entity
 	*/
-	void Start(Core* core, Entity* parent) { this->parent = parent; };
+	void Start(Core* core, Entity* parent);
 
 	/**
 	* Start gets called right as component is added to Entity.
 	*/
-	virtual void Start(Core* core) { };
+	virtual void Start(Core* core) {};
 
 	/**
 	* Update gets called every frame by the Entity containing it.
