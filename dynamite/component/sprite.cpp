@@ -20,3 +20,17 @@ SDL_Surface* Sprite::GetSurface() {
 void Sprite::SetSurface(SDL_Surface* surface) {
 	this->surface = surface;
 }
+
+void Sprite::GenerateTexture() {
+	if (this->surface == nullptr) {
+		return;
+	}
+
+	glEnable(GL_TEXTURE_2D);
+
+	GLuint texture;
+	glGenTextures(1, &texture);
+	this->texture = texture;
+}
+
+GLint Sprite::GetTexture() { return this->texture; }

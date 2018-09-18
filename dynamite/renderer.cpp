@@ -54,14 +54,26 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 		//printf("DYNAMITE: ~Renderer~ entity object has no surface!\n");
 		return;
 	}
-
+	//Generate GL Texture from surface
 	SDL_Surface* surface = entity->GetComponent<Sprite>()->GetSurface();
 
+	glEnable(GL_TEXTURE_2D);
+
+	if (entity->GetComponent<Sprite>()->GetTexture() == NULL) {
+		entity->GetComponent<Sprite>()->GenerateTexture();
+	}
+
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	// Map the surface to the texture in video memory
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, surface->w, surface->h, 0, GL_BGR, GL_UNSIGNED_BYTE, surface->pixels);
+
+	//Calculate scales and camera positions
 	float scaleX = entity->GetComponent<Sprite>()->GetScale().GetX();
 	float scaleY = entity->GetComponent<Sprite>()->GetScale().GetY();
 	float camX = activeCamera->GetXCoord();
 	float camY = activeCamera->GetYCoord();
-	float baseScale = 1;
 
 
 	//Rotation
@@ -77,14 +89,14 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 	Vector2 ld = Vector2(entity->position.GetX() + camX, entity->position.GetY() + camY);
 
 
-
+	glBindTexture(GL_TEXTURE_2D, entity->GetComponent<Sprite>()->GetTexture());
 	glBegin(GL_QUADS);
-		glVertex2f(lu.GetX(), lu.GetY()); //LU
-		glVertex2f(ru.GetX() + (scaleX * surface->w), ru.GetY()); //RU
-		glVertex2f(rd.GetX() + (scaleX * surface->w), rd.GetY() + (scaleY * surface->h)); //RD
-		glVertex2f(ld.GetX(), rd.GetY() + (scaleY * surface->h)); //LD
+		glTexCoord2f(0.0f, 0.0f); glVertex2f(lu.GetX(), lu.GetY()); //LU
+		glTexCoord2f(1.0f, 0.0f); glVertex2f(ru.GetX() + (scaleX * surface->w), ru.GetY()); //RU
+		glTexCoord2f(1.0f, 1.0f); glVertex2f(rd.GetX() + (scaleX * surface->w), rd.GetY() + (scaleY * surface->h)); //RD
+		glTexCoord2f(0.0f, 1.0f); glVertex2f(ld.GetX(), rd.GetY() + (scaleY * surface->h)); //LD
 	glEnd();
-
+	glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
 }
 

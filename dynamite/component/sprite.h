@@ -12,12 +12,13 @@
 #include "component.h"
 #include "vector2\vector2.h"
 #include "SDL.h"
+#include "SDL_opengl.h"
 
 class Sprite : public Component {
 private:
-	SDL_Texture* texture;
 	SDL_Surface* surface;
 	Vector2 scale;
+	GLint texture;
 public:
 	/**
 	* Default Constructor
@@ -33,6 +34,16 @@ public:
 	* Creates a new surface, by loading image bmp file
 	*/
 	void SetSurface(SDL_Surface* path);
+
+	/**
+	* Generates the texture 
+	*/
+	void GenerateTexture();
+
+	/**
+	* Returns the texture if generated
+	*/
+	GLint GetTexture();
 
 	/**
 	* Sets the scale of the sprite
