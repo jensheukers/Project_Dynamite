@@ -1,9 +1,0 @@
-*.sln
-*.vcxproj
-*.vcxproj.filters
-*.vcxproj.user
-*targetver.h
-.vs/
-Debug
-latex
-html
