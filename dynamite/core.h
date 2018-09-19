@@ -22,8 +22,8 @@
 #include "event/input.h"
 #include "renderer.h"
 #include "resourcemanager.h"
+#include "scenemanager.h"
 
-#include "entity.h"
 #include "camera.h"
 
 #undef main
@@ -32,6 +32,7 @@ class Core {
 private:
 	std::string mainDirPath;
 
+	SceneManager* sceneManager;
 	Renderer* renderer;
 	ResourceManager* resourceManager;
 	Input* input;
@@ -46,7 +47,6 @@ private:
 	bool LastFrameTime;
 
 	Camera* activeCamera;
-	std::vector<Entity*> entities;
 public:
 
 	/**
@@ -73,31 +73,6 @@ public:
 	* Returns true if engine is running, otherwise returns false
 	*/
 	bool IsRunning() { return this->running; };
-
-	/**
-	* Adds a new entity to the entitites Array
-	*/
-	void AddEntity(Entity* entity);
-
-	/**
-	* Removes entity from the entitites Array where index matches Array Index
-	*/
-	void RemoveEntity(int index);
-
-	/**
-	* Returns entity from the entitites Array where index matches Array Index
-	*/
-	Entity* GetEntity(int index);
-
-	/**
-	* Returns the amount of entities in the entities list
-	*/
-	int GetEntiesCount() { return this->entities.size(); };
-
-	/*
-	* Returns the entities list
-	**/
-	std::vector<Entity*> GetEnties() { return this->entities; };
 
 	/**
 	* Returns the resource manager
@@ -163,4 +138,9 @@ public:
 	* Returns true if a active camera is present, else returns false
 	*/
 	bool HasActiveCamera();
+
+	/**
+	* Returns the scene manager.
+	*/
+	SceneManager* GetSceneManager() { return sceneManager; };
 };

@@ -74,8 +74,8 @@ void Editor::Update() {
 	}
 
 	static int listbox_item_current = 0;
-	for (int i = 0; i < core->GetEntiesCount(); i++) {
-		listbox_items[i] = (char*)core->GetEntity(i)->GetTag();
+	for (int i = 0; i < core->GetSceneManager()->GetActiveScene()->GetEntiesCount(); i++) {
+		listbox_items[i] = (char*)core->GetSceneManager()->GetActiveScene()->GetEntity(i)->GetTag();
 	}
 	ImGui::ListBox("", &listbox_item_current, listbox_items, IM_ARRAYSIZE(listbox_items), 20);
 
@@ -83,9 +83,9 @@ void Editor::Update() {
 	ImGui::SetWindowPos(ImVec2(0, 50), true);
 	ImGui::End();
 
-	if (listbox_item_current < core->GetEntiesCount()) {
-		if (listbox_items[listbox_item_current] == core->GetEntity(listbox_item_current)->GetTag()) {
-			this->SetSelectedEntity(core->GetEntity(listbox_item_current));
+	if (listbox_item_current < core->GetSceneManager()->GetActiveScene()->GetEntiesCount()) {
+		if (listbox_items[listbox_item_current] == core->GetSceneManager()->GetActiveScene()->GetEntity(listbox_item_current)->GetTag()) {
+			this->SetSelectedEntity(core->GetSceneManager()->GetActiveScene()->GetEntity(listbox_item_current));
 			selectedEntityId = listbox_item_current;
 		}
 	}

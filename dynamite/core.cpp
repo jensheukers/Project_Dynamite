@@ -46,6 +46,7 @@ Core::Core(char* arguments[]) {
 
 	SDL_GL_MakeCurrent(window,context);
 
+	sceneManager = new SceneManager(this);
 	renderer = new Renderer(SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE));
 	renderer->InitOpenGL();
 	resourceManager = new ResourceManager(renderer);
@@ -101,11 +102,13 @@ Core::Core(char* arguments[]) {
 		ImGui_ImplSDL2_NewFrame(window);
 		ImGui::NewFrame();
 
-		//Update the game 
-		for (int i = 0; i < entities.size(); i++) {
-			entities[i]->UpdateComponents();
+		//Update the components of entities 
+
+		for (int i = 0; i < sceneManager->GetActiveScene()->GetEnties().size(); i++) {
+			sceneManager->GetActiveScene()->GetEntity(i)->UpdateComponents();
 		}
 
+		//Update the game
 		game->Update();
 
 
@@ -141,9 +144,10 @@ Core::Core(char* arguments[]) {
 		renderer->Clear();
 
 		ImGui::Render();
-		for (unsigned i = 0; i < entities.size(); i++) {
-			if (entities[i]->HasComponent<Sprite>() && HasActiveCamera()) {
-				renderer->RenderEntity(entities[i], activeCamera);
+
+		for (int i = 0; i < sceneManager->GetActiveScene()->GetEnties().size(); i++) {
+			if (sceneManager->GetActiveScene()->GetEnties()[i]->HasComponent<Sprite>() && HasActiveCamera()) {
+				renderer->RenderEntity(sceneManager->GetActiveScene()->GetEnties()[i], activeCamera);
 			}
 		}
 
@@ -188,19 +192,6 @@ void Core::HandleEvents() {
 				break;
 		}
 	}
-}
-
-void Core::AddEntity(Entity* entity) {
-	entity->SetCore(this);
-	entities.push_back(entity);
-}
-
-void Core::RemoveEntity(int index) {
-	entities.erase(entities.begin() + index);
-}
-
-Entity* Core::GetEntity(int index) {
-	return entities[index];
 }
 
 bool Core::HasActiveCamera() {
