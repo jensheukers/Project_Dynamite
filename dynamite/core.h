@@ -2,7 +2,6 @@
 *	Filename: core.h
 *
 *	Description: Core engine class, the 'heart' of the engine
-*	Version: 0.1
 *
 *	© 2018, Jens Heukers
 */
@@ -47,7 +46,34 @@ private:
 	bool LastFrameTime;
 
 	Camera* activeCamera;
+
+	std::map<std::string, Component*> componentTypes;
 public:
+
+	/**
+	* Adds a type to the component types list, Please note that component has to be derived
+	* from the Component data type. And are made to be used for the in-build component system.
+	* if base is not Component an error will be given.
+	*/
+	template<typename T> 
+	void AddComponentType() { 
+		if (!std::is_base_of<Component, T>::value) {
+			printf("DYNAMITE: ~Core~ ERROR: Type is not derived from Component, cannot add to componentTypes List\n");
+			return;
+		}
+		
+		componentTypes[typeid(T).name()] = new T();
+		printf("DYNAMITE: ~Core~ Added %s to componentTypes\n",typeid(T).name());
+		return;
+	};
+
+
+	/**
+	* Returns the component type pointer that equals type parameter. 
+	* Please note that a dynamic cast is required in order to re-achieve your type
+	*/
+	Component* GetComponentType(std::string type) { return componentTypes[type]; };
+
 
 	/**
 	* Constructor
@@ -55,7 +81,8 @@ public:
 	Core(char* arguments[]);
 
 	/**
-	* Returns the resources directory path
+	* Returns the resources directory path, the resources directory is moved 
+	* post-build to %BuildDirectory%/resources..
 	*/
 	std::string GetResourceDirectory();
 

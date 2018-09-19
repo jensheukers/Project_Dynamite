@@ -47,9 +47,9 @@ public:
 	void SetActiveScene(std::string name);
 
 	/**
-	* Saves the scene where name equals name, and saves it to destination.
+	* Saves the currently active scene to destination.
 	*/
-	void SaveScene(std::string name, std::string destination);
+	void SaveScene(std::string destination);
 
 	/**
 	* Returns the core instance

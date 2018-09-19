@@ -46,8 +46,7 @@ void SceneManager::SetActiveScene(std::string name) {
 	}
 }
 
-void SceneManager::SaveScene(std::string name, std::string destination) {
-	//TODO: IMPLEMENT
+void SceneManager::SaveScene(std::string destination) {
 }
 
 Core* SceneManager::GetCore() {
