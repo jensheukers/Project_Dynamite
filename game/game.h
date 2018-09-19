@@ -8,7 +8,7 @@
 */
 
 #pragma once
-#include "vector2\vector2.h"
+#include "..\dynamite\math\vector2.h"
 
 class Core;
 

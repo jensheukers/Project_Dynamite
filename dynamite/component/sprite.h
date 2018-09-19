@@ -10,7 +10,7 @@
 
 #pragma once
 #include "component.h"
-#include "vector2\vector2.h"
+#include "../math/vector2.h"
 #include "SDL.h"
 #include "SDL_opengl.h"
 

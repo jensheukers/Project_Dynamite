@@ -9,7 +9,7 @@
 #pragma once
 #include <iostream>
 #include "../imgui/imgui.h"
-#include "vector2\vector2.h"
+#include "../math/vector2.h"
 
 //Forward declarations
 class Core;

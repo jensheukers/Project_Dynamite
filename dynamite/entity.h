@@ -9,15 +9,15 @@
 
 
 #pragma once
-#include "jhe_main.h"
 #include "component\component.h"
 #include <iostream>
+#include <vector>
 
 class Core;
 
 class Entity {
 private:
-	Array<Component*> components;
+	std::vector<Component*> components;
 	std::string tag;
 	float rotation;
 	Core* core;
@@ -76,7 +76,7 @@ public:
 			convertedComponent->Start(core);
 		}
 
-		components.Push(component);
+		components.push_back(component);
 		return component;
 	}
 
@@ -85,9 +85,9 @@ public:
 	*/
 	template<typename T>
 	T* GetComponent() {
-		for (unsigned i = 0; i < components.Size(); i++) {
-			if (typeid(T).name() == components.Get(i)->GetTypeName()) {
-				return dynamic_cast<T*>(components.Get(i));
+		for (unsigned i = 0; i < components.size(); i++) {
+			if (typeid(T).name() == components[i]->GetTypeName()) {
+				return dynamic_cast<T*>(components[i]);
 			}
 		}
 
@@ -99,9 +99,9 @@ public:
 	*/
 	template<typename T>
 	void RemoveComponent() {
-		for (int i = 0; i < components.Size(); i++) {
-			if (typeid(T).name() == components.Get(i)->GetTypeName()) {
-				components.Remove(i);
+		for (int i = 0; i < components.size(); i++) {
+			if (typeid(T).name() == components[i]->GetTypeName()) {
+				components.erase(components.begin() + i);
 			}
 		}
 	}	
@@ -111,8 +111,8 @@ public:
 	*/
 	template<typename T>
 	bool HasComponent() {
-		for (unsigned i = 0; i < components.Size(); i++) {
-			if (typeid(T).name() == components.Get(i)->GetTypeName()) {
+		for (unsigned i = 0; i < components.size(); i++) {
+			if (typeid(T).name() == components[i]->GetTypeName()) {
 				return true;
 			}
 		}

@@ -102,8 +102,8 @@ Core::Core(char* arguments[]) {
 		ImGui::NewFrame();
 
 		//Update the game 
-		for (int i = 0; i < entities.Size(); i++) {
-			entities.Get(i)->UpdateComponents();
+		for (int i = 0; i < entities.size(); i++) {
+			entities[i]->UpdateComponents();
 		}
 
 		game->Update();
@@ -141,9 +141,9 @@ Core::Core(char* arguments[]) {
 		renderer->Clear();
 
 		ImGui::Render();
-		for (unsigned i = 0; i < entities.Size(); i++) {
-			if (entities.Get(i)->HasComponent<Sprite>() && HasActiveCamera()) {
-				renderer->RenderEntity(entities.Get(i), activeCamera);
+		for (unsigned i = 0; i < entities.size(); i++) {
+			if (entities[i]->HasComponent<Sprite>() && HasActiveCamera()) {
+				renderer->RenderEntity(entities[i], activeCamera);
 			}
 		}
 
@@ -192,15 +192,15 @@ void Core::HandleEvents() {
 
 void Core::AddEntity(Entity* entity) {
 	entity->SetCore(this);
-	entities.Push(entity);
+	entities.push_back(entity);
 }
 
 void Core::RemoveEntity(int index) {
-	entities.Remove(index);
+	entities.erase(entities.begin() + index);
 }
 
 Entity* Core::GetEntity(int index) {
-	return entities.Get(index);
+	return entities[index];
 }
 
 bool Core::HasActiveCamera() {

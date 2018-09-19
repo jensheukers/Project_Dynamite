@@ -12,24 +12,24 @@ file(GLOB GAME "game/*.cpp" "game/*.h")
 file(GLOB COMPONENT "dynamite/component/*.h" "dynamite/component/*.cpp")
 file(GLOB EVENT "dynamite/event/*.h" "dynamite/event/*.cpp")
 file(GLOB IMGUI "dynamite/imgui/*.h" "dynamite/imgui/*.cpp")
+file(GLOB MATH "dynamite/math/*.h" "dynamite/math/*.cpp")
 
 # Includes
 set(SDL2_DIR "external/SDL2")
-set(JH_Essentials_DIR "external/JH_Essentials")
 set(GLEW_DIR "external/glew")
 
-include_directories(${SDL2_DIR}/include ${JH_Essentials_DIR}/include ${GLEW_DIR}/include)
-link_directories(${SDL2_DIR}/lib/x64 ${JH_Essentials_DIR}/lib/x64 ${GLEW_DIR}/lib/x64 ${SDL2_DIR}/lib/x86 ${JH_Essentials_DIR}/lib/x86 ${GLEW_DIR}/lib/Win32)
+include_directories(${SDL2_DIR}/include ${GLEW_DIR}/include)
+link_directories(${SDL2_DIR}/lib/x64 ${GLEW_DIR}/lib/x64 ${SDL2_DIR}/lib/x86 ${GLEW_DIR}/lib/Win32)
 
 # Add Executable
 
-add_executable(Project_Dynamite ${MAIN} ${GAME} ${COMPONENT} ${EVENT} ${IMGUI})
+add_executable(Project_Dynamite ${MAIN} ${GAME} ${COMPONENT} ${EVENT} ${IMGUI} ${MATH})
 
 set(CMAKE_CXX_FLAGS_RELEASE "/MD")
 set(CMAKE_CXX_FLAGS_DEBUG "/MD")
 
 # Link libraries
-target_link_libraries(Project_Dynamite SDL2 SDL2main JH_Essentials opengl32.lib glew32.lib glew32s.lib)
+target_link_libraries(Project_Dynamite SDL2 SDL2main opengl32.lib glew32.lib glew32s.lib)
 
 # TODO: Set Commands
 add_custom_command(TARGET Project_Dynamite POST_BUILD 
@@ -56,6 +56,7 @@ source_group("game" FILES ${GAME})
 source_group("component" FILES ${COMPONENT})
 source_group("event" FILES ${EVENT})
 source_group("imgui" FILES ${IMGUI})
+source_group("math" FILES ${MATH})
 
 
 

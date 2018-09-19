@@ -10,6 +10,9 @@
 
 #include "SDL.h"
 #include <GL/glew.h> 
+#include <iostream>
+#include <vector>
+
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_sdl.h"
 #include "imgui/imgui_impl_opengl3.h"
@@ -19,7 +22,7 @@
 #include "event/input.h"
 #include "renderer.h"
 #include "resourcemanager.h"
-#include "jhe_main.h"
+
 #include "entity.h"
 #include "camera.h"
 
@@ -43,7 +46,7 @@ private:
 	bool LastFrameTime;
 
 	Camera* activeCamera;
-	Array<Entity*> entities;
+	std::vector<Entity*> entities;
 public:
 
 	/**
@@ -89,12 +92,12 @@ public:
 	/**
 	* Returns the amount of entities in the entities list
 	*/
-	int GetEntiesCount() { return this->entities.Size(); };
+	int GetEntiesCount() { return this->entities.size(); };
 
 	/*
 	* Returns the entities list
 	**/
-	Array<Entity*> GetEnties() { return this->entities; };
+	std::vector<Entity*> GetEnties() { return this->entities; };
 
 	/**
 	* Returns the resource manager

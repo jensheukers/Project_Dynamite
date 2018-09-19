@@ -9,7 +9,6 @@
 
 #pragma once
 #include "SDL.h"
-#include "jhe_main.h"
 #include "component\sprite.h"
 #include "entity.h"
 #include "camera.h"

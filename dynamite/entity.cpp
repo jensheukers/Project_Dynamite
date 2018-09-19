@@ -15,21 +15,21 @@ void Entity::SetCore(Core* core) {
 }
 
 void Entity::UpdateComponents() {
-	for (int i = 0; i < components.Size(); i++) {
-		components.Get(i)->Update(core);
+	for (int i = 0; i < components.size(); i++) {
+		components[i]->Update(core);
 	}
 }
 
-int Entity::GetComponentsSize() { return this->components.Size(); }
+int Entity::GetComponentsSize() { return this->components.size(); }
 
 Component* Entity::GetComponentById(int id) {
-	return components.Get(id);
+	return components[id];
 }
 
 
 const char* Entity::GetComponentType(unsigned id) {
-	if (id < this->components.Size()) {
-		return this->components.Get(id)->GetTypeName();
+	if (id < this->components.size()) {
+		return this->components[id]->GetTypeName();
 	}
 	return nullptr;
 }
@@ -47,7 +47,7 @@ void Entity::SetRotation(float rotation) {
 float Entity::GetRotation() { return this->rotation; };
 
 Entity::~Entity() {
-	for (unsigned i = 0; i < components.Size(); i++) {
-		delete components.Get(i);
+	for (unsigned i = 0; i < components.size(); i++) {
+		delete components[i];
 	}
 }

@@ -10,7 +10,7 @@
 
 #pragma once
 #include "SDL.h"
-#include "vector2\vector2.h"
+#include "..\math\vector2.h"
 #include <iostream>
 #include <map>
 
