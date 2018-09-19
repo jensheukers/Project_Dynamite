@@ -14,6 +14,8 @@
 Editor::Editor(Core* core) {
 	this->core = core;
 
+
+
 	camera = new Camera();
 	camera->SetPosition(Vector2(Game::GetWindowDimensions().GetX() / 2, Game::GetWindowDimensions().GetY() / 2));
 	core->SetActiveCamera(camera);
@@ -74,19 +76,29 @@ void Editor::Update() {
 	}
 
 	static int listbox_item_current = 0;
-	for (int i = 0; i < core->GetSceneManager()->GetActiveScene()->GetEntiesCount(); i++) {
-		listbox_items[i] = (char*)core->GetSceneManager()->GetActiveScene()->GetEntity(i)->GetTag();
+	if (core->GetSceneManager()->GetActiveScene() != nullptr) {
+		for (int i = 0; i < core->GetSceneManager()->GetActiveScene()->GetEntiesCount(); i++) {
+			listbox_items[i] = (char*)core->GetSceneManager()->GetActiveScene()->GetEntity(i)->GetTag();
+		}
+	}
+	else {
+		listbox_items[0] = "No scene loaded!";
 	}
 	ImGui::ListBox("", &listbox_item_current, listbox_items, IM_ARRAYSIZE(listbox_items), 20);
 
-	ImGui::SetWindowSize(ImVec2(150, 400));
+	ImGui::SetWindowSize(ImVec2(200, 400));
 	ImGui::SetWindowPos(ImVec2(0, 50), true);
 	ImGui::End();
 
-	if (listbox_item_current < core->GetSceneManager()->GetActiveScene()->GetEntiesCount()) {
-		if (listbox_items[listbox_item_current] == core->GetSceneManager()->GetActiveScene()->GetEntity(listbox_item_current)->GetTag()) {
-			this->SetSelectedEntity(core->GetSceneManager()->GetActiveScene()->GetEntity(listbox_item_current));
-			selectedEntityId = listbox_item_current;
+	if (core->GetSceneManager()->GetActiveScene() != nullptr) {
+		if (listbox_item_current < core->GetSceneManager()->GetActiveScene()->GetEntiesCount()) {
+			if (listbox_items[listbox_item_current] == core->GetSceneManager()->GetActiveScene()->GetEntity(listbox_item_current)->GetTag()) {
+				this->SetSelectedEntity(core->GetSceneManager()->GetActiveScene()->GetEntity(listbox_item_current));
+				selectedEntityId = listbox_item_current;
+			}
+		}
+		else {
+			this->SetSelectedEntity(nullptr);
 		}
 	}
 	else {

@@ -104,8 +104,10 @@ Core::Core(char* arguments[]) {
 
 		//Update the components of entities 
 
-		for (int i = 0; i < sceneManager->GetActiveScene()->GetEnties().size(); i++) {
-			sceneManager->GetActiveScene()->GetEntity(i)->UpdateComponents();
+		if (GetSceneManager()->GetActiveScene() != nullptr) {
+			for (int i = 0; i < sceneManager->GetActiveScene()->GetEnties().size(); i++) {
+				sceneManager->GetActiveScene()->GetEntity(i)->UpdateComponents();
+			}
 		}
 
 		//Update the game
@@ -145,9 +147,11 @@ Core::Core(char* arguments[]) {
 
 		ImGui::Render();
 
-		for (int i = 0; i < sceneManager->GetActiveScene()->GetEnties().size(); i++) {
-			if (sceneManager->GetActiveScene()->GetEnties()[i]->HasComponent<Sprite>() && HasActiveCamera()) {
-				renderer->RenderEntity(sceneManager->GetActiveScene()->GetEnties()[i], activeCamera);
+		if (GetSceneManager()->GetActiveScene() != nullptr) {
+			for (int i = 0; i < sceneManager->GetActiveScene()->GetEnties().size(); i++) {
+				if (sceneManager->GetActiveScene()->GetEnties()[i]->HasComponent<Sprite>() && HasActiveCamera()) {
+					renderer->RenderEntity(sceneManager->GetActiveScene()->GetEnties()[i], activeCamera);
+				}
 			}
 		}
 
