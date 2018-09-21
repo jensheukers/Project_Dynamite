@@ -26,6 +26,10 @@ Entity* Scene::GetEntity(int index) {
 	return entities[index];
 }
 
+void Scene::LoadEntities(std::string data) {
+
+}
+
 Scene::~Scene() {
 
 }

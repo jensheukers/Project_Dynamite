@@ -72,7 +72,7 @@ public:
 	* Returns the component type pointer that equals type parameter. 
 	* Please note that a dynamic cast is required in order to re-achieve your type
 	*/
-	Component* GetComponentType(std::string type) { return componentTypes[type]; };
+	Component* GetComponentType(std::string type);
 
 
 	/**

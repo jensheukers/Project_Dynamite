@@ -14,8 +14,6 @@
 Editor::Editor(Core* core) {
 	this->core = core;
 
-
-
 	camera = new Camera();
 	camera->SetPosition(Vector2(Game::GetWindowDimensions().GetX() / 2, Game::GetWindowDimensions().GetY() / 2));
 	core->SetActiveCamera(camera);

@@ -40,4 +40,10 @@ public:
 	* Returns the entities list
 	**/
 	std::vector<Entity*> GetEnties() { return this->entities; };
+
+
+	/**
+	* Loads all entity properties and calls OnLoad method on all entities.
+	*/
+	void LoadEntities(std::string data);
 };

@@ -16,6 +16,12 @@ int main(int argc, char* argv[]) {
 	return 0;
 }
 
+Component* Core::GetComponentType(std::string type) {
+	if (componentTypes[type] != NULL) {
+		return componentTypes[type];
+	}
+}
+
 Core::Core(char* arguments[]) {
 	
 	std::string mainDirPathFull = arguments[0];

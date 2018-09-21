@@ -47,6 +47,12 @@ void SceneManager::SetActiveScene(std::string name) {
 }
 
 void SceneManager::SaveScene(std::string destination) {
+	for (int i = 0; i < activeScene->GetEntiesCount(); i++) {
+		std::string entityData;
+		for (int ii = 0; ii < activeScene->GetEntity(i)->GetComponentsSize(); ii++) {
+			std::vector<std::string*> componentData = activeScene->GetEntity(i)->GetComponentById(ii)->OnSave();
+		}
+	}
 }
 
 Core* SceneManager::GetCore() {
