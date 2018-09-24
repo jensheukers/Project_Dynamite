@@ -2,7 +2,6 @@
 *	Filename: editor.h
 *
 *	Description: Editor header file
-*	Version: 0.1
 *
 *	© 2018, Jens Heukers
 */
@@ -21,6 +20,8 @@ private:
 	char* listbox_items[9999];
 	int selectedEntityId;
 	bool showComponentSettings;
+	bool newScene;
+	bool addNewComponent;
 public:
 	/**
 	* Constructor
@@ -31,6 +32,21 @@ public:
 	* Update every frame
 	*/
 	void Update();
+
+	/**
+	* Creates a new scene, and sets it active.
+	*/
+	void NewScene(std::string name);
+
+	/**
+	* Creates a new entity on the heap, and adds to the Scene.
+	*/
+	void CreateEntity();
+
+	/**
+	* Searches for component in core, then adds copy to the entity if found
+	*/
+	void AddComponent(std::string name);
 
 	/**
 	* Set the currently selected entity

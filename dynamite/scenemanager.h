@@ -1,3 +1,12 @@
+/**
+*	Filename: scenemanager.h
+*
+*	Description: SceneManager header file
+*
+*	© 2018, Jens Heukers
+*/
+
+
 #pragma once
 #include "scene.h"
 

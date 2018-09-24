@@ -2,7 +2,6 @@
 *	Filename: editor.cpp
 *
 *	Description: Editor source file
-*	Version: 0.1
 *
 *	© 2018, Jens Heukers
 */
@@ -52,11 +51,51 @@ void Editor::Update() {
 	{
 		if (ImGui::BeginMenu("Scene"))
 		{
-			if (ImGui::MenuItem("Open", "Ctrl+O")) { /* Do stuff */ }
-			if (ImGui::MenuItem("Save", "Ctrl+S")) { /* Do stuff */ }
+			if (ImGui::MenuItem("New", "")) { 
+				newScene = true;
+			}
 			ImGui::EndMenu();
 		}
+		if (ImGui::BeginMenu("Entity"))
+		{
+			if (ImGui::MenuItem("New Entity", "")) { CreateEntity(); }
+			if (ImGui::MenuItem("Add Component", "")) { addNewComponent = true; }
+			ImGui::EndMenu();
+		}
+
 		ImGui::EndMenuBar();
+	}
+
+	if (newScene) {
+		ImGui::Begin("New Scene");
+		static char name[50];
+		ImGui::InputText("Scene Name", name, IM_ARRAYSIZE(name));
+
+		if (ImGui::Button("Create")) {
+			NewScene(name);
+			newScene = false;
+		}
+
+		ImGui::End();
+	}
+
+	if (addNewComponent) {
+		if (selectedEntity != nullptr) {
+			ImGui::Begin("Add Component");
+			static char name[50];
+			ImGui::InputText("Component typeId name: ", name, IM_ARRAYSIZE(name));
+
+			if (ImGui::Button("Add")) {
+				AddComponent(name);
+				addNewComponent = false;
+			}
+
+			ImGui::End();
+		}
+		else {
+			printf("DYNAMITE: ~Editor~ No Entity Selected!\n");
+			addNewComponent = false;
+		}
 	}
 
 	ImGui::SetWindowSize(ImVec2(Game::GetWindowDimensions().GetX(),15));
@@ -190,4 +229,29 @@ void Editor::Update() {
 	ImGui::SetWindowSize(ImVec2(250, 400));
 	ImGui::SetWindowPos(ImVec2(Game::GetWindowDimensions().GetX() - 250, 50), true);
 	ImGui::End();
+}
+
+void Editor::NewScene(std::string name) {
+	SceneManager::Instance()->CreateScene(name);
+	SceneManager::Instance()->SetActiveScene(name);
+}
+
+void Editor::CreateEntity() {
+	if (SceneManager::Instance()->GetActiveScene() == nullptr) {
+		printf("DYNAMITE: ~Editor~ No Scene Existant, cannot add Entity!\n");
+		return;
+	}
+
+	SceneManager::Instance()->GetActiveScene()->AddEntity(new Entity());
+}
+
+void Editor::AddComponent(std::string name) {
+	Component* component = Core::Instance()->GetComponentType(name);
+
+	if (component == nullptr) {
+		printf("DYNAMITE: ~Editor~ Component does not exist, or heap memory is not referenced!\n");
+		return;
+	}
+
+	selectedEntity->CopyExistingComponent<>(component);
 }

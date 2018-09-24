@@ -27,12 +27,6 @@ Core* Core::Instance() {
 	return _instance;
 }
 
-Component* Core::GetComponentType(std::string type) {
-	if (componentTypes[type] != NULL) {
-		return componentTypes[type];
-	}
-}
-
 Core::Core(char* arguments[]) {
 	_instance = this;
 
@@ -86,6 +80,10 @@ Core::Core(char* arguments[]) {
 	ImGui::StyleColorsDark();
 
 
+
+	//Adding core component types to known ComponentTypes
+	this->AddComponentType<Sprite>();
+
 	printf("DYNAMITE: ~Core~ Calling Game()\n");
 
 	if (!Game::LaunchEditorMode()) {
@@ -128,11 +126,6 @@ Core::Core(char* arguments[]) {
 		game->Update();
 
 
-		//Command Prompt
-		if (Input::Instance()->KeyDown(KeyCode::Slash) && Input::Instance()->KeyDown(KeyCode::Minus)) {
-			commandPromptActive = true;
-		}
-
 		if (commandPromptActive) {
 			char input[50];
 
@@ -147,7 +140,7 @@ Core::Core(char* arguments[]) {
 			ImGui::End();
 		}
 
-		if (Input::Instance()->KeyDown(KeyCode::Grave)) {
+		if (Input::Instance()->KeyPressed(KeyCode::Grave)) {
 			if (!commandPromptActive) {
 				commandPromptActive = true;
 			}

@@ -1,3 +1,11 @@
+/**
+*	Filename: scenemanager.cpp
+*
+*	Description: SceneManager source file
+*
+*	© 2018, Jens Heukers
+*/
+
 #include "scenemanager.h"
 #include "core.h"
 
@@ -24,6 +32,8 @@ Scene* SceneManager::CreateScene(std::string name) {
 	scene->SetName(name);
 	
 	loadedScenes.push_back(scene);
+
+	printf("DYNAMITE: ~SceneManager~ : Created new scene: %s\n", name);
 	return scene;
 }
 

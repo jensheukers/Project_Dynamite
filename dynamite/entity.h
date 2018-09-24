@@ -43,12 +43,21 @@ public:
 	*/
 	void UpdateComponents();
 
+
+	/**
+	* Copy the data from already existing component data on the heap, and add the component to components list.
+	*/
+	template<typename T>
+	void CopyExistingComponent(T* type) {
+		//TODO: IMPLEMENT.
+	}
+
 	/**
 	* Adds a component to the components Array.
 	*/
 	template<typename T>
 	T* AddComponent() {
-		
+
 		if (HasComponent<T>()) {
 			printf("DYNAMITE: ~Entity~ Warning: Component %s already exists on Entity!\n", typeid(T).name());
 		}

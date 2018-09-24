@@ -77,9 +77,13 @@ public:
 
 	/**
 	* Returns the component type pointer that equals type parameter. 
-	* Please note that a dynamic cast is required in order to re-achieve your type
 	*/
-	Component* GetComponentType(std::string type);
+	Component* GetComponentType(std::string type) {
+		if (componentTypes[type] != NULL) {
+			return componentTypes[type];
+		}
+		return nullptr;
+	};
 
 	/**
 	* Returns the resources directory path, the resources directory is moved 

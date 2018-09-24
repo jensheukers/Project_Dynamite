@@ -41,7 +41,6 @@ void Renderer::Clear() {
 
 void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 	if (entity->GetComponent<Sprite>()->GetSurface() == nullptr) {
-		//printf("DYNAMITE: ~Renderer~ entity object has no surface!\n");
 		return;
 	}
 	//Generate GL Texture from surface
