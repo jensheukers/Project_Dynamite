@@ -9,6 +9,15 @@
 
 #include "input.h"
 
+Input* Input::_instance;
+
+Input* Input::Instance() {
+	if (!_instance) {
+		_instance = new Input();
+	}
+	return _instance;
+}
+
 
 void Input::Handle() {
 	for (int i = 0; i < 284; i++) {

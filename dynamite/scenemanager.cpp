@@ -1,8 +1,17 @@
 #include "scenemanager.h"
 #include "core.h"
 
-SceneManager::SceneManager(Core* core) {
-	this->core = core;
+SceneManager* SceneManager::_instance;
+
+SceneManager* SceneManager::Instance() {
+	if (!_instance) {
+		_instance = new SceneManager();
+	}
+	return _instance;
+}
+
+SceneManager::SceneManager() {
+	activeScene = nullptr;
 	printf("DYNAMITE: ~SceneManager~ Initialized!\n");
 }
 
@@ -53,10 +62,6 @@ void SceneManager::SaveScene(std::string destination) {
 			std::vector<std::string*> componentData = activeScene->GetEntity(i)->GetComponentById(ii)->OnSave();
 		}
 	}
-}
-
-Core* SceneManager::GetCore() {
-	return this->core;
 }
 
 SceneManager::~SceneManager() {

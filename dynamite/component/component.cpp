@@ -9,7 +9,7 @@
 #include "../entity.h"
 
 Component::Component() { this->typeName = typeid(*this).name(); };
-void Component::Start(Core* core, Entity* parent) { this->parent = parent; };
+void Component::Start(Entity* parent) { this->parent = parent; };
 
 
 void Component::OnLoad(std::vector<std::string*> data) {

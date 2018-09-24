@@ -5,20 +5,27 @@ class Core;
 
 class SceneManager {
 private:
+	static SceneManager* _instance;
+
 	Scene* activeScene;
 	std::vector<Scene*> loadedScenes;
-	Core* core;
-public:
+
 	/**
 	* Constructor.
 	*/
-	SceneManager(Core* core);
+	SceneManager();
+public:
+
+	/**
+	* Returns the instance if found else creates a new instance
+	*/
+	static SceneManager* Instance();
 
 	/**
 	* Returns the currently active scene pointer.
 	*/
-	Scene* GetActiveScene();
 
+	Scene* GetActiveScene();
 	/**
 	* Creates a new empty scene, and setting scene name to name parameter, then loads it into loaded scenes.
 	*/
@@ -50,11 +57,6 @@ public:
 	* Saves the currently active scene to destination.
 	*/
 	void SaveScene(std::string destination);
-
-	/**
-	* Returns the core instance
-	*/
-	Core* GetCore();
 
 	/**
 	* Destructor.

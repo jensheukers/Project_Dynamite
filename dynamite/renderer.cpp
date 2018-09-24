@@ -12,23 +12,13 @@
 #include "SDL_opengl.h"
 #include "../game/game.h"
 
-Renderer::Renderer() {
-	sdlRendererFound = false;
-}
+Renderer* Renderer::_instance;
 
-Renderer::Renderer(SDL_Renderer* sdlRenderer) {
-	this->sdlRenderer = sdlRenderer;
-	sdlRendererFound = true;
-}
-
-void Renderer::SetSdlRenderer(SDL_Renderer* sdlRenderer) {
-	this->sdlRenderer = sdlRenderer;
-	sdlRendererFound = true;
-}
-
-void Renderer::RemoveSdlRenderer() {
-	this->sdlRenderer = nullptr;
-	sdlRendererFound = false;
+Renderer* Renderer::Instance() {
+	if (!_instance) {
+		_instance = new Renderer();
+	}
+	return _instance;
 }
 
 void Renderer::InitOpenGL() {

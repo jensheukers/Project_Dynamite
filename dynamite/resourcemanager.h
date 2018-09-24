@@ -2,7 +2,6 @@
 *	Filename: resourcemanager.h
 *
 *	Description: Main Header for ResourceManager.
-*	Version: 0.2
 *
 *	© 2018, Jens Heukers
 */
@@ -15,13 +14,19 @@
 #include <map>
 class ResourceManager {
 private:
-	Renderer* renderer;
+	static ResourceManager* _instance;
 	std::map<std::string, SDL_Surface*> surfaces;
-public:
+
 	/**
-	* Constructor
+	* Constructor private due to singleton
 	*/
-	ResourceManager(Renderer* renderer);
+	ResourceManager() {};
+public:
+
+	/**
+	* Get the ResourceManager Singleton Instance.
+	*/
+	static ResourceManager* Instance();
 
 	/**
 	* Returns Surface if found, otherwise creates a new entry then returns

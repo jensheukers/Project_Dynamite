@@ -11,8 +11,7 @@
 #include "../dynamite/imgui/imgui.h"
 
 
-Game::Game(Core* core) {
-	this->core = core;
+Game::Game() {
 }
 
 void Game::Update() {

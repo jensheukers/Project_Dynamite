@@ -15,33 +15,21 @@
 
 class Renderer {
 private:
-	SDL_Renderer* sdlRenderer;
-	bool sdlRendererFound;
+	/**
+	* static local instance variable
+	*/
+	static Renderer* _instance;
+
+	/**
+	* Private constructor due to Singleton.
+	*/
+	Renderer() {};
 public:
 	/**
-	* Constructor
+	* Get the renderer singleton instance
 	*/
-	Renderer();
+	static Renderer* Instance();
 
-	/**
-	* Constructor
-	*/
-	Renderer(SDL_Renderer* sdlRenderer);
-
-	/**
-	* Sets the SDL_Renderer to given parameter
-	*/
-	void SetSdlRenderer(SDL_Renderer* sdlRenderer);
-
-	/**
-	* Removes the current loaded SDL_Renderer
-	*/
-	void RemoveSdlRenderer();
-
-	/**
-	* Returns true if renderer has a SDL_Renderer, else returns false
-	*/
-	bool HasSdlRenderer() { return sdlRendererFound; };
 
 	/**
 	* Sets all the properties for OpenGL Rendering, returns true if success, else returns false

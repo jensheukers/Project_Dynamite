@@ -2,15 +2,19 @@
 *	Filename: resourcemanager.cpp
 *
 *	Description: Main Source for ResourceManager.
-*	Version: 0.2
 *
 *	© 2018, Jens Heukers
 */
 
 #include "resourcemanager.h"
 
-ResourceManager::ResourceManager(Renderer* renderer) {
-	this->renderer = renderer;
+ResourceManager* ResourceManager::_instance;
+
+ResourceManager* ResourceManager::Instance() {
+	if (!_instance) {
+		_instance = new ResourceManager();
+	}
+	return _instance;
 }
 
 SDL_Surface* ResourceManager::GetSurface(std::string path) {

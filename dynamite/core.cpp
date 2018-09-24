@@ -12,8 +12,19 @@
 #include <chrono>
 
 int main(int argc, char* argv[]) {
-	Core core(argv);
+	new Core(argv);
 	return 0;
+}
+
+Core* Core::_instance;
+
+
+Core* Core::Instance() {
+	if (!_instance) {
+		printf("DYNAMITE: Core instance not created.");
+	}
+	
+	return _instance;
 }
 
 Component* Core::GetComponentType(std::string type) {
@@ -23,7 +34,8 @@ Component* Core::GetComponentType(std::string type) {
 }
 
 Core::Core(char* arguments[]) {
-	
+	_instance = this;
+
 	std::string mainDirPathFull = arguments[0];
 
 	std::size_t found = mainDirPathFull.find_last_of("/\\");
@@ -52,11 +64,7 @@ Core::Core(char* arguments[]) {
 
 	SDL_GL_MakeCurrent(window,context);
 
-	sceneManager = new SceneManager(this);
-	renderer = new Renderer(SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE));
-	renderer->InitOpenGL();
-	resourceManager = new ResourceManager(renderer);
-	input = new Input();
+	Renderer::Instance()->InitOpenGL();
 
 	//Initialize GLEW
 	glewExperimental = true;
@@ -81,10 +89,10 @@ Core::Core(char* arguments[]) {
 	printf("DYNAMITE: ~Core~ Calling Game()\n");
 
 	if (!Game::LaunchEditorMode()) {
-		game = new Game(this);
+		game = new Game();
 	}
 	else {
-		game = new Editor(this);
+		game = new Editor();
 	}
 
 	running = true;
@@ -110,9 +118,9 @@ Core::Core(char* arguments[]) {
 
 		//Update the components of entities 
 
-		if (GetSceneManager()->GetActiveScene() != nullptr) {
-			for (int i = 0; i < sceneManager->GetActiveScene()->GetEnties().size(); i++) {
-				sceneManager->GetActiveScene()->GetEntity(i)->UpdateComponents();
+		if (SceneManager::Instance()->GetActiveScene() != nullptr) {
+			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetEnties().size(); i++) {
+				SceneManager::Instance()->GetActiveScene()->GetEntity(i)->UpdateComponents();
 			}
 		}
 
@@ -121,7 +129,7 @@ Core::Core(char* arguments[]) {
 
 
 		//Command Prompt
-		if (GetKeyDown(KeyCode::Slash) && GetKeyDown(KeyCode::Minus)) {
+		if (Input::Instance()->KeyDown(KeyCode::Slash) && Input::Instance()->KeyDown(KeyCode::Minus)) {
 			commandPromptActive = true;
 		}
 
@@ -139,7 +147,7 @@ Core::Core(char* arguments[]) {
 			ImGui::End();
 		}
 
-		if (GetKeyPressed(KeyCode::Grave)) {
+		if (Input::Instance()->KeyDown(KeyCode::Grave)) {
 			if (!commandPromptActive) {
 				commandPromptActive = true;
 			}
@@ -149,20 +157,20 @@ Core::Core(char* arguments[]) {
 		}
 
 		//Handle rendering to screen
-		renderer->Clear();
+		Renderer::Instance()->Clear();
 
 		ImGui::Render();
 
-		if (GetSceneManager()->GetActiveScene() != nullptr) {
-			for (int i = 0; i < sceneManager->GetActiveScene()->GetEnties().size(); i++) {
-				if (sceneManager->GetActiveScene()->GetEnties()[i]->HasComponent<Sprite>() && HasActiveCamera()) {
-					renderer->RenderEntity(sceneManager->GetActiveScene()->GetEnties()[i], activeCamera);
+		if (SceneManager::Instance()->GetActiveScene() != nullptr) {
+			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetEnties().size(); i++) {
+				if (SceneManager::Instance()->GetActiveScene()->GetEnties()[i]->HasComponent<Sprite>() && HasActiveCamera()) {
+					Renderer::Instance()->RenderEntity(SceneManager::Instance()->GetActiveScene()->GetEnties()[i], activeCamera);
 				}
 			}
 		}
 
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-		renderer->Draw(window);
+		Renderer::Instance()->Draw(window);
 	}
 }
 
@@ -176,7 +184,7 @@ std::string Core::GetResourcePath(const char* name) {
 }
 
 void Core::HandleEvents() {
-	input->Handle();
+	Input::Instance()->Handle();
 	SDL_Event sdlEvent;
 	while (SDL_PollEvent(&sdlEvent)) { //Handle events
 		ImGui_ImplSDL2_ProcessEvent(&sdlEvent);
@@ -185,20 +193,20 @@ void Core::HandleEvents() {
 				running = false;
 				break;
 			case SDL_KEYDOWN:
-				input->HandleKeyPressEvent(sdlEvent.key.keysym.scancode);
+				Input::Instance()->HandleKeyPressEvent(sdlEvent.key.keysym.scancode);
 				break;
 			case SDL_KEYUP:
-				input->HandleKeyReleaseEvent(sdlEvent.key.keysym.scancode);
+				Input::Instance()->HandleKeyReleaseEvent(sdlEvent.key.keysym.scancode);
 				break;
 			case SDL_MOUSEMOTION:
-				input->HandleMouseMotion(Vector2((float)sdlEvent.motion.x, (float)sdlEvent.motion.y));
+				Input::Instance()->HandleMouseMotion(Vector2((float)sdlEvent.motion.x, (float)sdlEvent.motion.y));
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				input->HandleButtonPressEvent(sdlEvent.button.button);
+				Input::Instance()->HandleButtonPressEvent(sdlEvent.button.button);
 				break;
 
 			case SDL_MOUSEBUTTONUP:
-				input->HandleButtonReleaseEvent(sdlEvent.button.button);
+				Input::Instance()->HandleButtonReleaseEvent(sdlEvent.button.button);
 				break;
 		}
 	}

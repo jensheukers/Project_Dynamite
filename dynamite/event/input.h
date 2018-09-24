@@ -182,6 +182,10 @@ public:
 
 class Input {
 private:
+	//Constructor private due to singleton
+	Input() {};
+
+	static Input* _instance;
 	std::map<std::string, Axis> axises;
 	bool keys[284];
 	bool keysLast[284];
@@ -190,6 +194,9 @@ private:
 	std::map<int, bool> buttonsLast;
 	Vector2 mousePosition;
 public:
+
+	static Input* Instance();
+
 
 	/**
 	* Handles all the keys, buttons each frame sets Key[Key] to KeyLast[Key] & Button[Int] to ButtonLast[Int].

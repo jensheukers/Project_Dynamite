@@ -29,12 +29,10 @@
 
 class Core {
 private:
+	static Core* _instance;
+
 	std::string mainDirPath;
 
-	SceneManager* sceneManager;
-	Renderer* renderer;
-	ResourceManager* resourceManager;
-	Input* input;
 	Game* game;
 
 	SDL_Window* window;
@@ -49,6 +47,16 @@ private:
 
 	std::map<std::string, Component*> componentTypes;
 public:
+
+	/**
+	* Returns the instance if found.
+	*/
+	static Core* Instance();
+
+	/**
+	* Constructor
+	*/
+	Core(char* arguments[]);
 
 	/**
 	* Adds a type to the component types list, Please note that component has to be derived
@@ -67,18 +75,11 @@ public:
 		return;
 	};
 
-
 	/**
 	* Returns the component type pointer that equals type parameter. 
 	* Please note that a dynamic cast is required in order to re-achieve your type
 	*/
 	Component* GetComponentType(std::string type);
-
-
-	/**
-	* Constructor
-	*/
-	Core(char* arguments[]);
 
 	/**
 	* Returns the resources directory path, the resources directory is moved 
@@ -102,51 +103,6 @@ public:
 	bool IsRunning() { return this->running; };
 
 	/**
-	* Returns the resource manager
-	*/
-	ResourceManager* GetResourceManager() { return this->resourceManager; };
-
-	/**
-	* Calls input->KeyPressed Method, returns value.
-	*/
-	bool GetKeyPressed(int keyCode) { return input->KeyPressed(keyCode); };
-
-	/**
-	* Calls input->KeyDown Method, returns value.
-	*/
-	bool GetKeyDown(int keyCode) { return input->KeyDown(keyCode); };
-
-	/**
-	* Calls input->KeyUp Method, returns value.
-	*/
-	bool GetKeyUp(int keyCode) { return input->KeyUp(keyCode); };
-	
-	/**
-	* Calls input->ButtonPressed Method, returns value.
-	*/
-	bool GetButtonPressed(int buttonCode) { return input->ButtonPressed(buttonCode); };
-
-	/**
-	* Calls input->ButtonDown Method, returns value.
-	*/
-	bool GetButtonDown(int buttonCode) { return input->ButtonDown(buttonCode); };
-
-	/**
-	* Calls input->ButtonUp Method, returns value.
-	*/
-	bool GetButtonUp(int buttonCode) { return input->ButtonUp(buttonCode); };
-
-	/**
-	* Calls input->AddAxis method
-	*/
-	void AddAxis(std::string name, int positive, int negative) { input->AddAxis(name, positive, negative); };
-
-	/**
-	* Calls input->GetAxis method, returns value
-	*/
-	float GetAxis(std::string name) { return input->GetAxis(name); };
-	
-	/**
 	* Sets the current active camera.
 	*/
 	void SetActiveCamera(Camera* camera) { this->activeCamera = camera; };
@@ -165,9 +121,4 @@ public:
 	* Returns true if a active camera is present, else returns false
 	*/
 	bool HasActiveCamera();
-
-	/**
-	* Returns the scene manager.
-	*/
-	SceneManager* GetSceneManager() { return sceneManager; };
 };

@@ -13,7 +13,6 @@
 #include "../math/vector2.h"
 
 //Forward declarations
-class Core;
 class Entity;
 
 class Component {
@@ -52,17 +51,17 @@ public:
 	/**
 	* Sets the parent Entity
 	*/
-	void Start(Core* core, Entity* parent);
+	void Start(Entity* parent);
 
 	/**
 	* Start gets called right as component is added to Entity.
 	*/
-	virtual void Start(Core* core) {};
+	virtual void Start() {};
 
 	/**
 	* Update gets called every frame by the Entity containing it.
 	*/
-	virtual void Update(Core* core) {};
+	virtual void Update() {};
 
 	/**
 	* Destructor

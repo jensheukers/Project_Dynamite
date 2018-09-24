@@ -11,12 +11,11 @@
 #include <iostream>
 #include "core.h"
 
-Editor::Editor(Core* core) {
-	this->core = core;
+Editor::Editor() {
 
 	camera = new Camera();
 	camera->SetPosition(Vector2(Game::GetWindowDimensions().GetX() / 2, Game::GetWindowDimensions().GetY() / 2));
-	core->SetActiveCamera(camera);
+	Core::Instance()->SetActiveCamera(camera);
 
 	//Setup Imgui Styling
 	ImGuiStyle& style = ImGui::GetStyle();
@@ -35,15 +34,14 @@ Editor::Editor(Core* core) {
 	style.Colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.8f, 0.0f, 0.0f, 1.00f);
 
 	//Setup camera controls
-	core->AddAxis("Horizontal", KeyCode::ArrowLeft, KeyCode::ArrowRight);
-	core->AddAxis("Vertical", KeyCode::ArrowUp, KeyCode::ArrowDown);
+	Input::Instance()->AddAxis("Horizontal", KeyCode::ArrowLeft, KeyCode::ArrowRight);
+	Input::Instance()->AddAxis("Vertical", KeyCode::ArrowUp, KeyCode::ArrowDown);
 }
 
 void Editor::Update() {
-	
 	//Camera controls
-	float x = core->GetAxis("Horizontal");
-	float y = core->GetAxis("Vertical");
+	float x = Input::Instance()->GetAxis("Horizontal");
+	float y = Input::Instance()->GetAxis("Vertical");
 
 	camera->SetPosition(Vector2(camera->GetXCoord() + x, camera->GetYCoord() + y));
 
@@ -74,9 +72,9 @@ void Editor::Update() {
 	}
 
 	static int listbox_item_current = 0;
-	if (core->GetSceneManager()->GetActiveScene() != nullptr) {
-		for (int i = 0; i < core->GetSceneManager()->GetActiveScene()->GetEntiesCount(); i++) {
-			listbox_items[i] = (char*)core->GetSceneManager()->GetActiveScene()->GetEntity(i)->GetTag();
+	if (SceneManager::Instance()->GetActiveScene() != nullptr) {
+		for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetEntiesCount(); i++) {
+			listbox_items[i] = (char*)SceneManager::Instance()->GetActiveScene()->GetEntity(i)->GetTag();
 		}
 	}
 	else {
@@ -88,10 +86,10 @@ void Editor::Update() {
 	ImGui::SetWindowPos(ImVec2(0, 50), true);
 	ImGui::End();
 
-	if (core->GetSceneManager()->GetActiveScene() != nullptr) {
-		if (listbox_item_current < core->GetSceneManager()->GetActiveScene()->GetEntiesCount()) {
-			if (listbox_items[listbox_item_current] == core->GetSceneManager()->GetActiveScene()->GetEntity(listbox_item_current)->GetTag()) {
-				this->SetSelectedEntity(core->GetSceneManager()->GetActiveScene()->GetEntity(listbox_item_current));
+	if (SceneManager::Instance()->GetActiveScene() != nullptr) {
+		if (listbox_item_current < SceneManager::Instance()->GetActiveScene()->GetEntiesCount()) {
+			if (listbox_items[listbox_item_current] == SceneManager::Instance()->GetActiveScene()->GetEntity(listbox_item_current)->GetTag()) {
+				this->SetSelectedEntity(SceneManager::Instance()->GetActiveScene()->GetEntity(listbox_item_current));
 				selectedEntityId = listbox_item_current;
 			}
 		}

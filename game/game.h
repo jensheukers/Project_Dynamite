@@ -14,18 +14,13 @@ class Core;
 
 class Game {
 protected:
-	Core* core;
+
 public:
 
 	/**
 	* Constructor
 	*/
-	Game() {};
-
-	/**
-	* Constructor
-	*/
-	Game(Core* core);
+	Game();
 
 	/**
 	* Returns the game title

@@ -25,7 +25,7 @@ public:
 	/**
 	* Constructor
 	*/
-	Editor(Core* core);
+	Editor();
 
 	/**
 	* Update every frame

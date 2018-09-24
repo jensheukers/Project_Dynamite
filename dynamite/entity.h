@@ -20,7 +20,6 @@ private:
 	std::vector<Component*> components;
 	std::string tag;
 	float rotation;
-	Core* core;
 public:
 	Vector2 position;
 
@@ -33,12 +32,6 @@ public:
 	* Constructor
 	*/
 	Entity(Vector2 position) { this->position = position; };
-
-
-	/**
-	* Sets the core property, used when entity gets added to the core engine
-	*/
-	void SetCore(Core* core);
 
 	/**
 	* Update gets called every frame
@@ -56,11 +49,6 @@ public:
 	template<typename T>
 	T* AddComponent() {
 		
-		if (this->core == nullptr) {
-			printf("DYNAMITE: ~Entity~ ERROR: Cannot add component, Entity has to be added to core first!\n");
-			return new T();
-		}
-
 		if (HasComponent<T>()) {
 			printf("DYNAMITE: ~Entity~ Warning: Component %s already exists on Entity!\n", typeid(T).name());
 		}
@@ -72,8 +60,8 @@ public:
 		}
 		else {
 			Component* convertedComponent = component;
-			convertedComponent->Start(core, this);
-			convertedComponent->Start(core);
+			convertedComponent->Start(this);
+			convertedComponent->Start();
 		}
 
 		components.push_back(component);

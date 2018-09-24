@@ -14,7 +14,6 @@ std::string Scene::GetName() {
 }
 
 void Scene::AddEntity(Entity* entity) {
-	entity->SetCore(manager->GetCore());
 	entities.push_back(entity);
 }
 
