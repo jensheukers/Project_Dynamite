@@ -34,3 +34,27 @@ void Sprite::GenerateTexture() {
 }
 
 GLint Sprite::GetTexture() { return this->texture; }
+
+void Sprite::EditorSettings() {
+	{
+		ImGui::Begin("Sprite");
+
+		ImGui::Text("Surface File (in resources folder)");
+
+		static char path[50];
+		ImGui::InputText("", path, IM_ARRAYSIZE(path));
+
+		ImGui::SameLine();
+
+		if (ImGui::Button("Set")) {
+			this->SetSurface(ResourceManager::Instance()->GetSurface(Core::Instance()->GetResourcePath(path)));
+		}
+
+		float position[] = { scale.GetX(), scale.GetY() };
+		ImGui::InputFloat2("Scale", position, 2, 0);
+
+		scale = Vector2(position[0], position[1]);
+
+		ImGui::End();
+	}
+}

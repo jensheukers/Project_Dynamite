@@ -11,6 +11,8 @@
 #pragma once
 #include "component.h"
 #include "../math/vector2.h"
+#include "../resourcemanager.h"
+#include "../core.h"
 #include "SDL.h"
 #include "SDL_opengl.h"
 
@@ -80,13 +82,5 @@ public:
 		SetScale(Vector2(GetScale().GetX() - 0.01f, GetScale().GetY() - 0.01f));
 	}
 
-	void EditorSettings() {
-		ImGui::Begin("Sprite");
-		float position[] = { scale.GetX(), scale.GetY() };
-		ImGui::InputFloat2("Scale", position, 2, 0);
-
-		scale = Vector2(position[0], position[1]);
-
-		ImGui::End();
-	}
+	void EditorSettings();
 };
