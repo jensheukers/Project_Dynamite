@@ -23,7 +23,7 @@ public:
 	/**
 	* Default Constructor
 	*/
-	Sprite() { this->typeName = typeid(*this).name(); this->scale = Vector2(1,1); };
+	Sprite() { this->typeName = typeid(*this).name(); this->scale = Vector2(1, 1); this->surface = nullptr; };
 
 	/**
 	* Returns the surface if found, returns nullptr if failed

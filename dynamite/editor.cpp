@@ -44,8 +44,17 @@ void Editor::Update() {
 
 	camera->SetPosition(Vector2(camera->GetXCoord() + x, camera->GetYCoord() + y));
 
+	std::string title = "Dynamite : ";
+
+	if (SceneManager::Instance()->GetActiveScene()) {
+		title.append(SceneManager::Instance()->GetActiveScene()->GetName());
+	}
+	else {
+		title.append("No Scene Loaded");
+	}
+
 	//ImGui Stuff
-	ImGui::Begin("Dynamite",nullptr, ImGuiWindowFlags_MenuBar);
+	ImGui::Begin(title.c_str(),nullptr, ImGuiWindowFlags_MenuBar);
 
 	if (ImGui::BeginMenuBar())
 	{

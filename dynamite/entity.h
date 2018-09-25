@@ -49,7 +49,7 @@ public:
 	*/
 	template<typename T>
 	void CopyExistingComponent(T* type) {
-		//TODO: IMPLEMENT.
+		components.push_back(type);
 	}
 
 	/**

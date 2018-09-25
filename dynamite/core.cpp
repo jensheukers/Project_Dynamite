@@ -83,6 +83,7 @@ Core::Core(char* arguments[]) {
 
 	//Adding core component types to known ComponentTypes
 	this->AddComponentType<Sprite>();
+	this->AddComponentType<Component>();
 
 	printf("DYNAMITE: ~Core~ Calling Game()\n");
 

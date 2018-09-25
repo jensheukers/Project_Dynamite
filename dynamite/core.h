@@ -45,6 +45,7 @@ private:
 
 	Camera* activeCamera;
 
+	//List of known component types, stored on the heap, component pointer data can be copied to create a new instance
 	std::map<std::string, Component*> componentTypes;
 public:
 
