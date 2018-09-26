@@ -83,4 +83,6 @@ public:
 	}
 
 	void EditorSettings();
+
+	Component* Copy() override;
 };

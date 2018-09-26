@@ -58,3 +58,8 @@ void Sprite::EditorSettings() {
 		ImGui::End();
 	}
 }
+
+Component* Sprite::Copy() {
+	Component* component = new Sprite();
+	return component;
+}

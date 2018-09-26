@@ -27,3 +27,8 @@ void Component::EditorSettings() {
 	ImGui::Text("Component has no editor settings!");
 	ImGui::End();
 }
+
+Component* Component::Copy() {
+	Component* component = new Component();
+	return component;
+}

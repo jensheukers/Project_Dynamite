@@ -64,6 +64,11 @@ public:
 	virtual void Update() {};
 
 	/**
+	* Creates a new instance and returns a pointer to it
+	*/
+	virtual Component* Copy();
+
+	/**
 	* Destructor
 	*/
 	virtual ~Component() {};

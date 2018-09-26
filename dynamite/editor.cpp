@@ -262,5 +262,5 @@ void Editor::AddComponent(std::string name) {
 		return;
 	}
 
-	selectedEntity->CopyExistingComponent<>(component);
+	selectedEntity->CopyExistingComponent(component);
 }

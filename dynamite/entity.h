@@ -47,9 +47,10 @@ public:
 	/**
 	* Copy the data from already existing component data on the heap, and add the component to components list.
 	*/
-	template<typename T>
-	void CopyExistingComponent(T* type) {
-		components.push_back(type);
+	void CopyExistingComponent(Component* type) {
+		Component* copiedComponent = type->Copy();
+		printf("DYNAMITE: ~Entity~ Added %s to %s through CopyExistingComponent(Component* type)\n",copiedComponent->GetTypeName(),tag);
+		components.push_back(copiedComponent);
 	}
 
 	/**
