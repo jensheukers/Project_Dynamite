@@ -8,6 +8,7 @@
 
 #include "editor.h"
 #include <iostream>
+#include <string>
 #include "core.h"
 
 Editor::Editor() {
@@ -44,10 +45,14 @@ void Editor::Update() {
 
 	camera->SetPosition(Vector2(camera->GetXCoord() + x, camera->GetYCoord() + y));
 
-	std::string title = "Dynamite : ";
+	std::string title = "Dynamite | ";
 
 	if (SceneManager::Instance()->GetActiveScene()) {
 		title.append(SceneManager::Instance()->GetActiveScene()->GetName());
+		title.append(" | ");
+		title.append(std::to_string(SceneManager::Instance()->GetActiveScene()->GetEntiesCount()));
+		title.append(" ");
+		title.append("Entities on heap");
 	}
 	else {
 		title.append("No Scene Loaded");
@@ -68,6 +73,7 @@ void Editor::Update() {
 		if (ImGui::BeginMenu("Entity"))
 		{
 			if (ImGui::MenuItem("New Entity", "")) { CreateEntity(); }
+			if (ImGui::MenuItem("Remove Selected", "")) { RemoveEntitySelected(); }
 			if (ImGui::MenuItem("Add Component", "")) { addNewComponent = true; }
 			ImGui::EndMenu();
 		}
@@ -252,6 +258,14 @@ void Editor::CreateEntity() {
 	}
 
 	SceneManager::Instance()->GetActiveScene()->AddEntity(new Entity());
+}
+
+void Editor::RemoveEntitySelected() {
+	for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetEntiesCount(); i++) {
+		if (SceneManager::Instance()->GetActiveScene()->GetEntity(i) == selectedEntity) {
+			SceneManager::Instance()->GetActiveScene()->RemoveEntity(i);
+		}
+	}
 }
 
 void Editor::AddComponent(std::string name) {

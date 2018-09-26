@@ -44,6 +44,11 @@ public:
 	void CreateEntity();
 
 	/**
+	* Deletes the selected entity from current scene.
+	*/
+	void RemoveEntitySelected();
+
+	/**
 	* Searches for component in core, then adds copy to the entity if found
 	*/
 	void AddComponent(std::string name);

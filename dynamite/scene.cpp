@@ -18,6 +18,7 @@ void Scene::AddEntity(Entity* entity) {
 }
 
 void Scene::RemoveEntity(int index) {
+	delete entities[index];
 	entities.erase(entities.begin() + index);
 }
 
