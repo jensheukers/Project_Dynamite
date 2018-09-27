@@ -67,7 +67,13 @@ void SceneManager::SetActiveScene(std::string name) {
 }
 
 void SceneManager::SaveScene() {
-	std::ofstream file(SceneManager::Instance()->GetActiveScene()->GetName());
+	std::string path = Core::Instance()->GetResourceDirectory();
+	path.append(SceneManager::Instance()->GetActiveScene()->GetName());
+	path.append(".dynscene");
+	std::ofstream file(path);
+
+	file << activeScene->GetName().c_str() << "\n";
+
 	for (int i = 0; i < activeScene->GetEntiesCount(); i++) {
 		file << activeScene->GetEntity(i)->GetTag() << "|";
 		file << activeScene->GetEntity(i)->position.GetX() << "|";
