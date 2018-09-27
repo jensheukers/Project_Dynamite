@@ -10,6 +10,7 @@
 
 #pragma once
 #include "component\component.h"
+#include "../game/game.h"
 #include <iostream>
 #include <vector>
 
@@ -51,6 +52,11 @@ public:
 		Component* copiedComponent = type->Copy();
 		printf("DYNAMITE: ~Entity~ Added %s to %s through CopyExistingComponent(Component* type)\n",copiedComponent->GetTypeName(),tag);
 		components.push_back(copiedComponent);
+
+		if (!Game::LaunchEditorMode()) {
+			copiedComponent->Start(this);
+			copiedComponent->Start();
+		}
 	}
 
 	/**
@@ -70,8 +76,10 @@ public:
 		}
 		else {
 			Component* convertedComponent = component;
-			convertedComponent->Start(this);
-			convertedComponent->Start();
+			if (!Game::LaunchEditorMode()) {
+				convertedComponent->Start(this);
+				convertedComponent->Start();
+			}
 		}
 
 		components.push_back(component);

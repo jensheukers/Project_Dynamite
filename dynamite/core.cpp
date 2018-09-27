@@ -117,7 +117,7 @@ Core::Core(char* arguments[]) {
 
 		//Update the components of entities 
 
-		if (SceneManager::Instance()->GetActiveScene() != nullptr) {
+		if (SceneManager::Instance()->GetActiveScene() != nullptr && !Game::LaunchEditorMode()) {
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetEnties().size(); i++) {
 				SceneManager::Instance()->GetActiveScene()->GetEntity(i)->UpdateComponents();
 			}
