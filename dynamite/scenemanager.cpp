@@ -8,6 +8,8 @@
 
 #include "scenemanager.h"
 #include "core.h"
+#include <iostream>
+#include <fstream>
 
 SceneManager* SceneManager::_instance;
 
@@ -45,12 +47,11 @@ Scene* SceneManager::GetLoadedScene(int index) {
 	return loadedScenes[index];
 }
 
-Scene* SceneManager::UnLoadScene(std::string name) {
+void* SceneManager::UnLoadScene(std::string name) {
 	for (int i = 0; i < loadedScenes.size(); i++) {
 		if (loadedScenes[i]->GetName() == name) {
-			Scene* scene = loadedScenes[i];
+			delete loadedScenes[i];
 			loadedScenes.erase(loadedScenes.begin() + i);
-			return scene;
 		}
 	}
 	return nullptr;
@@ -65,12 +66,22 @@ void SceneManager::SetActiveScene(std::string name) {
 	}
 }
 
-void SceneManager::SaveScene(std::string destination) {
+void SceneManager::SaveScene() {
+	std::ofstream file(SceneManager::Instance()->GetActiveScene()->GetName());
 	for (int i = 0; i < activeScene->GetEntiesCount(); i++) {
-		std::string entityData;
+		file << activeScene->GetEntity(i)->GetTag() << "|";
+		file << activeScene->GetEntity(i)->position.GetX() << "|";
+		file << activeScene->GetEntity(i)->position.GetY() << "|";
+		file << activeScene->GetEntity(i)->GetRotation() << "|";
 		for (int ii = 0; ii < activeScene->GetEntity(i)->GetComponentsSize(); ii++) {
 			std::vector<std::string*> componentData = activeScene->GetEntity(i)->GetComponentById(ii)->OnSave();
+			file << activeScene->GetEntity(i)->GetComponentById(ii)->GetTypeName() << "&";
+			for (int iii = 0; iii < componentData.size(); iii++) {
+				file << componentData[iii] << "&";
+			}
+			file << "|";
 		}
+		file << "\n";
 	}
 }
 

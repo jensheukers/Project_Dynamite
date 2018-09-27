@@ -68,6 +68,9 @@ void Editor::Update() {
 			if (ImGui::MenuItem("New", "")) { 
 				newScene = true;
 			}
+			if (ImGui::MenuItem("Save", "")) {
+				SaveScene();
+			}
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Entity"))
@@ -250,6 +253,11 @@ void Editor::NewScene(std::string name) {
 	SceneManager::Instance()->CreateScene(name);
 	SceneManager::Instance()->SetActiveScene(name);
 }
+
+void Editor::SaveScene() {
+	SceneManager::Instance()->SaveScene();
+}
+
 
 void Editor::CreateEntity() {
 	if (SceneManager::Instance()->GetActiveScene() == nullptr) {

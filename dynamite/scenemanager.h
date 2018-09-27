@@ -51,11 +51,9 @@ public:
 	Scene* GetLoadedScene(int index);
 
 	/**
-	* Unloads the scene given by name string, please note that scene does not get "DELETED". 
-	* It just gets removed from the loadedScenes array. If you wish to delete the scene, 
-	* you will have to manually remove the return value.
+	* Unloads the scene given by name string, and delete it.
 	*/
-	Scene* UnLoadScene(std::string name);
+	void* UnLoadScene(std::string name);
 
 	/**
 	* Sets the currently active scene to scene found in loaded scenes by name.
@@ -63,9 +61,9 @@ public:
 	void SetActiveScene(std::string name);
 
 	/**
-	* Saves the currently active scene to destination.
+	* Saves the currently active scene to filename in resources.
 	*/
-	void SaveScene(std::string destination);
+	void SaveScene();
 
 	/**
 	* Destructor.

@@ -39,6 +39,11 @@ public:
 	void NewScene(std::string name);
 
 	/**
+	* Saves the current scene to filename in resources.
+	*/
+	void SaveScene();
+
+	/**
 	* Creates a new entity on the heap, and adds to the Scene.
 	*/
 	void CreateEntity();
