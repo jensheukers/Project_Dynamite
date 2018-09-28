@@ -34,13 +34,13 @@ public:
 	* OnLoad will be called when a Scene is beign loaded, a data array is given containing all contents that can be set
 	* for said component.
 	*/
-	virtual void OnLoad(std::vector<std::string*> data);
+	virtual void OnLoad(const char* data);
 
 	/**
 	* OnSave is beign called when a Scene is to be saved, you have to return a string with the data to be saved
 	* for said component.
 	*/
-	virtual std::vector<std::string*> OnSave();
+	virtual const char* OnSave();
 
 	/**
 	* Settings that are displayed in the editor.

@@ -2,7 +2,6 @@
 *	Filename: sprite.cpp
 *
 *	Description: Main Source for Sprite Component.
-*	Version: 0.3
 *
 *	© 2018, Jens Heukers
 */
@@ -17,8 +16,14 @@ SDL_Surface* Sprite::GetSurface() {
 	return this->surface;
 }
 
-void Sprite::SetSurface(SDL_Surface* surface) {
-	this->surface = surface;
+void Sprite::SetSurface(const char* path) {
+	this->surface = ResourceManager::Instance()->GetSurface(path);
+
+	this->surfacePath = path;
+}
+
+const char* Sprite::GetSurfacePath() {
+	return this->surfacePath;
 }
 
 void Sprite::GenerateTexture() {
@@ -47,7 +52,7 @@ void Sprite::EditorSettings() {
 		ImGui::SameLine();
 
 		if (ImGui::Button("Set")) {
-			this->SetSurface(ResourceManager::Instance()->GetSurface(Core::Instance()->GetResourcePath(path)));
+			this->SetSurface(Core::Instance()->GetResourcePath(path).c_str());
 		}
 
 		float position[] = { scale.GetX(), scale.GetY() };
@@ -62,4 +67,15 @@ void Sprite::EditorSettings() {
 Component* Sprite::Copy() {
 	Component* component = new Sprite();
 	return component;
+}
+
+
+const char* Sprite::OnSave() {
+	std::string tempString;
+	tempString.append(this->GetSurfacePath());
+	return tempString.c_str();
+}
+
+void Sprite::OnLoad(const char* data) {
+	
 }

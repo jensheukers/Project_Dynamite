@@ -12,14 +12,12 @@ Component::Component() { this->typeName = typeid(*this).name(); };
 void Component::Start(Entity* parent) { this->parent = parent; };
 
 
-void Component::OnLoad(std::vector<std::string*> data) {
+void Component::OnLoad(const char* data) {
 	return;
 }
 
-std::vector<std::string*> Component::OnSave() {
-	std::vector<std::string*> data;
-
-	return data;
+const char* Component::OnSave() {
+	return "";
 }
 
 void Component::EditorSettings() {

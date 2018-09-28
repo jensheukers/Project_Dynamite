@@ -80,15 +80,14 @@ void SceneManager::SaveScene() {
 		file << activeScene->GetEntity(i)->position.GetY() << "|";
 		file << activeScene->GetEntity(i)->GetRotation() << "|";
 		for (int ii = 0; ii < activeScene->GetEntity(i)->GetComponentsSize(); ii++) {
-			std::vector<std::string*> componentData = activeScene->GetEntity(i)->GetComponentById(ii)->OnSave();
-			file << activeScene->GetEntity(i)->GetComponentById(ii)->GetTypeName() << "&";
-			for (int iii = 0; iii < componentData.size(); iii++) {
-				file << componentData[iii] << "&";
-			}
+			file << activeScene->GetEntity(i)->GetComponentById(ii)->GetTypeName() << "&"; //Split components using & character
+			file << activeScene->GetEntity(i)->GetComponentById(ii)->OnSave() << "&";
 			file << "|";
 		}
 		file << "\n";
 	}
+
+	printf("DYNAMITE: ~SceneManager~ Scene saved to: %s", path.c_str());
 }
 
 SceneManager::~SceneManager() {
