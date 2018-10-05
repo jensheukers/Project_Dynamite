@@ -12,10 +12,6 @@
 #include <iostream>
 #include <vector>
 
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_sdl.h"
-#include "imgui/imgui_impl_opengl3.h"
-
 #include "../game/game.h"
 #include "event/input.h"
 #include "renderer.h"

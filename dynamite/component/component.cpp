@@ -20,12 +20,6 @@ const char* Component::OnSave() {
 	return "";
 }
 
-void Component::EditorSettings() {
-	ImGui::Begin("");
-	ImGui::Text("Component has no editor settings!");
-	ImGui::End();
-}
-
 Component* Component::Copy() {
 	Component* component = new Component();
 	return component;

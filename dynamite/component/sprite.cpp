@@ -40,29 +40,6 @@ void Sprite::GenerateTexture() {
 
 GLint Sprite::GetTexture() { return this->texture; }
 
-void Sprite::EditorSettings() {
-	{
-		ImGui::Begin("Sprite");
-
-		ImGui::Text("Surface File (in resources folder)");
-
-		static char path[50];
-		ImGui::InputText("", path, IM_ARRAYSIZE(path));
-
-		ImGui::SameLine();
-
-		if (ImGui::Button("Set")) {
-			this->SetSurface(Core::Instance()->GetResourcePath(path).c_str());
-		}
-
-		float position[] = { scale.GetX(), scale.GetY() };
-		ImGui::InputFloat2("Scale", position, 2, 0);
-
-		scale = Vector2(position[0], position[1]);
-
-		ImGui::End();
-	}
-}
 
 Component* Sprite::Copy() {
 	Component* component = new Sprite();

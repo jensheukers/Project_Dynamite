@@ -9,7 +9,6 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "../imgui/imgui.h"
 #include "../math/vector2.h"
 
 //Forward declarations
@@ -41,11 +40,6 @@ public:
 	* for said component.
 	*/
 	virtual const char* OnSave();
-
-	/**
-	* Settings that are displayed in the editor.
-	*/
-	virtual void EditorSettings();
 
 
 	/**

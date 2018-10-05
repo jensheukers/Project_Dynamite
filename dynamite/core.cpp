@@ -67,18 +67,6 @@ Core::Core(char* arguments[]) {
 		printf("DYNAMITE: ~Core~ Glew could not be initialized. GLEW_ERROR: %s\n", glewGetErrorString(err));
 	}
 
-	// Setup Dear ImGui binding
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
-
-	ImGui_ImplSDL2_InitForOpenGL(window, context);
-	ImGui_ImplOpenGL3_Init(glsl_version);
-
-	//Imgui Style
-	ImGui::StyleColorsDark();
-
 	printf("DYNAMITE: ~Core~ Calling Game()\n");
 
 	game = new Game();
@@ -99,11 +87,6 @@ Core::Core(char* arguments[]) {
 		//Handle Events
 		HandleEvents();
 
-
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplSDL2_NewFrame(window);
-		ImGui::NewFrame();
-
 		//Update the components of entities 
 		if (SceneManager::Instance()->GetActiveScene() != nullptr) {
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetEnties().size(); i++) {
@@ -113,21 +96,6 @@ Core::Core(char* arguments[]) {
 
 		//Update the game
 		game->Update();
-
-
-		if (commandPromptActive) {
-			char input[50];
-
-			ImGui::Begin("Command Prompt");
-			ImGui::InputText("Input", input, sizeof(input));
-
-			if (ImGui::Button("Run"))
-			{
-				printf("DYNAMITE: ~Core~ Console commands are still W.I.P\n");
-			}
-
-			ImGui::End();
-		}
 
 		if (Input::Instance()->KeyPressed(KeyCode::Grave)) {
 			if (!commandPromptActive) {
@@ -141,8 +109,6 @@ Core::Core(char* arguments[]) {
 		//Handle rendering to screen
 		Renderer::Instance()->Clear();
 
-		ImGui::Render();
-
 		if (SceneManager::Instance()->GetActiveScene() != nullptr) {
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetEnties().size(); i++) {
 				if (SceneManager::Instance()->GetActiveScene()->GetEnties()[i]->HasComponent<Sprite>() && HasActiveCamera()) {
@@ -150,8 +116,6 @@ Core::Core(char* arguments[]) {
 				}
 			}
 		}
-
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		Renderer::Instance()->Draw(window);
 	}
 }
@@ -169,7 +133,6 @@ void Core::HandleEvents() {
 	Input::Instance()->Handle();
 	SDL_Event sdlEvent;
 	while (SDL_PollEvent(&sdlEvent)) { //Handle events
-		ImGui_ImplSDL2_ProcessEvent(&sdlEvent);
 		switch (sdlEvent.type) {
 			case SDL_QUIT:
 				running = false;

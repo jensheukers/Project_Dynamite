@@ -8,8 +8,6 @@
 
 #include "../dynamite/core.h"
 #include "game.h"
-#include "../dynamite/imgui/imgui.h"
-
 
 Game::Game() {
 
