@@ -37,13 +37,6 @@ public:
 	}
 
 	/**
-	* If true editor will be launched instead of game, else  false.
-	*/
-	static bool LaunchEditorMode() {
-		return true;
-	}
-
-	/**
 	* Update method gets called each frame.
 	*/
 	virtual void Update();

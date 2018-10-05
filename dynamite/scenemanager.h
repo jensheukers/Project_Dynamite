@@ -61,11 +61,6 @@ public:
 	void SetActiveScene(std::string name);
 
 	/**
-	* Saves the currently active scene to filename in resources.
-	*/
-	void SaveScene();
-
-	/**
 	* Destructor.
 	*/
 	~SceneManager();

@@ -19,7 +19,7 @@ class Core;
 class Entity {
 private:
 	std::vector<Component*> components;
-	std::string tag;
+	std::string name;
 	float rotation;
 public:
 	Vector2 position;
@@ -27,7 +27,7 @@ public:
 	/**
 	* Constructor
 	*/
-	Entity() { this->position = Vector2(0, 0); this->tag = "Entity"; this->rotation = 0; };
+	Entity() { this->position = Vector2(0, 0); this->name = "Entity"; this->rotation = 0; };
 
 	/**
 	* Constructor
@@ -43,21 +43,6 @@ public:
 	* Calls the update function on all components
 	*/
 	void UpdateComponents();
-
-
-	/**
-	* Copy the data from already existing component data on the heap, and add the component to components list.
-	*/
-	void CopyExistingComponent(Component* type) {
-		Component* copiedComponent = type->Copy();
-		printf("DYNAMITE: ~Entity~ Added %s to %s through CopyExistingComponent(Component* type)\n",copiedComponent->GetTypeName(),tag);
-		components.push_back(copiedComponent);
-
-		if (!Game::LaunchEditorMode()) {
-			copiedComponent->Start(this);
-			copiedComponent->Start();
-		}
-	}
 
 	/**
 	* Adds a component to the components Array.
@@ -145,12 +130,12 @@ public:
 	/**
 	* Returns the tag of the entity
 	*/
-	const char* GetTag();
+	const char* GetName();
 
 	/**
 	* Sets the tag of the entity
 	*/
-	void SetTag(std::string tag);
+	void SetName(std::string tag);
 
 	/**
 	* Set the rotation

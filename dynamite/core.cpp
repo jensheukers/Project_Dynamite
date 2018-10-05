@@ -79,20 +79,9 @@ Core::Core(char* arguments[]) {
 	//Imgui Style
 	ImGui::StyleColorsDark();
 
-
-
-	//Adding core component types to known ComponentTypes
-	this->AddComponentType<Sprite>();
-	this->AddComponentType<Component>();
-
 	printf("DYNAMITE: ~Core~ Calling Game()\n");
 
-	if (!Game::LaunchEditorMode()) {
-		game = new Game();
-	}
-	else {
-		game = new Editor();
-	}
+	game = new Game();
 
 	running = true;
 	commandPromptActive = false;
@@ -116,8 +105,7 @@ Core::Core(char* arguments[]) {
 		ImGui::NewFrame();
 
 		//Update the components of entities 
-
-		if (SceneManager::Instance()->GetActiveScene() != nullptr && !Game::LaunchEditorMode()) {
+		if (SceneManager::Instance()->GetActiveScene() != nullptr) {
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetEnties().size(); i++) {
 				SceneManager::Instance()->GetActiveScene()->GetEntity(i)->UpdateComponents();
 			}

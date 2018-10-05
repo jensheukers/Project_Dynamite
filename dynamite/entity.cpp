@@ -30,8 +30,8 @@ const char* Entity::GetComponentType(unsigned id) {
 	return nullptr;
 }
 
-const char* Entity::GetTag() { return tag.c_str(); };
-void Entity::SetTag(std::string tag) { this->tag = tag; };
+const char* Entity::GetName() { return name.c_str(); };
+void Entity::SetName(std::string name) { name = name; };
 
 void Entity::SetRotation(float rotation) {
 	if (rotation > 360) {
