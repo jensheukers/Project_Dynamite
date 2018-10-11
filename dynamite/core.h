@@ -25,6 +25,8 @@
 
 class Core {
 private:
+	typedef std::chrono::high_resolution_clock Time;
+
 	static Core* _instance;
 
 	std::string mainDirPath;
@@ -50,8 +52,9 @@ private:
 	/** The amount of frames calculated in the last second*/
 	unsigned framesPerSecond;
 
+	/** The time (in milliseconds) between each console status update*/
+	static const unsigned STATUS_UPDATE_INTERVAL_TIME = 2500;
 public:
-	typedef std::chrono::high_resolution_clock Time;
 
 	/**
 	* Returns the instance if found.
@@ -100,9 +103,27 @@ public:
 	void RemoveActiveCamera() { this->activeCamera = nullptr; };
 
 	/**
+	* Prints a status update every x seconds to console
+	*/
+	void StatusUpdate();
+
+	/**
+	* Logs a message to the console...
+	*/
+	static void Log(std::string string);
+
+	/**
 	* Returns true if a active camera is present, else returns false
 	*/
 	bool HasActiveCamera();
 
+	/**
+	* Returns the current frames per second
+	*/
 	unsigned GetFPS() { return this->framesPerSecond; };
+
+	/**
+	* Returns the time elapsed since program start
+	*/
+	unsigned GetTimeElapsed() { return this->timeElapsed; };
 };
