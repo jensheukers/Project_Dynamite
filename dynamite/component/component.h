@@ -9,7 +9,6 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "../math/vector2.h"
 
 //Forward declarations
 class Entity;
@@ -54,6 +53,11 @@ public:
 	* Creates a new instance and returns a pointer to it
 	*/
 	virtual Component* Copy();
+
+	/**
+	* Return the parent Enitity
+	*/
+	Entity* GetEntity() { return this->parent; };
 
 	/**
 	* Destructor

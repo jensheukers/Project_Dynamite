@@ -12,6 +12,7 @@ file(GLOB GAME "game/*.cpp" "game/*.h")
 file(GLOB COMPONENT "dynamite/component/*.h" "dynamite/component/*.cpp")
 file(GLOB EVENT "dynamite/event/*.h" "dynamite/event/*.cpp")
 file(GLOB MATH "dynamite/math/*.h" "dynamite/math/*.cpp")
+file(GLOB PHYSICS "dynamite/physics/*.h" "dynamite/physics/*.cpp")
 
 # Includes
 set(SDL2_DIR "external/SDL2")
@@ -22,7 +23,7 @@ link_directories(${SDL2_DIR}/lib/x64 ${GLEW_DIR}/lib/x64 ${SDL2_DIR}/lib/x86 ${G
 
 # Add Executable
 
-add_executable(Project_Dynamite ${MAIN} ${GAME} ${COMPONENT} ${EVENT} ${MATH})
+add_executable(Project_Dynamite ${MAIN} ${GAME} ${COMPONENT} ${EVENT} ${MATH} ${PHYSICS})
 
 set(CMAKE_CXX_FLAGS_RELEASE "/MD")
 set(CMAKE_CXX_FLAGS_DEBUG "/MD")
@@ -55,6 +56,7 @@ source_group("game" FILES ${GAME})
 source_group("component" FILES ${COMPONENT})
 source_group("event" FILES ${EVENT})
 source_group("math" FILES ${MATH})
+source_group("physics" FILES ${PHYSICS})
 
 
 
