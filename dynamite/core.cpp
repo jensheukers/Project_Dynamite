@@ -2,14 +2,12 @@
 *	Filename: core.cpp
 *
 *	Description: Source file for core.h 
-*	Version: 0.1
 *
 *	© 2018, Jens Heukers
 */
 
 
 #include "core.h"
-#include <chrono>
 
 int main(int argc, char* argv[]) {
 	new Core(argv);
@@ -28,7 +26,14 @@ Core* Core::Instance() {
 }
 
 Core::Core(char* arguments[]) {
+
+	if (_instance) {
+		return;
+	}
 	_instance = this;
+
+	//Set timeStart value to current time in milliseconds
+	timeStart = std::chrono::time_point_cast<std::chrono::milliseconds>(Time::now()).time_since_epoch().count();
 
 	std::string mainDirPathFull = arguments[0];
 
@@ -72,17 +77,27 @@ Core::Core(char* arguments[]) {
 	game = new Game();
 
 	running = true;
-	commandPromptActive = false;
 
 	printf("DYNAMITE: ~Core~ Game Started! \n");
 
+	//Amount of frames rendered in the last second.
+	unsigned frames;
 
-	if (!HasActiveCamera()) {
-		printf("DYNAMITE: ~Core~ No active camera found, please create a camera and set it as active\n");
-	}
+	unsigned lastFrameCheckTime = 0;
 
 	//Game loop
 	while (IsRunning()) {
+
+		//Handle Time
+		timeCurrent = std::chrono::time_point_cast<std::chrono::milliseconds>(Time::now()).time_since_epoch().count();
+		timeElapsed = timeCurrent - timeStart;
+		frames++;
+
+		if (timeCurrent - lastFrameCheckTime > 1000) {
+			lastFrameCheckTime = timeCurrent;
+			framesPerSecond = frames;
+			frames = 0;
+		}
 
 		//Handle Events
 		HandleEvents();
@@ -96,15 +111,6 @@ Core::Core(char* arguments[]) {
 
 		//Update the game
 		game->Update();
-
-		if (Input::Instance()->KeyPressed(KeyCode::Grave)) {
-			if (!commandPromptActive) {
-				commandPromptActive = true;
-			}
-			else {
-				commandPromptActive = false;
-			}
-		}
 
 		//Handle rendering to screen
 		Renderer::Instance()->Clear();
@@ -156,7 +162,6 @@ void Core::HandleEvents() {
 		}
 	}
 }
-
 bool Core::HasActiveCamera() {
 	if (this->activeCamera != nullptr) {
 		return true;

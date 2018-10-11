@@ -10,6 +10,7 @@
 #include "SDL.h"
 #include <GL/glew.h> 
 #include <iostream>
+#include <chrono>
 #include <vector>
 
 #include "../game/game.h"
@@ -34,12 +35,23 @@ private:
 	SDL_Surface* screenSurface;
 
 	bool running;
-	bool commandPromptActive;
-
-	bool LastFrameTime;
 
 	Camera* activeCamera;
+
+	/** Start time in milliseconds */
+	unsigned timeStart;
+
+	/** Current time in milliseconds */
+	unsigned timeCurrent;
+
+	/** Time elapsed in milliseconds */
+	unsigned timeElapsed;
+
+	/** The amount of frames calculated in the last second*/
+	unsigned framesPerSecond;
+
 public:
+	typedef std::chrono::high_resolution_clock Time;
 
 	/**
 	* Returns the instance if found.
@@ -91,4 +103,6 @@ public:
 	* Returns true if a active camera is present, else returns false
 	*/
 	bool HasActiveCamera();
+
+	unsigned GetFPS() { return this->framesPerSecond; };
 };
