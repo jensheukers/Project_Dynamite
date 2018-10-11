@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "entity.h"
+#include "camera.h"
 
 class SceneManager;
 
@@ -10,6 +11,7 @@ private:
 	std::string name;
 	std::vector<Entity*> entities;
 	SceneManager* manager;
+	Camera* activeCamera;
 public:
 	Scene(SceneManager* manager);
 	~Scene();
@@ -40,4 +42,24 @@ public:
 	* Returns the entities list
 	**/
 	std::vector<Entity*> GetEnties() { return this->entities; };
+
+	/**
+	* Sets the current active camera.
+	*/
+	void SetActiveCamera(Camera* camera) { this->activeCamera = camera; };
+
+	/**
+	* Returns the active camera.
+	*/
+	Camera* GetActiveCamera() { return this->activeCamera; };
+
+	/**
+	* Removes the active camera.
+	*/
+	void RemoveActiveCamera() { this->activeCamera = nullptr; };
+
+	/**
+	* Returns true if a active camera is present, else returns false
+	*/
+	bool HasActiveCamera();
 };

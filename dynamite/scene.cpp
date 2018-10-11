@@ -26,6 +26,13 @@ Entity* Scene::GetEntity(int index) {
 	return entities[index];
 }
 
+bool Scene::HasActiveCamera() {
+	if (this->activeCamera != nullptr) {
+		return true;
+	}
+	return false;
+}
+
 Scene::~Scene() {
 
 }

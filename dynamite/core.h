@@ -38,8 +38,6 @@ private:
 
 	bool running;
 
-	Camera* activeCamera;
-
 	/** Start time in milliseconds */
 	unsigned timeStart;
 
@@ -88,21 +86,6 @@ public:
 	bool IsRunning() { return this->running; };
 
 	/**
-	* Sets the current active camera.
-	*/
-	void SetActiveCamera(Camera* camera) { this->activeCamera = camera; };
-
-	/**
-	* Returns the active camera.
-	*/
-	Camera* GetActiveCamera() { return this->activeCamera; };
-
-	/**
-	* Removes the active camera.
-	*/
-	void RemoveActiveCamera() { this->activeCamera = nullptr; };
-
-	/**
 	* Prints a status update every x seconds to console
 	*/
 	void StatusUpdate();
@@ -111,11 +94,6 @@ public:
 	* Logs a message to the console...
 	*/
 	static void Log(std::string string);
-
-	/**
-	* Returns true if a active camera is present, else returns false
-	*/
-	bool HasActiveCamera();
 
 	/**
 	* Returns the current frames per second

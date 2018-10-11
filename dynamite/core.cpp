@@ -45,8 +45,6 @@ Core::Core(char* arguments[]) {
 
 	std::cout << "DYNAMITE: ~Core~ Executable path: " << mainDirPath.c_str() << std::endl;
 	
-	activeCamera = nullptr;
-
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		std::cout << "DYNAMITE: ~Core~ SDL Could not initialize. SDL_ERROR:" << SDL_GetError() << std::endl;
 		return;
@@ -128,8 +126,8 @@ Core::Core(char* arguments[]) {
 
 		if (SceneManager::Instance()->GetActiveScene() != nullptr) {
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetEnties().size(); i++) {
-				if (SceneManager::Instance()->GetActiveScene()->GetEnties()[i]->HasComponent<Sprite>() && HasActiveCamera()) {
-					Renderer::Instance()->RenderEntity(SceneManager::Instance()->GetActiveScene()->GetEnties()[i], activeCamera);
+				if (SceneManager::Instance()->GetActiveScene()->GetEnties()[i]->HasComponent<Sprite>() && SceneManager::Instance()->GetActiveScene()->HasActiveCamera()) {
+					Renderer::Instance()->RenderEntity(SceneManager::Instance()->GetActiveScene()->GetEnties()[i], SceneManager::Instance()->GetActiveScene()->GetActiveCamera());
 				}
 			}
 		}
@@ -183,7 +181,7 @@ void Core::StatusUpdate() {
 		logString.append("No active scene....");
 	}
 	else {
-		if (!activeCamera) {
+		if (!SceneManager::Instance()->GetActiveScene()->GetActiveCamera()) {
 			logString.append(" | ");
 			logString.append("No active camera....");
 		}
@@ -195,11 +193,4 @@ void Core::Log(std::string string) {
 	std::cout << "DYNAMITE: ";
 	std::cout << Core::Instance()->GetTimeElapsed() << " : ";
 	std::cout << string.c_str() << std::endl;
-}
-
-bool Core::HasActiveCamera() {
-	if (this->activeCamera != nullptr) {
-		return true;
-	}
-	return false;
 }
