@@ -36,13 +36,6 @@ public:
 	virtual void OnLoad(const char* data);
 
 	/**
-	* OnSave is beign called when a Scene is to be saved, you have to return a string with the data to be saved
-	* for said component.
-	*/
-	virtual const char* OnSave();
-
-
-	/**
 	* Sets the parent Entity
 	*/
 	void Start(Entity* parent);

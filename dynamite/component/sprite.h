@@ -84,10 +84,7 @@ public:
 		SetScale(Vector2(GetScale().GetX() - 0.01f, GetScale().GetY() - 0.01f));
 	}
 
-	//override methods
-	void EditorSettings();
 	Component* Copy();
-	const char* OnSave();
 	void OnLoad(const char* data);
 
 };

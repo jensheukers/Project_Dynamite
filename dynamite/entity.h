@@ -61,10 +61,8 @@ public:
 		}
 		else {
 			Component* convertedComponent = component;
-			if (!Game::LaunchEditorMode()) {
-				convertedComponent->Start(this);
-				convertedComponent->Start();
-			}
+			convertedComponent->Start(this);
+			convertedComponent->Start();
 		}
 
 		components.push_back(component);

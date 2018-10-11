@@ -35,6 +35,8 @@ Core::Core(char* arguments[]) {
 
 	//Set timeStart value to current time in milliseconds
 	timeStart = std::chrono::time_point_cast<std::chrono::milliseconds>(Time::now()).time_since_epoch().count();
+	timeCurrent = timeStart;
+	timeElapsed = timeStart - timeCurrent; // 0
 
 	std::string mainDirPathFull = arguments[0];
 

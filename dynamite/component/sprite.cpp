@@ -47,12 +47,6 @@ Component* Sprite::Copy() {
 }
 
 
-const char* Sprite::OnSave() {
-	std::string tempString;
-	tempString.append(this->GetSurfacePath());
-	return tempString.c_str();
-}
-
 void Sprite::OnLoad(const char* data) {
 	
 }

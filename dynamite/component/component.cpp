@@ -16,10 +16,6 @@ void Component::OnLoad(const char* data) {
 	return;
 }
 
-const char* Component::OnSave() {
-	return "";
-}
-
 Component* Component::Copy() {
 	Component* component = new Component();
 	return component;
