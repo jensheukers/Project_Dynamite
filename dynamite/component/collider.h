@@ -18,7 +18,7 @@ public:
 	/**
 	* Constructor
 	*/
-	Collider(Vector2 bounds);
+	Collider();
 
 	/**
 	* Returns the bounds Vector2
@@ -28,5 +28,5 @@ public:
 	/**
 	* Sets the bounds to vector2 given as parameter
 	*/
-	Vector2 SetBounds(Vector2 bounds) { this->bounds = bounds; }
+	void SetBounds(Vector2 bounds) { this->bounds = bounds; }
 };

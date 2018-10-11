@@ -76,12 +76,12 @@ public:
 	/**
 	* Returns true if vector matches given vector
 	*/
-	bool Equals(Vector2* other);
+	bool Equals(Vector2 other);
 
 	/**
 	* Returns the distance to other vector
 	*/
-	float Distance(Vector2* other);
+	float Distance(Vector2 other);
 
 	/*
 	* Returns the magnitude
@@ -96,5 +96,17 @@ public:
 	/**
 	* Linearly interpolates between this vector and other by amount.
 	*/
-	void Lerp(Vector2* other, float amount);
+	void Lerp(Vector2 other, float amount);
+
+	//Static methods
+
+	/**
+	* Returns the distance between a and b vector
+	*/
+	static float Distance(Vector2 a, Vector2 b);
+
+	/**
+	* Linearly interpolates between a vector and b by amount.
+	*/
+	static Vector2 Lerp(Vector2 a, Vector2 b, float amount);
 };

@@ -28,15 +28,15 @@ void Vector2::Add(float amount) {
 	this->y += amount;
 }
 
-bool Vector2::Equals(Vector2* other) {
-	if (this->x == other->x && this->y == other->y) {
+bool Vector2::Equals(Vector2 other) {
+	if (this->x == other.x && this->y == other.y) {
 		return true;
 	}
 	return false;
 }
 
-float Vector2::Distance(Vector2* other) {
-	return other->x - this->x + other->y + this->y;
+float Vector2::Distance(Vector2 other) {
+	return other.x - this->x + other.y + this->y;
 }
 
 float Vector2::Magnitude() {
@@ -47,7 +47,19 @@ float Vector2::Angle() {
 	return Jhmath::Atan2(this->y, this->x);
 }
 
-void Vector2::Lerp(Vector2* other, float amount) {
-	this->x = (this->x + other->x) * amount;
-	this->y = (this->y + other->y) * amount;
+void Vector2::Lerp(Vector2 other, float amount) {
+	this->x = (this->x + other.x) * amount;
+	this->y = (this->y + other.y) * amount;
 }
+
+
+float Vector2::Distance(Vector2 a, Vector2 b) {
+	return b.x - a.x + b.y + a.y;
+}
+
+Vector2 Vector2::Lerp(Vector2 a, Vector2 b, float amount) {
+	a.x = (a.x + b.x) * amount;
+	a.y = (a.y + b.y) * amount;
+	return a;
+}
+

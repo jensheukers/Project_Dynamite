@@ -9,6 +9,7 @@
 
 #include "collider.h"
 
-Collider::Collider(Vector2 bounds) {
-	this->bounds = bounds;
+Collider::Collider() {
+	this->typeName = typeid(*this).name();
+	this->bounds = Vector2(0,0);
 }
