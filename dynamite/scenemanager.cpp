@@ -8,8 +8,10 @@
 
 #include "scenemanager.h"
 #include "core.h"
+#include "component\collider.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 
 SceneManager* SceneManager::_instance;
@@ -36,7 +38,7 @@ Scene* SceneManager::CreateScene(std::string name) {
 	
 	loadedScenes.push_back(scene);
 
-	printf("DYNAMITE: ~SceneManager~ : Created new scene: %s\n", name);
+	printf("DYNAMITE: ~SceneManager~ : Created new scene: %s\n", name.c_str());
 	return scene;
 }
 
@@ -46,13 +48,42 @@ void SceneManager::LoadExternalScene(std::string path) {
 
 	if (sceneFile.is_open()) {
 		Scene* scene = CreateScene(path);
-
-		std::string segment;
-		std::vector<std::string> segments;
 		while (getline(sceneFile, line))
 		{
-			
+			std::stringstream ss(line);
+			std::string segment;
+			std::vector<std::string> segments;
+			while (std::getline(ss, segment, '|')) {
+				segments.push_back(segment);
+			}
+			if (segments[0] == "entity") {
+				Entity* entity = new Entity();
+				entity->position = Vector2(std::stoi(segments[1]),std::stoi(segments[2]));
+				entity->SetRotation(std::stoi(segments[3]));
+
+				if (segments[4] == "true") {
+					entity->AddComponent<Sprite>();
+					entity->GetComponent<Sprite>()->SetSurface(Core::Instance()->GetResourcePath(segments[5].c_str()).c_str());
+					entity->GetComponent<Sprite>()->SetScale(Vector2(std::stoi(segments[6]),std::stoi(segments[7])));
+				}
+
+				if (segments[8] == "true") {
+					entity->AddComponent<Collider>();
+					entity->GetComponent<Collider>()->SetBounds(Vector2(std::stoi(segments[9]),std::stoi(segments[10])));
+				}
+
+				scene->AddEntity(entity);
+				std::string logMessage = "Entity: ";
+				logMessage.append(std::to_string(scene->GetEntiesCount()));
+				logMessage.append(" Created and added to scene");
+				Core::Log(logMessage);
+			}
 		}
+
+		std::string logMessage = "Scene: ";
+		logMessage.append(scene->GetName());
+		logMessage.append(" Loaded!");
+		Core::Log(logMessage);
 		sceneFile.close();
 	}
 }
@@ -75,7 +106,7 @@ void SceneManager::SetActiveScene(std::string name) {
 	for (int i = 0; i < loadedScenes.size(); i++) {
 		if (loadedScenes[i]->GetName() == name) {
 			activeScene = loadedScenes[i];
-			printf("DYNAMITE: ~SceneManager~ : Scene changed to: %s\n",loadedScenes[i]->GetName());
+			printf("DYNAMITE: ~SceneManager~ : Scene changed to: %s\n",loadedScenes[i]->GetName().c_str());
 		}
 	}
 }
