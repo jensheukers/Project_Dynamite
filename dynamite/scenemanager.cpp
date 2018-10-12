@@ -8,6 +8,9 @@
 
 #include "scenemanager.h"
 #include "core.h"
+#include <iostream>
+#include <fstream>
+#include <string>
 
 SceneManager* SceneManager::_instance;
 
@@ -37,8 +40,21 @@ Scene* SceneManager::CreateScene(std::string name) {
 	return scene;
 }
 
-void SceneManager::LoadScene(std::string path) {
-	//TODO: IMPLEMENT
+void SceneManager::LoadExternalScene(std::string path) {
+	std::string line;
+	std::ifstream sceneFile(path);
+
+	if (sceneFile.is_open()) {
+		Scene* scene = CreateScene(path);
+
+		std::string segment;
+		std::vector<std::string> segments;
+		while (getline(sceneFile, line))
+		{
+			
+		}
+		sceneFile.close();
+	}
 }
 
 Scene* SceneManager::GetLoadedScene(int index) {

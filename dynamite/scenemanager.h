@@ -43,7 +43,7 @@ public:
 	/**
 	* Loads a scene by path given, It reads the file then creates the scene, then loads it into loaded scenes.
 	*/
-	void LoadScene(std::string path);
+	void LoadExternalScene(std::string path);
 
 	/**
 	* Returns the scene if found with index.
