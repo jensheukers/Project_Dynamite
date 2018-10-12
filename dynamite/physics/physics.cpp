@@ -6,16 +6,13 @@
 *	© 2018, Jens Heukers
 */
 #include "physics.h";
-#include "../entity.h"
 #include "../core.h"
 #include "../scenemanager.h"
 
 bool Physics::InRange(Collider a, Collider b) {
-	Entity* entA = a.GetEntity();
-	Entity* entB = b.GetEntity();
-	if (entA->position.GetX() > entB->position.GetX() && entA->position.GetY() > entB->position.GetY()) {
-		if (a.GetBounds().GetX() < b.GetBounds().GetX() + entB->position.GetX()) {
-			if (a.GetBounds().GetY() < b.GetBounds().GetY() + entB->position.GetY()) {
+	if (a.GetPosition().GetX() > b.GetPosition().GetX() && a.GetPosition().GetY() > b.GetPosition().GetY()) {
+		if (a.GetBounds().GetX() < b.GetBounds().GetX() + b.GetPosition().GetX()) {
+			if (a.GetBounds().GetY() < b.GetBounds().GetY() + b.GetPosition().GetY()) {
 				return true;
 			}
 		}
@@ -25,10 +22,9 @@ bool Physics::InRange(Collider a, Collider b) {
 }
 
 bool Physics::InRangePoint(Vector2 point, Collider collider) {
-	Entity* ent = collider.GetEntity();
-	if (point.GetX() > ent->position.GetX() && point.GetY() > ent->position.GetY()) {
-		if (point.GetX() < collider.GetBounds().GetX() + ent->position.GetX()) {
-			if (point.GetY() < collider.GetBounds().GetY() + ent->position.GetY()) {
+	if (point.GetX() > collider.GetPosition().GetX() && point.GetY() > collider.GetPosition().GetY()) {
+		if (point.GetX() < collider.GetBounds().GetX() + collider.GetPosition().GetX()) {
+			if (point.GetY() < collider.GetBounds().GetY() + collider.GetPosition().GetY()) {
 				return true;
 			}
 		}
@@ -36,33 +32,34 @@ bool Physics::InRangePoint(Vector2 point, Collider collider) {
 	return false;
 }
 
-bool Physics::RayCast(Vector2 origin, Vector2 direction, float lenght, HitData returnData) {
+bool Physics::RayCast(Vector2 origin, Vector2 endPos, float lenght, float resolution, HitData* hitData) {
 	if (SceneManager::Instance()->GetActiveScene() == nullptr) {
 		Core::Log("~RayCast~ Cannot shoot raycast, No Active Scene...");
 		return false;
 	}
-
 	unsigned startTime = Core::Instance()->GetTimeElapsed();
-	HitData hitData;
-
-	//Calculate the end position
-	Vector2 endPos = Vector2(origin.GetX() + (direction.GetX() + lenght), origin.GetY() + (direction.GetY() + lenght));
 	
-	for (int i = 0; i < Vector2::Distance(origin, endPos); i++) {
-		for (int ii = 0; ii < SceneManager::Instance()->GetActiveScene()->GetEntiesCount(); ii++) {
-			if (SceneManager::Instance()->GetActiveScene()->GetEntity(ii)->HasComponent<Collider>()) {
-				//TODO IMPLEMENT HIT CHECK
+	if (resolution > 1) {
+		resolution = 1;
+	}
 
-				//hitData.hits.push_back(SceneManager::Instance()->GetActiveScene()->GetEntity(ii)->GetComponent<Collider>());
+	Collider* lastCollider = nullptr;
+
+	for (float i = 0; i < 1; i += resolution) {
+		Vector2 rayPos = Vector2::Lerp(origin,endPos,i);
+		for (int ii = 0; ii < SceneManager::Instance()->GetActiveScene()->GetEntiesCount(); ii++) {
+			Entity* entityCurrent = SceneManager::Instance()->GetActiveScene()->GetEntity(ii);
+			if (entityCurrent->HasComponent<Collider>() && entityCurrent->GetComponent<Collider>() != lastCollider) {
+				if (InRangePoint(rayPos, *entityCurrent->GetComponent<Collider>())) {
+					hitData->hits.push_back(entityCurrent->GetComponent<Collider>());
+					lastCollider = entityCurrent->GetComponent<Collider>();
+				}
 			}
 		}
 	}
 
-	hitData.time = Core::Instance()->GetTimeElapsed() - startTime;
-	
-	returnData = hitData;
-
-	if (returnData.hits.size() > 0) {
+	hitData->time = Core::Instance()->GetTimeElapsed() - startTime; 
+	if (hitData->hits.size() > 0) {
 		return true;
 	}
 	else {

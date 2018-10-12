@@ -58,8 +58,6 @@ float Vector2::Distance(Vector2 a, Vector2 b) {
 }
 
 Vector2 Vector2::Lerp(Vector2 a, Vector2 b, float amount) {
-	a.x = (a.x + b.x) * amount;
-	a.y = (a.y + b.y) * amount;
-	return a;
+	return Vector2((a.x + b.x) * amount, (a.y + b.y) * amount);
 }
 
