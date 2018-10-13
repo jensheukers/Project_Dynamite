@@ -39,5 +39,5 @@ public:
 	/**
 	* Shoot a raycast between 2 points, returns true if succes else returns false, Updates HitData with colliders hit
 	*/
-	static bool RayCast(Vector2 origin, Vector2 endPos, float lenght, float resolution, HitData* data);
+	static bool RayCast(Vector2 origin, Vector2 endPos, float resolution, HitData* data);
 };

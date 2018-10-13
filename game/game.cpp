@@ -13,5 +13,4 @@ Game::Game() {
 }
 
 void Game::Update() {
-
 }

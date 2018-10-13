@@ -32,7 +32,7 @@ bool Physics::InRangePoint(Vector2 point, Collider collider) {
 	return false;
 }
 
-bool Physics::RayCast(Vector2 origin, Vector2 endPos, float lenght, float resolution, HitData* hitData) {
+bool Physics::RayCast(Vector2 origin, Vector2 endPos, float resolution, HitData* hitData) {
 	if (SceneManager::Instance()->GetActiveScene() == nullptr) {
 		Core::Log("~RayCast~ Cannot shoot raycast, No Active Scene...");
 		return false;
