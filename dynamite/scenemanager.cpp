@@ -46,38 +46,45 @@ void SceneManager::LoadExternalScene(std::string path) {
 	std::string line;
 	std::ifstream sceneFile(path);
 
+	std::string fileType;
 	if (sceneFile.is_open()) {
 		Scene* scene = CreateScene(path);
 		while (getline(sceneFile, line))
 		{
-			std::stringstream ss(line);
-			std::string segment;
-			std::vector<std::string> segments;
-			while (std::getline(ss, segment, '|')) {
-				segments.push_back(segment);
+			if (line == "#SCENEFILE") {
+				fileType = line;
 			}
-			if (segments[0] == "entity") {
-				Entity* entity = new Entity();
-				entity->position = Vector2(std::stoi(segments[1]),std::stoi(segments[2]));
-				entity->SetRotation(std::stoi(segments[3]));
-				entity->SetZLayer(std::stoi(segments[4]));
 
-				if (segments[5] == "true") {
-					entity->AddComponent<Sprite>();
-					entity->GetComponent<Sprite>()->SetSurface(Core::Instance()->GetResourcePath(segments[6].c_str()).c_str());
-					entity->GetComponent<Sprite>()->SetScale(Vector2(std::stoi(segments[7]),std::stoi(segments[8])));
-				} 
-
-				if (segments[9] == "true") {
-					entity->AddComponent<Collider>();
-					entity->GetComponent<Collider>()->SetBounds(Vector2(std::stoi(segments[10]),std::stoi(segments[11])));
+			if (fileType == "#SCENEFILE") {
+				std::stringstream ss(line);
+				std::string segment;
+				std::vector<std::string> segments;
+				while (std::getline(ss, segment, '|')) {
+					segments.push_back(segment);
 				}
+				if (segments[0] == "entity") {
+					Entity* entity = new Entity();
+					entity->position = Vector2(std::stoi(segments[1]), std::stoi(segments[2]));
+					entity->SetRotation(std::stoi(segments[3]));
+					entity->SetZLayer(std::stoi(segments[4]));
 
-				scene->AddEntity(entity);
-				std::string logMessage = "Entity: ";
-				logMessage.append(std::to_string(scene->GetEntiesCount()));
-				logMessage.append(" Created and added to scene");
-				Core::Log(logMessage);
+					if (segments[5] == "true") {
+						entity->AddComponent<Sprite>();
+						entity->GetComponent<Sprite>()->SetSurface(Core::Instance()->GetResourcePath(segments[6].c_str()).c_str());
+						entity->GetComponent<Sprite>()->SetScale(Vector2(std::stoi(segments[7]), std::stoi(segments[8])));
+					}
+
+					if (segments[9] == "true") {
+						entity->AddComponent<Collider>();
+						entity->GetComponent<Collider>()->SetBounds(Vector2(std::stoi(segments[10]), std::stoi(segments[11])));
+					}
+
+					scene->AddEntity(entity);
+					std::string logMessage = "Entity: ";
+					logMessage.append(std::to_string(scene->GetEntiesCount()));
+					logMessage.append(" Created and added to scene");
+					Core::Log(logMessage);
+				}
 			}
 		}
 
