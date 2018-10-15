@@ -56,6 +56,9 @@ public:
 	*/
 	Entity* GetEntity(int index);
 	
+	/**
+	* Sort all the z-layers to match from lowest to highest in the entities vector.
+	*/
 	void SortLayers();
 
 	/**

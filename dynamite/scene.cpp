@@ -1,5 +1,6 @@
 #include "scene.h"
 #include "scenemanager.h";
+#include "core.h"
 
 Scene::Scene(SceneManager* manager) {
 	this->manager = manager;
@@ -43,6 +44,10 @@ void Scene::SortLayers() {
 			}
 		}
 	}
+	std::string logMessage = "Scene: ";
+	logMessage.append(name);
+	logMessage.append(" Layers sorted");
+	Core::Log(logMessage);
 
 	entities = tempArray;
 }

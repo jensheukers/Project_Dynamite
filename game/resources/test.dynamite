@@ -1,4 +1,4 @@
-entity|0|0|0|true|cube.bmp|4|4|false|0|0
-entity|128|0|0|true|cube.bmp|4|4|false|0|0
-entity|0|128|0|true|cube.bmp|4|4|false|0|0
-entity|128|128|0|true|cube.bmp|4|4|false|0|0
+entity|0|0|0|0|true|cube.bmp|4|4|false|0|0
+entity|128|0|0|0|true|cube.bmp|4|4|false|0|0
+entity|0|128|0|0|true|cube.bmp|4|4|false|0|0
+entity|128|128|0|0|true|cube.bmp|4|4|false|0|0

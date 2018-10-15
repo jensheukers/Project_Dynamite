@@ -49,7 +49,9 @@ void Entity::SetZLayer(unsigned layer) {
 
 	z_layer = layer;
 
-	SceneManager::Instance()->GetActiveScene()->SortLayers();
+	if (SceneManager::Instance()->GetActiveScene() != nullptr) {
+		SceneManager::Instance()->GetActiveScene()->SortLayers();
+	}
 }
 
 Entity::~Entity() {

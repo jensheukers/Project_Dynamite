@@ -60,16 +60,17 @@ void SceneManager::LoadExternalScene(std::string path) {
 				Entity* entity = new Entity();
 				entity->position = Vector2(std::stoi(segments[1]),std::stoi(segments[2]));
 				entity->SetRotation(std::stoi(segments[3]));
+				entity->SetZLayer(std::stoi(segments[4]));
 
-				if (segments[4] == "true") {
+				if (segments[5] == "true") {
 					entity->AddComponent<Sprite>();
-					entity->GetComponent<Sprite>()->SetSurface(Core::Instance()->GetResourcePath(segments[5].c_str()).c_str());
-					entity->GetComponent<Sprite>()->SetScale(Vector2(std::stoi(segments[6]),std::stoi(segments[7])));
-				}
+					entity->GetComponent<Sprite>()->SetSurface(Core::Instance()->GetResourcePath(segments[6].c_str()).c_str());
+					entity->GetComponent<Sprite>()->SetScale(Vector2(std::stoi(segments[7]),std::stoi(segments[8])));
+				} 
 
-				if (segments[8] == "true") {
+				if (segments[9] == "true") {
 					entity->AddComponent<Collider>();
-					entity->GetComponent<Collider>()->SetBounds(Vector2(std::stoi(segments[9]),std::stoi(segments[10])));
+					entity->GetComponent<Collider>()->SetBounds(Vector2(std::stoi(segments[10]),std::stoi(segments[11])));
 				}
 
 				scene->AddEntity(entity);
@@ -106,6 +107,7 @@ void SceneManager::SetActiveScene(std::string name) {
 	for (int i = 0; i < loadedScenes.size(); i++) {
 		if (loadedScenes[i]->GetName() == name) {
 			activeScene = loadedScenes[i];
+			activeScene->SortLayers();
 			printf("DYNAMITE: ~SceneManager~ : Scene changed to: %s\n",loadedScenes[i]->GetName().c_str());
 		}
 	}
