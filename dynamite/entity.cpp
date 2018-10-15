@@ -31,7 +31,7 @@ const char* Entity::GetComponentType(unsigned id) {
 }
 
 const char* Entity::GetName() { return name.c_str(); };
-void Entity::SetName(std::string name) { name = name; };
+void Entity::SetName(std::string name) { this->name = name; };
 
 void Entity::SetRotation(float rotation) {
 	if (rotation > 360) {

@@ -27,6 +27,15 @@ Entity* Scene::GetEntity(int index) {
 	return entities[index];
 }
 
+Entity* Scene::GetEntityByName(std::string name) {
+	for (int i = 0; i < entities.size(); i++) {
+		if (entities[i]->GetName() == name) {
+			return entities[i];
+		}
+	}
+	return nullptr;
+}
+
 void Scene::SortLayers() {
 	std::vector<Entity*> tempArray;
 

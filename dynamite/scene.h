@@ -57,6 +57,11 @@ public:
 	Entity* GetEntity(int index);
 	
 	/**
+	* Return the entity where parameter equals the name of the entity
+	*/
+	Entity* GetEntityByName(std::string name);
+
+	/**
 	* Sort all the z-layers to match from lowest to highest in the entities vector.
 	*/
 	void SortLayers();
