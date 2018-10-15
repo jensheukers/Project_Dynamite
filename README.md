@@ -1,3 +1,15 @@
+# Project Dynamite
+Project dynamite is a 2d game engine framework that uses basic OpenGL functionality & SDL2 to handle Input, Image loading, Rendering ect.
+It supports a Scene Management system, Resource Manager & basic Component System.
+
+As of 10/15/2018 it only has support for windows systems (should be changed in the future).
+
+# How to compile for VS2015
+  Step 1: Download and Install CMAKE
+  Step 2: Clone the repository
+  Step 3: Run this command from the root directory:
+          #cmake . -DCMAKE_GENERATOR_PLATFORM=x64
+
 # License
 
 Copyright (C) 2018  Jens Heukers
