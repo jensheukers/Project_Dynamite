@@ -46,24 +46,77 @@ void SceneManager::LoadExternalScene(std::string path) {
 	std::string line;
 	std::ifstream sceneFile(path);
 
-	std::string fileType;
+	std::string type;
+	bool note = false;
 	if (sceneFile.is_open()) {
 		Scene* scene = CreateScene(path);
 		while (getline(sceneFile, line))
 		{
-			if (line == "#SCENEFILE") {
-				fileType = line;
+			if (line == "") {
+				continue;
 			}
 
-			if (fileType == "#SCENEFILE") {
-				std::stringstream ss(line);
-				std::string segment;
-				std::vector<std::string> segments;
-				while (std::getline(ss, segment, '|')) {
-					segments.push_back(segment);
+			if (line == "#NOTE") {
+				note = true;
+			}
+
+			if (line == "#ENDNOTE") {
+				note = false;
+			}
+
+			if (!note) {
+
+				if (line == "#PROPERTIES") {
+					type = line;
+					continue;
 				}
-				if (segments[0] == "entity") {
+
+				if (line == "#ENTITIES") {
+					type = line;
+					continue;
+				}
+
+				if (type == "#PROPERTIES") {
+					std::stringstream ss(line);
+					std::string segment;
+					std::vector<std::string> segments;
+					while (std::getline(ss, segment, '=')) {
+						segments.push_back(segment);
+					}
+
+					std::string variable = segments[0];
+					std::string value = segments[1];
+
+					if (variable == "name") {
+						scene->SetName(value);
+					}
+
+					if (variable == "camera") {
+						if (value != "create") {
+							std::stringstream valueStringStream(value);
+							std::string valueSegment;
+							std::vector<std::string> camProperties;
+							while (std::getline(valueStringStream, valueSegment, '|')) {
+								camProperties.push_back(valueSegment);
+							}
+							scene->SetActiveCamera(new Camera(Vector2(std::stoi(camProperties[0]), std::stoi(camProperties[1]))));
+						}
+						else {
+							scene->SetActiveCamera(new Camera());
+						}
+					}
+				}
+
+				if (type == "#ENTITIES") {
+					std::stringstream ss(line);
+					std::string segment;
+					std::vector<std::string> segments;
+					while (std::getline(ss, segment, '|')) {
+						segments.push_back(segment);
+					}
+
 					Entity* entity = new Entity();
+					entity->SetName(segments[0]);
 					entity->position = Vector2(std::stoi(segments[1]), std::stoi(segments[2]));
 					entity->SetRotation(std::stoi(segments[3]));
 					entity->SetZLayer(std::stoi(segments[4]));
@@ -84,6 +137,7 @@ void SceneManager::LoadExternalScene(std::string path) {
 					logMessage.append(std::to_string(scene->GetEntiesCount()));
 					logMessage.append(" Created and added to scene");
 					Core::Log(logMessage);
+
 				}
 			}
 		}

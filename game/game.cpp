@@ -10,6 +10,8 @@
 #include "game.h"
 
 Game::Game() {
+	SceneManager::Instance()->LoadExternalScene(Core::Instance()->GetResourcePath("test.dynamite"));
+	SceneManager::Instance()->SetActiveScene("test");
 }
 
 void Game::Update() {
