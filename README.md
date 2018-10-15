@@ -8,7 +8,7 @@ As of 10/15/2018 it only has support for windows systems (should be changed in t
   Step 1: Download and Install CMAKE <br/>
   Step 2: Clone the repository <br/>
   Step 3: Run this command from the root directory: <br/>
-          #cmake . -DCMAKE_GENERATOR_PLATFORM=x64
+          ```#cmake . -DCMAKE_GENERATOR_PLATFORM=x64```
 
 # License
 
