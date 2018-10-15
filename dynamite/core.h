@@ -52,6 +52,7 @@ private:
 
 	/** The time (in milliseconds) between each console status update*/
 	static const unsigned STATUS_UPDATE_INTERVAL_TIME = 2500;
+
 public:
 
 	/**

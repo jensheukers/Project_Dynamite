@@ -126,10 +126,12 @@ Core::Core(char* arguments[]) {
 
 		if (SceneManager::Instance()->GetActiveScene() != nullptr) {
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetEnties().size(); i++) {
-				if (SceneManager::Instance()->GetActiveScene()->GetEnties()[i]->HasComponent<Sprite>() && SceneManager::Instance()->GetActiveScene()->HasActiveCamera()) {
+				Entity* entityCurrent = SceneManager::Instance()->GetActiveScene()->GetEnties()[i];
+				if (entityCurrent->HasComponent<Sprite>() && SceneManager::Instance()->GetActiveScene()->HasActiveCamera()) {
 					Renderer::Instance()->RenderEntity(SceneManager::Instance()->GetActiveScene()->GetEnties()[i], SceneManager::Instance()->GetActiveScene()->GetActiveCamera());
 				}
 			}
+
 		}
 		Renderer::Instance()->Draw(window);
 	}

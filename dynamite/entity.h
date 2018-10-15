@@ -21,13 +21,14 @@ private:
 	std::vector<Component*> components;
 	std::string name;
 	float rotation;
+	unsigned z_layer;
 public:
 	Vector2 position;
 
 	/**
 	* Constructor
 	*/
-	Entity() { this->position = Vector2(0, 0); this->name = "Entity"; this->rotation = 0; };
+	Entity() { this->position = Vector2(0, 0); this->name = "Entity"; this->rotation = 0; this->z_layer = 0; };
 
 	/**
 	* Constructor
@@ -144,6 +145,19 @@ public:
 	* Get the rotation
 	*/
 	float  GetRotation();
+
+
+	/*
+	* Set the z layer
+	*/
+	void SetZLayer(unsigned layer);
+
+	/*
+	* Get the z layer
+	*/
+	unsigned GetZLayer() {
+		return z_layer;
+	}
 
 	/**
 	* Destructor

@@ -8,14 +8,37 @@ class SceneManager;
 
 class Scene {
 private:
+
+	/** Name of the scene**/
 	std::string name;
+
+	/** List of entities in the scene*/
 	std::vector<Entity*> entities;
+
+	/** The pointer to SceneManager instance*/
 	SceneManager* manager;
+
+	/** The active camera pointer*/
 	Camera* activeCamera;
 public:
+	/**
+	* Constructor
+	*/
 	Scene(SceneManager* manager);
+	
+	/**
+	* Destructor
+	*/
 	~Scene();
+
+	/**
+	* Set the name of the scene
+	*/
 	void SetName(std::string name);
+
+	/**
+	* Get the name of the Scene
+	*/
 	std::string GetName();
 
 	/**
@@ -32,6 +55,8 @@ public:
 	* Returns entity from the entitites Array where index matches Array Index
 	*/
 	Entity* GetEntity(int index);
+	
+	void SortLayers();
 
 	/**
 	* Returns the amount of entities in the entities list

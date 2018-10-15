@@ -42,6 +42,16 @@ void Entity::SetRotation(float rotation) {
 
 float Entity::GetRotation() { return this->rotation; };
 
+void Entity::SetZLayer(unsigned layer) {
+	if (z_layer < 0) {
+		z_layer = 0;
+	}
+
+	z_layer = layer;
+
+	SceneManager::Instance()->GetActiveScene()->SortLayers();
+}
+
 Entity::~Entity() {
 	for (unsigned i = 0; i < components.size(); i++) {
 		delete components[i];

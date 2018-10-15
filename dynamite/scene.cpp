@@ -26,6 +26,27 @@ Entity* Scene::GetEntity(int index) {
 	return entities[index];
 }
 
+void Scene::SortLayers() {
+	std::vector<Entity*> tempArray;
+
+	int currentZMax = 0;
+	for (int i = 0; i < entities.size(); i++) {
+		if (currentZMax < entities[i]->GetZLayer()) {
+			currentZMax = entities[i]->GetZLayer();
+		}
+	}
+
+	for (int ii = 0; ii <= currentZMax; ii++) {
+		for (int iii = 0; iii < entities.size(); iii++) {
+			if (entities[iii]->GetZLayer() == ii) {
+				tempArray.push_back(entities[iii]);
+			}
+		}
+	}
+
+	entities = tempArray;
+}
+
 bool Scene::HasActiveCamera() {
 	if (this->activeCamera != nullptr) {
 		return true;
