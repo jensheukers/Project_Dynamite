@@ -1,6 +1,7 @@
 # Project Dynamite
-Project dynamite is a 2d game engine framework that uses basic OpenGL functionality & SDL2 to handle Input, Image loading, Rendering ect.
-It supports a Scene Management system, Resource Manager & basic Component System.
+Project dynamite is a 2d game engine framework that uses basic OpenGL functionality & SDL2 to handle input, image loading, rendering and more <br/>
+
+It contains a Scene Management system, Resource Manager & basic Component System. <br/>
 
 As of 10/15/2018 it only has support for windows systems (should be changed in the future).
 
