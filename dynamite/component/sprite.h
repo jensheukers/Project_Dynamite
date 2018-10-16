@@ -20,7 +20,7 @@ private:
 	const char* surfacePath;
 	SDL_Surface* surface;
 	Vector2 scale;
-	GLint texture;
+	GLuint* texture;
 public:
 	/**
 	* Default Constructor
@@ -47,7 +47,7 @@ public:
 	/**
 	* Returns the texture if generated
 	*/
-	GLint GetTexture();
+	GLuint* GetTexture();
 
 	/**
 	* Sets the scale of the sprite

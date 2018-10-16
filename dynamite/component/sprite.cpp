@@ -31,14 +31,12 @@ void Sprite::GenerateTexture() {
 		return;
 	}
 
-	glEnable(GL_TEXTURE_2D);
-
-	GLuint texture;
-	glGenTextures(1, &texture);
+	GLuint* texture;
+	glGenTextures(0, texture);
 	this->texture = texture;
 }
 
-GLint Sprite::GetTexture() { return this->texture; }
+GLuint* Sprite::GetTexture() { return this->texture; }
 
 
 Component* Sprite::Copy() {

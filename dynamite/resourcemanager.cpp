@@ -32,10 +32,9 @@ SDL_Surface* ResourceManager::GetSurface(std::string path) {
 
 	//else create a new surface
 	SDL_Surface* surface = SDL_LoadBMP(path.c_str());
-
 	if (surface == NULL) {
 		printf("DYNAMITE: ~ResourceManager~ Surface could not be created error: %s\n", SDL_GetError());
-
+	
 		return nullptr;
 	}
 	else {
