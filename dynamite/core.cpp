@@ -94,6 +94,8 @@ Core::Core(char* arguments[]) {
 
 		//Handle Time
 		timeCurrent = std::chrono::time_point_cast<std::chrono::milliseconds>(Time::now()).time_since_epoch().count();
+		float _delta = timeCurrent;
+
 		timeElapsed = timeCurrent - timeStart;
 		frames++;
 
@@ -134,6 +136,9 @@ Core::Core(char* arguments[]) {
 
 		}
 		Renderer::Instance()->Draw(window);
+
+		//Calculate DeltaTime
+		deltaTime = (std::chrono::time_point_cast<std::chrono::milliseconds>(Time::now()).time_since_epoch().count() - _delta) / 100;
 	}
 }
 

@@ -53,6 +53,9 @@ private:
 	/** The time (in milliseconds) between each console status update*/
 	static const unsigned STATUS_UPDATE_INTERVAL_TIME = 2500;
 
+	/** The time it took to complete the last frame*/
+	float deltaTime;
+
 public:
 
 	/**
@@ -105,4 +108,9 @@ public:
 	* Returns the time elapsed since program start
 	*/
 	unsigned GetTimeElapsed() { return this->timeElapsed; };
+
+	/**
+	* Returns the deltaTime
+	*/
+	float GetDeltaTime() { return this->deltaTime; };
 };
