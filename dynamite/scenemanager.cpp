@@ -99,7 +99,7 @@ void SceneManager::LoadExternalScene(std::string path) {
 							while (std::getline(valueStringStream, valueSegment, '|')) {
 								camProperties.push_back(valueSegment);
 							}
-							scene->SetActiveCamera(new Camera(Vector2(std::stoi(camProperties[0]), std::stoi(camProperties[1]))));
+							scene->SetActiveCamera(new Camera(Vector2(std::stof(camProperties[0]), std::stof(camProperties[1]))));
 						}
 						else {
 							scene->SetActiveCamera(new Camera());
@@ -117,19 +117,19 @@ void SceneManager::LoadExternalScene(std::string path) {
 
 					Entity* entity = new Entity();
 					entity->SetName(segments[0]);
-					entity->position = Vector2(std::stoi(segments[1]), std::stoi(segments[2]));
-					entity->SetRotation(std::stoi(segments[3]));
-					entity->SetZLayer(std::stoi(segments[4]));
+					entity->position = Vector2(std::stof(segments[1]), std::stof(segments[2]));
+					entity->SetRotation(std::stof(segments[3]));
+					entity->SetZLayer(std::stof(segments[4]));
 
 					if (segments[5] == "true") {
 						entity->AddComponent<Sprite>();
 						entity->GetComponent<Sprite>()->SetSurface(Core::Instance()->GetResourcePath(segments[6].c_str()).c_str());
-						entity->GetComponent<Sprite>()->SetScale(Vector2(std::stoi(segments[7]), std::stoi(segments[8])));
+						entity->GetComponent<Sprite>()->SetScale(Vector2(std::stof(segments[7]), std::stof(segments[8])));
 					}
 
 					if (segments[9] == "true") {
 						entity->AddComponent<Collider>();
-						entity->GetComponent<Collider>()->SetBounds(Vector2(std::stoi(segments[10]), std::stoi(segments[11])));
+						entity->GetComponent<Collider>()->SetBounds(Vector2(std::stof(segments[10]), std::stof(segments[11])));
 					}
 
 					scene->AddEntity(entity);
