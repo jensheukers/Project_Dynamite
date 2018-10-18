@@ -2,7 +2,6 @@
 name=test
 camera=create
 #ENTITIES
-bg|0|0|0|0|true|bg.tga|1|1|false|0|0
-entity|128|0|0|3|true|blue.tga|1|1|false|0|0
+entity|128|0|0|3|true|circle.tga|1|1|false|0|0
 entity|0|128|0|3|true|blue.tga|1|1|false|0|0
-entity|128|128|0|3|true|blue.tga|1|1|false|0|0
+entity|128|128|0|3|true|red.tga|1|1|false|0|0
