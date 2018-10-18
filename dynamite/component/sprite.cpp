@@ -8,35 +8,35 @@
 
 #include "sprite.h"
 
-SDL_Surface* Sprite::GetSurface() {
-	if (this->surface == nullptr) {
+Texture* Sprite::GetTexture() {
+	if (this->texture == nullptr) {
 		return nullptr;
 	}
 
-	return this->surface;
+	return this->texture;
 }
 
-void Sprite::SetSurface(const char* path) {
-	this->surface = ResourceManager::Instance()->GetSurface(path);
+void Sprite::SetTexture(const char* path) {
+	this->texture = ResourceManager::Instance()->GetTexture(path);
 
-	this->surfacePath = path;
+	this->texturePath = path;
 }
 
 const char* Sprite::GetSurfacePath() {
-	return this->surfacePath;
+	return this->texturePath;
 }
 
-void Sprite::GenerateTexture() {
-	if (this->surface == nullptr) {
+void Sprite::GenerateConvertedTexture() {
+	if (this->texture == nullptr) {
 		return;
 	}
 
 	GLuint* texture;
 	glGenTextures(0, texture);
-	this->texture = texture;
+	this->convertedTexture = texture;
 }
 
-GLuint* Sprite::GetTexture() { return this->texture; }
+GLuint* Sprite::GetConvertedTexture() { return this->convertedTexture; }
 
 
 Component* Sprite::Copy() {

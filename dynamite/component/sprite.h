@@ -11,43 +11,43 @@
 #include "component.h"
 #include "../math/vector2.h"
 #include "../resourcemanager.h"
+#include "../texture.h"
 #include "../core.h"
-#include "SDL.h"
-#include "SDL_opengl.h"
+#include <GL/GL.h>
 
 class Sprite : public Component {
 private:
-	const char* surfacePath;
-	SDL_Surface* surface;
+	const char* texturePath;
+	Texture* texture;
 	Vector2 scale;
-	GLuint* texture;
+	GLuint* convertedTexture;
 public:
 	/**
 	* Default Constructor
 	*/
-	Sprite() { this->typeName = typeid(*this).name(); this->scale = Vector2(1, 1); this->surface = nullptr; };
+	Sprite() { this->typeName = typeid(*this).name(); this->scale = Vector2(1, 1); this->texture = nullptr; };
 
 	/**
 	* Returns the surface if found, returns nullptr if failed
 	*/
-	SDL_Surface* GetSurface();
+	Texture* GetTexture();
 	
 	/**
 	* Creates a new surface, by loading image bmp file
 	*/
-	void SetSurface(const char* path);
+	void SetTexture(const char* path);
 
 	const char* GetSurfacePath();
 
 	/**
 	* Generates the texture 
 	*/
-	void GenerateTexture();
+	void GenerateConvertedTexture();
 
 	/**
 	* Returns the texture if generated
 	*/
-	GLuint* GetTexture();
+	GLuint* GetConvertedTexture();
 
 	/**
 	* Sets the scale of the sprite

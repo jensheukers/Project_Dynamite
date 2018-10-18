@@ -9,7 +9,7 @@
 
 
 #include "renderer.h"
-#include "SDL_opengl.h"
+#include <SDL_opengl.h>
 #include "../game/game.h"
 
 Renderer* Renderer::_instance;
@@ -40,23 +40,29 @@ void Renderer::Clear() {
 }
 
 void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
-	if (entity->GetComponent<Sprite>()->GetSurface() == nullptr) {
+	if (entity->GetComponent<Sprite>()->GetTexture() == nullptr) {
 		return;
 	}
 	//Generate GL Texture from surface
-	SDL_Surface* surface = entity->GetComponent<Sprite>()->GetSurface();
+	Texture* texture = entity->GetComponent<Sprite>()->GetTexture();
 
 	glEnable(GL_TEXTURE_2D);
 
-	if (entity->GetComponent<Sprite>()->GetTexture() == NULL) {
-		entity->GetComponent<Sprite>()->GenerateTexture();
+	if (entity->GetComponent<Sprite>()->GetConvertedTexture() == NULL) {
+		entity->GetComponent<Sprite>()->GenerateConvertedTexture();
 	}
 
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	// Map the surface to the texture in video memory
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, surface->w, surface->h, 0, GL_BGR, GL_UNSIGNED_BYTE, surface->pixels);
+	if (texture->textureData->type == GL_RGB) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture->textureData->width, texture->textureData->height, 0, GL_BGR, GL_UNSIGNED_BYTE, texture->textureData->imageData);
+	}
+	else {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->textureData->width, texture->textureData->height, 0, GL_BGRA, GL_UNSIGNED_BYTE, texture->textureData->imageData);
+	}
+	
 
 	//Calculate scales and camera positions
 	float scaleX = entity->GetComponent<Sprite>()->GetScale().GetX();
@@ -78,12 +84,12 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 	Vector2 ld = Vector2(entity->position.GetX() + camX, entity->position.GetY() + camY);
 
 
-	glBindTexture(GL_TEXTURE_2D, *entity->GetComponent<Sprite>()->GetTexture());
+	glBindTexture(GL_TEXTURE_2D, *entity->GetComponent<Sprite>()->GetConvertedTexture());
 	glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f); glVertex2f(lu.GetX(), lu.GetY()); //LU
-		glTexCoord2f(1.0f, 0.0f); glVertex2f(ru.GetX() + (scaleX * surface->w), ru.GetY()); //RU
-		glTexCoord2f(1.0f, 1.0f); glVertex2f(rd.GetX() + (scaleX * surface->w), rd.GetY() + (scaleY * surface->h)); //RD
-		glTexCoord2f(0.0f, 1.0f); glVertex2f(ld.GetX(), rd.GetY() + (scaleY * surface->h)); //LD
+		glTexCoord2f(1.0f, 0.0f); glVertex2f(ru.GetX() + (scaleX * texture->textureData->width), ru.GetY()); //RU
+		glTexCoord2f(1.0f, 1.0f); glVertex2f(rd.GetX() + (scaleX * texture->textureData->width), rd.GetY() + (scaleY * texture->textureData->height)); //RD
+		glTexCoord2f(0.0f, 1.0f); glVertex2f(ld.GetX(), rd.GetY() + (scaleY * texture->textureData->height)); //LD
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
