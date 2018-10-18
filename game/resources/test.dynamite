@@ -2,7 +2,7 @@
 name=test
 camera=create
 #ENTITIES
-entity|0|0|0|0|true|cube.bmp|4|4|false|0|0
-entity|128|0|0|3|true|cube2.bmp|4|4|false|0|0
-entity|0|128|0|3|true|cube.bmp|4|4|false|0|0
-entity|128|128|0|3|true|cube2.bmp|4|4|false|0|0
+bg|0|0|0|0|true|bg.tga|1|1|false|0|0
+entity|128|0|0|3|true|blue.tga|1|1|false|0|0
+entity|0|128|0|3|true|blue.tga|1|1|false|0|0
+entity|128|128|0|3|true|blue.tga|1|1|false|0|0

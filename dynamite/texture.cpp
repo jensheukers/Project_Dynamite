@@ -54,6 +54,8 @@ bool Texture::LoadTGA(char* filepath) {
 		return false; //If we cant read the data return false
 	}
 
+	std::cout << "DYNAMITE: ~Texture~ created succesfully! Texture bits per pixel = " << textureData->bpp << std::endl;
+
 	fclose(fTGA);                   // Close The File
 	return true;                    // Return Success
 }

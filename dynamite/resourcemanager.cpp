@@ -19,7 +19,7 @@ ResourceManager* ResourceManager::Instance() {
 
 Texture* ResourceManager::GetTexture(std::string path) {
 
-	printf("DYNAMITE: ~ResourceManager~ Searching surface: %s\n",path.c_str());
+	printf("DYNAMITE: ~ResourceManager~ Searching texture: %s\n",path.c_str());
 
 	//Search if surface already exists
 	if (textures[path] != NULL) {
@@ -28,14 +28,14 @@ Texture* ResourceManager::GetTexture(std::string path) {
 	}
 	
 
-	printf("DYNAMITE: ~ResourceManager~ Surface not found, Attempting to create surface : %s\n", path.c_str());
+	printf("DYNAMITE: ~ResourceManager~ Surface not found, Attempting to create texture : %s\n", path.c_str());
 
 	//else create a new surface
 	Texture* texture = new Texture();
 	texture->LoadTGA((char*)path.c_str());
 
 	if (texture == NULL) {
-		printf("DYNAMITE: ~ResourceManager~ Surface could not be created error: %s\n", SDL_GetError());
+		printf("DYNAMITE: ~ResourceManager~ texture could not be created error... \n");
 	
 		return nullptr;
 	}
