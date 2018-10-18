@@ -10,10 +10,12 @@
 #include "../scenemanager.h"
 
 bool Physics::InRange(Collider a, Collider b) {
-	if (a.GetPosition().GetX() > b.GetPosition().GetX() && a.GetPosition().GetY() > b.GetPosition().GetY()) {
-		if (a.GetBounds().GetX() < b.GetBounds().GetX() + b.GetPosition().GetX()) {
-			if (a.GetBounds().GetY() < b.GetBounds().GetY() + b.GetPosition().GetY()) {
-				return true;
+	if (a.GetPosition().GetX() < b.GetPosition().GetX() + b.GetBounds().GetX()) {
+		if (b.GetPosition().GetX() < a.GetPosition().GetX() + a.GetBounds().GetX()) {
+			if (a.GetPosition().GetY() < b.GetPosition().GetY() + b.GetBounds().GetY()) {
+				if (b.GetPosition().GetY() < a.GetPosition().GetY() + a.GetBounds().GetY()) {
+					return true;
+				}
 			}
 		}
 	}

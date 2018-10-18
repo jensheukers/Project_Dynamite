@@ -34,6 +34,7 @@ enum KeyCode {
 	Enter = SDL_SCANCODE_KP_ENTER,
 	CapsLock = SDL_SCANCODE_CAPSLOCK,
 	Backspace = SDL_SCANCODE_BACKSPACE,
+	Esc = SDL_SCANCODE_ESCAPE,
 	Tab = SDL_SCANCODE_TAB,
 	Grave = SDL_SCANCODE_GRAVE,
 	//---------------------
