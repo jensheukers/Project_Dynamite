@@ -20,7 +20,9 @@ As of 10/15/2018 it only compiles for windows systems (should be changed in the 
 #ScreenShots
 
 Bouncing Balls Demo
-<img align="left" width="100" height="100" src="https://imgur.com/Iiv5qFa">
+<img align="left" width="256" height="256" src="https://i.imgur.com/Iiv5qFa.png">
+</br>
+</br>
 
 # License
 
