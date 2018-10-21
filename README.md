@@ -1,6 +1,6 @@
 # Project Dynamite
-Project Dynamite is a 2d framework based on OpenGL. <br/>
-It supports multiple features such as a Targa Loader, Component System, Resource Manager and much more.
+Project Dynamite is a 2d framework based on OpenGL, It supports multiple features such as a Targa Loader, <br/>
+Component System, Resource Manager and much more.
 
 Project Dynamite uses a Scene Loading system that can load .dynamite files from anywhere on the system, <br/>
 you can also use Core::Instance()->GetResourcePath("FILENAME"), to load a .dynamite file (Or any other file) <br/>
