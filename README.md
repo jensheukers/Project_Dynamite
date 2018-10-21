@@ -18,10 +18,7 @@ As of 10/15/2018 it only compiles for windows systems (should be changed in the 
   Step 3: Run this command from the root directory: <br/>
           ```cmake . -DCMAKE_GENERATOR_PLATFORM=x64```
 #ScreenShots
-
-Bouncing Balls Demo
-<img align="left" width="256" height="256" src="https://i.imgur.com/Iiv5qFa.png">
-</br>
+![Bouncing Balls Demo](https://i.imgur.com/Iiv5qFa.png)
 </br>
 
 # License
