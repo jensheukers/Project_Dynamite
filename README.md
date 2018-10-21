@@ -17,7 +17,8 @@ As of 10/15/2018 it only compiles for windows systems (should be changed in the 
   Step 2: Clone the repository <br/>
   Step 3: Run this command from the root directory: <br/>
           ```cmake . -DCMAKE_GENERATOR_PLATFORM=x64```
-#ScreenShots
+               
+# ScreenShots
 ![Bouncing Balls Demo](https://i.imgur.com/Iiv5qFa.png)
 </br>
 
