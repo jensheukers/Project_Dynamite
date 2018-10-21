@@ -57,6 +57,8 @@ private:
 	float deltaTime;
 
 public:
+	/* Specifies if colliders should be drawn to the screen**/
+	bool DEBUG_SHOW_COLLIDERS;
 
 	/**
 	* Returns the instance if found.

@@ -95,7 +95,7 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 
-	if (entity->HasComponent<Collider>() && Game::DEBUG_SHOW_COLLIDERS) {
+	if (entity->HasComponent<Collider>() && Core::Instance()->DEBUG_SHOW_COLLIDERS) {
 		glLineWidth(2);
 		glColor3f(0.0, 255.0, 0.0);
 		glBegin(GL_LINES);

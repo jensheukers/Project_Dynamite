@@ -75,6 +75,8 @@ Core::Core(char* arguments[]) {
 
 	std::cout << "DYNAMITE: ~Core~ Calling Game()" << std::endl;
 
+	DEBUG_SHOW_COLLIDERS = false;
+
 	game = new Game();
 
 	running = true;

@@ -16,9 +16,6 @@ class Game {
 protected:
 
 public:
-	/* Specifies if colliders should be drawn to the screen**/
-	static const bool DEBUG_SHOW_COLLIDERS = false;
-
 	/**
 	* Constructor
 	*/
