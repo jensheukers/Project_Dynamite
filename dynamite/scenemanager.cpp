@@ -52,7 +52,7 @@ void SceneManager::LoadExternalScene(std::string path) {
 		Scene* scene = CreateScene(path);
 		while (getline(sceneFile, line))
 		{
-			if (line == "") {
+			if (line.empty()) {
 				continue;
 			}
 
@@ -120,11 +120,11 @@ void SceneManager::LoadExternalScene(std::string path) {
 					entity->position = Vector2(std::stof(segments[1]), std::stof(segments[2]));
 					entity->SetRotation(std::stof(segments[3]));
 					entity->SetZLayer(std::stof(segments[4]));
+					entity->SetScale(Vector2(std::stof(segments[5]), std::stof(segments[6])));
 
-					if (segments[5] == "true") {
+					if (segments[7] == "true") {
 						entity->AddComponent<Sprite>();
-						entity->GetComponent<Sprite>()->SetTexture(Core::Instance()->GetResourcePath(segments[6].c_str()).c_str());
-						//entity->GetComponent<Sprite>()->SetScale(Vector2(std::stof(segments[7]), std::stof(segments[8])));
+						entity->GetComponent<Sprite>()->SetTexture(Core::Instance()->GetResourcePath(segments[8].c_str()).c_str());
 					}
 
 					if (segments[9] == "true") {
