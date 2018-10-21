@@ -11,6 +11,7 @@
 #include "renderer.h"
 #include <SDL_opengl.h>
 #include "../game/game.h"
+#include "component/collider.h"
 
 Renderer* Renderer::_instance;
 
@@ -43,6 +44,7 @@ void Renderer::Clear() {
 }
 
 void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
+	glPushAttrib(GL_CURRENT_BIT);
 	if (entity->GetComponent<Sprite>()->GetTexture() == nullptr) {
 		return;
 	}
@@ -82,18 +84,44 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 	glTranslatef((-entity->position.GetX()) - camX, (-entity->position.GetY()) - camY, 0);
 
 	//Draw vertecies
-	Vector2 lu = Vector2(entity->position.GetX() + camX, entity->position.GetY() + camY);
-	Vector2 ru = Vector2(entity->position.GetX() + camX, entity->position.GetY() + camY);
-	Vector2 rd = Vector2(entity->position.GetX() + camX, entity->position.GetY() + camY);
-	Vector2 ld = Vector2(entity->position.GetX() + camX, entity->position.GetY() + camY);
+	Vector2 calPos = Vector2(entity->position.GetX() + camX, entity->position.GetY() + camY);
 
+	glEnable(GL_TEXTURE_2D);
 	glBegin(GL_QUADS);
-		glTexCoord2f(0.0f, 1.0f); glVertex2f(lu.GetX(), lu.GetY()); //LU
-		glTexCoord2f(1.0f, 1.0f); glVertex2f(ru.GetX() + (scaleX * texture->textureData->width), ru.GetY()); //RU
-		glTexCoord2f(1.0f, 0.0f); glVertex2f(rd.GetX() + (scaleX * texture->textureData->width), rd.GetY() + (scaleY * texture->textureData->height)); //RD
-		glTexCoord2f(0.0f, 0.0f); glVertex2f(ld.GetX(), rd.GetY() + (scaleY * texture->textureData->height)); //LD
+	glTexCoord2f(0.0f, 1.0f); glVertex2f(calPos.GetX(), calPos.GetY()); //LU
+	glTexCoord2f(1.0f, 1.0f); glVertex2f(calPos.GetX() + (scaleX * texture->textureData->width), calPos.GetY()); //RU
+	glTexCoord2f(1.0f, 0.0f); glVertex2f(calPos.GetX() + (scaleX * texture->textureData->width), calPos.GetY() + (scaleY * texture->textureData->height)); //RD
+	glTexCoord2f(0.0f, 0.0f); glVertex2f(calPos.GetX(), calPos.GetY() + (scaleY * texture->textureData->height)); //LD
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
+
+	if (entity->HasComponent<Collider>() && Game::DEBUG_SHOW_COLLIDERS) {
+		glLineWidth(2);
+		glColor3f(0.0, 255.0, 0.0);
+		glBegin(GL_LINES);
+		glVertex2f(entity->position.GetX() + camX, entity->position.GetY() + camY);
+		glVertex2f((entity->position.GetX() + camX) + entity->GetComponent<Collider>()->GetBounds().GetX(), entity->position.GetY() + camY);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex2f((entity->position.GetX() + camX) + entity->GetComponent<Collider>()->GetBounds().GetX(), entity->position.GetY() + camY);
+		glVertex2f((entity->position.GetX() + camX) + entity->GetComponent<Collider>()->GetBounds().GetX(), (entity->position.GetY() + camY) + entity->GetComponent<Collider>()->GetBounds().GetY());
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex2f((entity->position.GetX() + camX) + entity->GetComponent<Collider>()->GetBounds().GetX(), (entity->position.GetY() + camY) + entity->GetComponent<Collider>()->GetBounds().GetY());
+		glVertex2f(entity->position.GetX() + camX, (entity->position.GetY() + camY) + entity->GetComponent<Collider>()->GetBounds().GetY());
+		glEnd();
+
+
+		glBegin(GL_LINES);
+		glVertex2f(entity->position.GetX() + camX, (entity->position.GetY() + camY) + entity->GetComponent<Collider>()->GetBounds().GetY());
+		glVertex2f(entity->position.GetX() + camX, entity->position.GetY() + camY);
+		glEnd();
+
+	}
+
+	glPopAttrib();
 	glPopMatrix();
 }
 
