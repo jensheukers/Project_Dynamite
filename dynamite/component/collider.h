@@ -15,6 +15,7 @@ class Collider : public Component {
 private:
 	Vector2 position;
 	Vector2 bounds;
+	Vector2 localBounds;
 public:
 	/**
 	* Constructor
@@ -36,5 +37,5 @@ public:
 	/**
 	* Sets the bounds to vector2 given as parameter
 	*/
-	void SetBounds(Vector2 bounds) { this->bounds = bounds; }
+	void SetBounds(Vector2 bounds) { this->localBounds = bounds; }
 };

@@ -18,4 +18,5 @@ Collider::Collider() {
 
 void Collider::Update() {
 	this->position = parent->position;
+	this->bounds = Vector2(localBounds.GetX() * parent->GetScale().GetX(), localBounds.GetY() * parent->GetScale().GetY());
 }

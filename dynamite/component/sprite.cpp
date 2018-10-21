@@ -38,7 +38,6 @@ void Sprite::GenerateConvertedTexture() {
 
 GLuint Sprite::GetConvertedTexture() { return this->convertedTexture; }
 
-
 Component* Sprite::Copy() {
 	Component* component = new Sprite();
 	return component;

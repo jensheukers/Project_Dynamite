@@ -124,7 +124,7 @@ void SceneManager::LoadExternalScene(std::string path) {
 					if (segments[5] == "true") {
 						entity->AddComponent<Sprite>();
 						entity->GetComponent<Sprite>()->SetTexture(Core::Instance()->GetResourcePath(segments[6].c_str()).c_str());
-						entity->GetComponent<Sprite>()->SetScale(Vector2(std::stof(segments[7]), std::stof(segments[8])));
+						//entity->GetComponent<Sprite>()->SetScale(Vector2(std::stof(segments[7]), std::stof(segments[8])));
 					}
 
 					if (segments[9] == "true") {

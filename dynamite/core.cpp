@@ -84,7 +84,7 @@ Core::Core(char* arguments[]) {
 	std::cout << "DYNAMITE: ~Core~ Game Started!" << std::endl;
 
 	//Amount of frames rendered in the last second.
-	unsigned frames;
+	unsigned frames = 0;
 
 	//Last frame check time
 	unsigned lastFrameCheckTime = 0;
@@ -120,6 +120,10 @@ Core::Core(char* arguments[]) {
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetEnties().size(); i++) {
 				SceneManager::Instance()->GetActiveScene()->GetEntity(i)->Update();
 				SceneManager::Instance()->GetActiveScene()->GetEntity(i)->UpdateComponents();
+
+				if (!SceneManager::Instance()->GetActiveScene()->GetEntity(i)->HasParent()) {
+					SceneManager::Instance()->GetActiveScene()->GetEntity(i)->UpdateChildren();
+				}
 			}
 		}
 

@@ -71,8 +71,8 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 	
 
 	//Calculate scales and camera positions
-	float scaleX = entity->GetComponent<Sprite>()->GetScale().GetX();
-	float scaleY = entity->GetComponent<Sprite>()->GetScale().GetY();
+	float scaleX = entity->GetScale().GetX();
+	float scaleY = entity->GetScale().GetY();
 	float camX = activeCamera->GetXCoord();
 	float camY = activeCamera->GetYCoord();
 

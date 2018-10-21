@@ -8,6 +8,7 @@
 
 #include "../dynamite/core.h"
 #include "game.h"
+#include "../dynamite/component/collider.h"
 
 Game::Game() {
 }

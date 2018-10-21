@@ -2,7 +2,7 @@
 *	Filename: entity.h
 *
 *	Description: Header file for entity class, containing component system
-*	Version: 0.1
+*	Version: 21/10/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -10,7 +10,7 @@
 
 #pragma once
 #include "component\component.h"
-#include "../game/game.h"
+#include "math/vector2.h"
 #include <iostream>
 #include <vector>
 
@@ -18,32 +18,108 @@ class Core;
 
 class Entity {
 private:
+	/** The list of components of this entity*/
 	std::vector<Component*> components;
+
+	/** The list of children of this entity*/
+	std::vector<Entity*> children;
+
+	/** The parent pointer of this entity, if entity has no parent, value shall be nullptr*/
+	Entity* parent;
+
+	/** The list of components of this entity*/
 	std::string name;
+
+	/** The unique id of this entity*/
+	unsigned unique_id;
+
+	/** Static next unique id, will be incremented in constructor*/
+	static unsigned next_unique_id;
+
+	/** The rotation of this Entity*/
 	float rotation;
+
+	/** The scale Vector2 of this Entity*/
+	Vector2 scale;
+
+	/** The z_layer to for the renderer, the higher the number, the more to the foreground*/
 	unsigned z_layer;
 public:
+	/** The position Vector2 in local space*/
+	Vector2 localPosition;
+
+	/** The position Vector2 in global space*/
 	Vector2 position;
 
 	/**
 	* Constructor
 	*/
-	Entity() { this->position = Vector2(0, 0); this->name = "Entity"; this->rotation = 0; this->z_layer = 0; };
+	Entity();
 
 	/**
 	* Constructor
 	*/
-	Entity(Vector2 position) { this->position = position; };
+	Entity(Vector2 position);
 
 	/**
 	* Update gets called every frame
 	*/
 	virtual void Update() {};
 
+	/** 
+	* Returns the unique id of this entity
+	*/
+	unsigned GetUniqueId() { return this->unique_id; };
+
+	/**
+	* Returns the parent object if entity has a parent, else returns nullptr
+	*/
+	Entity* GetParent();
+
+	/**
+	* Returns true if entity has a parent, else returns false
+	*/
+	bool HasParent();
+
+	/**
+	* Sets the parent of this entity
+	*/
+	void SetParent(Entity* parent);
+
+	/**
+	* Returns the child from vector if found.
+	*/
+	Entity* GetChild(int index);
+
+	/**
+	* Adds a new child to the entity, also adds the child to the scene if not added already.
+	*/
+	void AddChild(Entity* entity);
+
+	/**
+	* Removes the child from vector if found. 
+	*/
+	void RemoveChild(int index);
+
+	/**
+	* Handles all the updates for children entities
+	*/
+	void UpdateChildren();
+
 	/**
 	* Calls the update function on all components
 	*/
 	void UpdateComponents();
+
+	/**
+	* Set the scale of the entity
+	*/
+	void SetScale(Vector2 scale);
+
+	/**
+	* The scale of the entity
+	*/
+	Vector2 GetScale() { return this->scale; }
 
 	/**
 	* Adds a component to the components Array.
@@ -153,11 +229,9 @@ public:
 	void SetZLayer(unsigned layer);
 
 	/*
-	* Get the z layer
+	* Return the z layer
 	*/
-	unsigned GetZLayer() {
-		return z_layer;
-	}
+	unsigned GetZLayer() { return this->z_layer; }
 
 	/**
 	* Destructor
