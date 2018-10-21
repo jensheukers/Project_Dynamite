@@ -31,12 +31,12 @@ void Sprite::GenerateConvertedTexture() {
 		return;
 	}
 
-	GLuint* texture;
-	glGenTextures(0, texture);
+	GLuint texture;
+	glGenTextures(0, &texture);
 	this->convertedTexture = texture;
 }
 
-GLuint* Sprite::GetConvertedTexture() { return this->convertedTexture; }
+GLuint Sprite::GetConvertedTexture() { return this->convertedTexture; }
 
 
 Component* Sprite::Copy() {

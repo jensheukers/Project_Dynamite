@@ -55,6 +55,7 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 		entity->GetComponent<Sprite>()->GenerateConvertedTexture();
 	}
 
+	glBindTexture(GL_TEXTURE_2D, entity->GetComponent<Sprite>()->GetConvertedTexture());
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
@@ -86,13 +87,11 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 	Vector2 rd = Vector2(entity->position.GetX() + camX, entity->position.GetY() + camY);
 	Vector2 ld = Vector2(entity->position.GetX() + camX, entity->position.GetY() + camY);
 
-
-	glBindTexture(GL_TEXTURE_2D, *entity->GetComponent<Sprite>()->GetConvertedTexture());
 	glBegin(GL_QUADS);
-		glTexCoord2f(0.0f, 0.0f); glVertex2f(lu.GetX(), lu.GetY()); //LU
-		glTexCoord2f(1.0f, 0.0f); glVertex2f(ru.GetX() + (scaleX * texture->textureData->width), ru.GetY()); //RU
-		glTexCoord2f(1.0f, 1.0f); glVertex2f(rd.GetX() + (scaleX * texture->textureData->width), rd.GetY() + (scaleY * texture->textureData->height)); //RD
-		glTexCoord2f(0.0f, 1.0f); glVertex2f(ld.GetX(), rd.GetY() + (scaleY * texture->textureData->height)); //LD
+		glTexCoord2f(0.0f, 1.0f); glVertex2f(lu.GetX(), lu.GetY()); //LU
+		glTexCoord2f(1.0f, 1.0f); glVertex2f(ru.GetX() + (scaleX * texture->textureData->width), ru.GetY()); //RU
+		glTexCoord2f(1.0f, 0.0f); glVertex2f(rd.GetX() + (scaleX * texture->textureData->width), rd.GetY() + (scaleY * texture->textureData->height)); //RD
+		glTexCoord2f(0.0f, 0.0f); glVertex2f(ld.GetX(), rd.GetY() + (scaleY * texture->textureData->height)); //LD
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 	glPopMatrix();

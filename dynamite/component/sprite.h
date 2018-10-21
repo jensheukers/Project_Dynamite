@@ -20,7 +20,7 @@ private:
 	const char* texturePath;
 	Texture* texture;
 	Vector2 scale;
-	GLuint* convertedTexture;
+	GLuint convertedTexture;
 public:
 	/**
 	* Default Constructor
@@ -47,7 +47,7 @@ public:
 	/**
 	* Returns the texture if generated
 	*/
-	GLuint* GetConvertedTexture();
+	GLuint GetConvertedTexture();
 
 	/**
 	* Sets the scale of the sprite
