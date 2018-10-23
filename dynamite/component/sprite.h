@@ -34,7 +34,7 @@ public:
 	/**
 	* Creates a new surface, by loading image bmp file
 	*/
-	void SetTexture(const char* path);
+	void SetTexture(std::string path);
 
 	const char* GetSurfacePath();
 

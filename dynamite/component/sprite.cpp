@@ -16,10 +16,10 @@ Texture* Sprite::GetTexture() {
 	return this->texture;
 }
 
-void Sprite::SetTexture(const char* path) {
-	this->texture = ResourceManager::Instance()->GetTexture(path);
+void Sprite::SetTexture(std::string path) {
+	this->texture = ResourceManager::Instance()->GetTexture(path.c_str());
 
-	this->texturePath = path;
+	this->texturePath = path.c_str();
 }
 
 const char* Sprite::GetSurfacePath() {
