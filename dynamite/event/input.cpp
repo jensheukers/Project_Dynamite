@@ -8,6 +8,7 @@
 */
 
 #include "input.h"
+#include "../scenemanager.h"
 
 Input* Input::_instance;
 
@@ -99,5 +100,20 @@ float Input::GetAxis(std::string name) {
 	}
 
 	return 0;
+}
+
+Vector2 Input::GetMousePosition() {
+	if (SceneManager::Instance()->GetActiveScene()) {
+		if (SceneManager::Instance()->GetActiveScene()->HasActiveCamera()) {
+			return Vector2(this->mousePosition.GetX() + SceneManager::Instance()->GetActiveScene()->GetActiveCamera()->GetXCoord(),
+				this->mousePosition.GetY() + SceneManager::Instance()->GetActiveScene()->GetActiveCamera()->GetYCoord());
+		}
+	}
+
+	return this->mousePosition;
+}
+
+Vector2 Input::GetMousePositionRelativeToScreen() {
+	return this->mousePosition;
 }
 

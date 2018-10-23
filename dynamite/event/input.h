@@ -267,4 +267,14 @@ public:
 	* Returns 1 if positive axis key is pressed, returns -1 if negative axis key is pressed, otherwise returns 0.
 	*/
 	float GetAxis(std::string name);
+
+	/**
+	* Returns the mouse position on screen, if a camera is present, it will also include the camera position
+	*/
+	Vector2 GetMousePosition();
+
+	/**
+	* Returns the mouse position on screen.
+	*/
+	Vector2 GetMousePositionRelativeToScreen();
 };
