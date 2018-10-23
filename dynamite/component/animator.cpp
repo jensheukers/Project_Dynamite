@@ -1,3 +1,13 @@
+/**
+*	Filename: animator.cpp
+*
+*	Description: Source file for Animator class.
+*
+*	Version: 23/10/2018
+*
+*	© 2018, Jens Heukers
+*/
+
 #include "animator.h"
 #include "../core.h"
 

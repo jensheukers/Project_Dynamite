@@ -1,3 +1,14 @@
+/**
+*	Filename: scene.h
+*
+*	Description: Header file for Scene class.
+*
+*	Version: 23/10/2018
+*
+*	© 2018, Jens Heukers
+*/
+
+
 #pragma once
 #include <iostream>
 #include <vector>
@@ -9,16 +20,16 @@ class SceneManager;
 class Scene {
 private:
 
-	/** Name of the scene**/
+	/// @brief Name of the scene
 	std::string name;
 
-	/** List of entities in the scene*/
+	/// @brief List of entities in the scene
 	std::vector<Entity*> entities;
 
-	/** The pointer to SceneManager instance*/
+	/// @brief The pointer to SceneManager instance
 	SceneManager* manager;
 
-	/** The active camera pointer*/
+	/// @brief The active camera pointer
 	Camera* activeCamera;
 public:
 	/**

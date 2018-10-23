@@ -2,6 +2,7 @@
 *	Filename: entity.h
 *
 *	Description: Header file for entity class, containing component system
+*
 *	Version: 21/10/2018
 *
 *	© 2018, Jens Heukers
@@ -18,31 +19,31 @@ class Core;
 
 class Entity {
 private:
-	/** The list of components of this entity*/
+	/// @brief The list of components of this entity
 	std::vector<Component*> components;
 
-	/** The list of children of this entity*/
+	/// @brief The list of children of this entity
 	std::vector<Entity*> children;
 
-	/** The parent pointer of this entity, if entity has no parent, value shall be nullptr*/
+	/// @brief The parent pointer of this entity, if entity has no parent, value shall be nullptr
 	Entity* parent;
 
-	/** The list of components of this entity*/
+	/// @brief The list of components of this entity
 	std::string name;
 
-	/** The unique id of this entity*/
+	/// @brief The unique id of this entity
 	unsigned unique_id;
 
-	/** Static next unique id, will be incremented in constructor*/
+	/// @brief Static next unique id, will be incremented in constructor
 	static unsigned next_unique_id;
 
-	/** The rotation of this Entity*/
+	/// @brief The rotation of this Entity
 	float rotation;
 
-	/** The scale Vector2 of this Entity*/
+	/// @brief The scale Vector2 of this Entity
 	Vector2 scale;
 
-	/** The z_layer to for the renderer, the higher the number, the more to the foreground*/
+	/// @brief The z_layer to for the renderer, the higher the number, the more to the foreground
 	unsigned z_layer;
 public:
 	/** The position Vector2 in local space*/

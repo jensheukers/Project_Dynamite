@@ -3,7 +3,7 @@
 *
 *	Description: Header file for animation class.
 *
-*	Version: 22/10/2018
+*	Version: 23/10/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -14,13 +14,13 @@
 
 class Animation {
 private:
-	/** The frames vector*/
+	/// @brief The frames vector
 	std::vector<std::string> frames;
 
-	/** The time between the frames*/
+	/// @brief The time between the frames
 	float frameTime;
 
-	/** The current frame*/
+	/// @brief The current frame
 	unsigned currentFrame;
 public:
 

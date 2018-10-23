@@ -3,6 +3,8 @@
 *
 *	Description: Header file for collider Component.
 *
+*	Version: 23/10/2018
+*
 *	© 2018, Jens Heukers
 */
 
@@ -13,8 +15,13 @@
 
 class Collider : public Component {
 private:
+	/// @brief the position of the collider (is auto-updated in Update() method, to parent position).
 	Vector2 position;
+
+	/// @brief the position of the bounds (in world space)
 	Vector2 bounds;
+
+	/// @brief the position of the bounds (in local space)
 	Vector2 localBounds;
 public:
 	/**
