@@ -119,7 +119,7 @@ void SceneManager::LoadExternalScene(std::string path) {
 					entity->SetName(segments[0]);
 					entity->position = Vector2(std::stof(segments[1]), std::stof(segments[2]));
 					entity->SetRotation(std::stof(segments[3]));
-					entity->SetZLayer(std::stof(segments[4]));
+					entity->SetZLayer((unsigned)std::stof(segments[4]));
 					entity->SetScale(Vector2(std::stof(segments[5]), std::stof(segments[6])));
 
 					if (segments[7] == "true") {

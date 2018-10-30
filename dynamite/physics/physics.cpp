@@ -5,7 +5,7 @@
 *
 *	© 2018, Jens Heukers
 */
-#include "physics.h";
+#include "physics.h"
 #include "../core.h"
 #include "../scenemanager.h"
 

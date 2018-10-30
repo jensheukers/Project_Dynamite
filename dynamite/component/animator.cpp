@@ -14,7 +14,7 @@
 Animator::Animator() {
 	this->currentAnimation = nullptr;
 	this->animationState = AnimationState::Play;
-	timeStamp = Core::Instance()->GetTimeElapsed();
+	timeStamp = (float)Core::Instance()->GetTimeElapsed();
 }
 
 void Animator::Update() {
@@ -23,7 +23,7 @@ void Animator::Update() {
 	}
 
 	if (Core::Instance()->GetTimeElapsed() > timeStamp + currentAnimation->GetFrameTime()) {
-		timeStamp = Core::Instance()->GetTimeElapsed();
+		timeStamp = (float)Core::Instance()->GetTimeElapsed();
 
 		parent->GetComponent<Sprite>()->SetTexture(currentAnimation->NextFrame());
 	}

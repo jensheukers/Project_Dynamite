@@ -1,5 +1,5 @@
 #include "scene.h"
-#include "scenemanager.h";
+#include "scenemanager.h"
 #include "core.h"
 
 Scene::Scene(SceneManager* manager) {
@@ -41,7 +41,7 @@ void Scene::SortLayers() {
 
 	int currentZMax = 0;
 	for (int i = 0; i < entities.size(); i++) {
-		if (currentZMax < entities[i]->GetZLayer()) {
+		if (currentZMax < (int)entities[i]->GetZLayer()) {
 			currentZMax = entities[i]->GetZLayer();
 		}
 	}

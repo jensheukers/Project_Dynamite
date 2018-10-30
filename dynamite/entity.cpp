@@ -114,7 +114,7 @@ void Entity::UpdateComponents() {
 	}
 }
 
-int Entity::GetComponentsSize() { return this->components.size(); }
+int Entity::GetComponentsSize() { return (int)this->components.size(); }
 
 Component* Entity::GetComponentById(int id) {
 	return components[id];

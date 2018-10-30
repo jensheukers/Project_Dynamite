@@ -34,7 +34,7 @@ Core::Core(char* arguments[]) {
 	_instance = this;
 
 	//Set timeStart value to current time in milliseconds
-	timeStart = std::chrono::time_point_cast<std::chrono::milliseconds>(Time::now()).time_since_epoch().count();
+	timeStart = (unsigned)std::chrono::time_point_cast<std::chrono::milliseconds>(Time::now()).time_since_epoch().count();
 	timeCurrent = timeStart;
 	timeElapsed = timeStart - timeCurrent; // 0
 
@@ -95,8 +95,8 @@ Core::Core(char* arguments[]) {
 	while (IsRunning()) {
 
 		//Handle Time
-		timeCurrent = std::chrono::time_point_cast<std::chrono::milliseconds>(Time::now()).time_since_epoch().count();
-		float _delta = timeCurrent;
+		timeCurrent = (unsigned)std::chrono::time_point_cast<std::chrono::milliseconds>(Time::now()).time_since_epoch().count();
+		float _delta = (float)timeCurrent;
 
 		timeElapsed = timeCurrent - timeStart;
 		frames++;

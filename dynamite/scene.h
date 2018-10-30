@@ -80,7 +80,7 @@ public:
 	/**
 	* Returns the amount of entities in the entities list
 	*/
-	int GetEntiesCount() { return this->entities.size(); };
+	int GetEntiesCount() { return (int)this->entities.size(); };
 
 	/*
 	* Returns the entities list

@@ -79,9 +79,13 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 
 	//Rotation
 	glPushMatrix();
-	glTranslatef((entity->position.GetX()) + camX, (entity->position.GetY()) + camY, 0);
+	glTranslatef((entity->position.GetX() + (entity->GetComponent<Sprite>()->GetTexture()->textureData->width / 2)) + camX, 
+				(entity->position.GetY() + (entity->GetComponent<Sprite>()->GetTexture()->textureData->height / 2)) + camY, 0);
+
 	glRotatef(entity->GetRotation(), 0.0, 0.0, 1.0);
-	glTranslatef((-entity->position.GetX()) - camX, (-entity->position.GetY()) - camY, 0);
+
+	glTranslatef((-entity->position.GetX() - (entity->GetComponent<Sprite>()->GetTexture()->textureData->width / 2)) - camX,
+		(-entity->position.GetY() - (entity->GetComponent<Sprite>()->GetTexture()->textureData->height / 2)) - camY, 0);
 
 	//Draw vertecies
 	Vector2 calPos = Vector2(entity->position.GetX() + camX, entity->position.GetY() + camY);
