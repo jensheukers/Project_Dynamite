@@ -3,6 +3,8 @@
 *
 *	Description: Main Header for Texture class.
 *
+*   Version: 29/10/2018
+*
 *	© 2018, Jens Heukers
 */
 
@@ -10,8 +12,10 @@
 #include <Windows.h>
 #include <stdio.h>
 #include "../external/glew/include/GL/glew.h"
+#include "math/vector2.h"
 #include <GL/GL.h>
 #include <iostream>
+#include <vector>
 
 typedef struct {
 	/** Holds all the color values for the image*/
@@ -62,15 +66,16 @@ typedef struct {
 } TGA;
 
 class Texture {
-public:
-	//Texture data
-	TextureData * textureData;
-
+private:
 	// Header
 	TGAHeader header;
 
 	// file data.
 	TGA targa;
+
+public:
+	//Texture data
+	TextureData * textureData;
 
 	/**
 	* Load a Targa File.

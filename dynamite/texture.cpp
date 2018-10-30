@@ -1,3 +1,13 @@
+/**
+*	Filename: texture.cpp
+*
+*	Description: Source file for Texture class.
+*
+*   Version: 29/10/2018
+*
+*	© 2018, Jens Heukers
+*/
+
 #include "texture.h"
 
 bool Texture::LoadTGA(char* filepath) {
