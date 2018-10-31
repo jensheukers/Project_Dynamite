@@ -182,7 +182,7 @@ public:
 class Input {
 private:
 	//Constructor private due to singleton
-	Input() {};
+	Input();
 
 	static Input* _instance;
 	std::map<std::string, Axis> axises;
