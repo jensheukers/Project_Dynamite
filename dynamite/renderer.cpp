@@ -88,7 +88,7 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 		(-entity->position.GetY() - (entity->GetComponent<Sprite>()->GetTexture()->textureData->height / 2)) - camY, 0);
 
 	//Draw vertecies
-	Vector2 calPos = Vector2(entity->position.GetX() + camX, entity->position.GetY() + camY);
+	Vector2 calPos = Vector2(entity->position.GetX() + -camX, entity->position.GetY() + -camY);
 
 	glEnable(GL_TEXTURE_2D);
 	glBegin(GL_QUADS);
