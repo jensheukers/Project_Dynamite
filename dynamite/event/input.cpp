@@ -2,7 +2,7 @@
 *	Filename: input.cpp
 *
 *	Description: Main Source file for Input class.
-*	Version: 0.3
+*	Version: 31/10/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -19,13 +19,24 @@ Input* Input::Instance() {
 	return _instance;
 }
 
+Input::Input() {
+	for (int i = 0; i < 284; i++) {
+		keys[i] = false;
+		keysLast[i] = false;
+	}
+
+	for (int ii = 0; ii < 5; ii++) {
+		buttons[ii] = false;
+		buttonsLast[ii] = false;
+	}
+}
 
 void Input::Handle() {
 	for (int i = 0; i < 284; i++) {
 		keysLast[i] = keys[i];
 	}
 
-	for (int ii = 0; ii < buttons.size(); ii++) {
+	for (int ii = 0; ii < 5; ii++) {
 		buttonsLast[ii] = buttons[ii];
 	}
 }

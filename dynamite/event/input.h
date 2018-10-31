@@ -2,7 +2,6 @@
 *	Filename: input.h
 *
 *	Description: Main Header file for Input class.
-*	Version: 0.3
 *
 *	© 2018, Jens Heukers
 */
@@ -189,9 +188,9 @@ private:
 	std::map<std::string, Axis> axises;
 	bool keys[284];
 	bool keysLast[284];
+	bool buttons[5];
+	bool buttonsLast[5];
 
-	std::map<int, bool> buttons;
-	std::map<int, bool> buttonsLast;
 	Vector2 mousePosition;
 public:
 
