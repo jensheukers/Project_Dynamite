@@ -57,7 +57,7 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 		entity->GetComponent<Sprite>()->GenerateConvertedTexture();
 	}
 
-	glBindTexture(GL_TEXTURE_2D, entity->GetComponent<Sprite>()->GetConvertedTexture());
+	glBindTexture(GL_TEXTURE_2D, entity->GetComponent<Sprite>()->GetTexture()->GetTexturePointer());
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 

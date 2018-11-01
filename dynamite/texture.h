@@ -3,7 +3,7 @@
 *
 *	Description: Main Header for Texture class.
 *
-*   Version: 29/10/2018
+*   Version: 1/11/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -73,6 +73,9 @@ private:
 	// file data.
 	TGA targa;
 
+	// The pointer to the converted OpenGL texture in memory
+	GLuint texturePointer;
+
 public:
 	//Texture data
 	TextureData * textureData;
@@ -81,4 +84,6 @@ public:
 	* Load a Targa File.
 	*/
 	bool LoadTGA(char* filepath);
+
+	GLuint GetTexturePointer();
 };

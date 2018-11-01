@@ -26,18 +26,6 @@ const char* Sprite::GetSurfacePath() {
 	return this->texturePath;
 }
 
-void Sprite::GenerateConvertedTexture() {
-	if (this->texture == nullptr) {
-		return;
-	}
-
-	GLuint texture;
-	glGenTextures(0, &texture);
-	this->convertedTexture = texture;
-}
-
-GLuint Sprite::GetConvertedTexture() { return this->convertedTexture; }
-
 Component* Sprite::Copy() {
 	Component* component = new Sprite();
 	return component;

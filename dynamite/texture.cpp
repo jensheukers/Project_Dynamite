@@ -3,7 +3,7 @@
 *
 *	Description: Source file for Texture class.
 *
-*   Version: 29/10/2018
+*   Version: 1/11/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -64,8 +64,14 @@ bool Texture::LoadTGA(char* filepath) {
 		return false; //If we cant read the data return false
 	}
 
+	glGenTextures(0, &this->texturePointer); // Generate OpenGL Ready Textures
+
 	std::cout << "DYNAMITE: ~Texture~ created succesfully! Texture bits per pixel = " << textureData->bpp << std::endl;
 
 	fclose(fTGA);                   // Close The File
 	return true;                    // Return Success
+}
+
+GLuint Texture::GetTexturePointer() {
+	return this->texturePointer;
 }
