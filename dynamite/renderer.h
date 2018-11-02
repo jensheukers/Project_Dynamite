@@ -44,7 +44,7 @@ public:
 	/**
 	* Render the sprite of the entity.
 	*/
-	void RenderEntity(Entity* entity, Camera* activeCamera);
+	void RenderEntity(Entity* entity, bool uiElement);
 
 	/**
 	* Draw all the rendered operations on screen

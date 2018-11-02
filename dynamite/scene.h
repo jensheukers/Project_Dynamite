@@ -14,6 +14,7 @@
 #include <vector>
 #include "entity.h"
 #include "camera.h"
+#include "ui/uielement.h"
 
 class SceneManager;
 
@@ -25,6 +26,9 @@ private:
 
 	/// @brief List of entities in the scene
 	std::vector<Entity*> entities;
+
+	/// @brief List of UI Elements int he scene.
+	std::vector<UIElement*> uiElements;
 
 	/// @brief The pointer to SceneManager instance
 	SceneManager* manager;
@@ -106,4 +110,19 @@ public:
 	* Returns true if a active camera is present, else returns false
 	*/
 	bool HasActiveCamera();
+
+	/** 
+	* Add a new UI Element to uiElements list
+	*/
+	void AddUIElement(UIElement* element);
+
+	/**
+	* Return ui element where index matches parameter
+	*/
+	std::vector<UIElement*> GetUIElements();
+
+	/**
+	* Return ui element where index matches parameter
+	*/
+	UIElement* GetUIElement(int index);
 };

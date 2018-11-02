@@ -125,6 +125,15 @@ Core::Core(char* arguments[]) {
 					SceneManager::Instance()->GetActiveScene()->GetEntity(i)->UpdateChildren();
 				}
 			}
+
+			for (int ii = 0; ii < SceneManager::Instance()->GetActiveScene()->GetUIElements().size(); ii++) {
+				SceneManager::Instance()->GetActiveScene()->GetUIElement(ii)->Update();
+				SceneManager::Instance()->GetActiveScene()->GetUIElement(ii)->UpdateComponents();
+
+				if (!SceneManager::Instance()->GetActiveScene()->GetUIElement(ii)->HasParent()) {
+					SceneManager::Instance()->GetActiveScene()->GetUIElement(ii)->UpdateChildren();
+				}
+			}
 		}
 
 		//Update the game
@@ -137,7 +146,14 @@ Core::Core(char* arguments[]) {
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetEnties().size(); i++) {
 				Entity* entityCurrent = SceneManager::Instance()->GetActiveScene()->GetEnties()[i];
 				if (entityCurrent->HasComponent<Sprite>() && SceneManager::Instance()->GetActiveScene()->HasActiveCamera()) {
-					Renderer::Instance()->RenderEntity(SceneManager::Instance()->GetActiveScene()->GetEnties()[i], SceneManager::Instance()->GetActiveScene()->GetActiveCamera());
+					Renderer::Instance()->RenderEntity(SceneManager::Instance()->GetActiveScene()->GetEnties()[i], false);
+				}
+			}
+
+			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetUIElements().size(); i++) {
+				UIElement* entityCurrent = SceneManager::Instance()->GetActiveScene()->GetUIElement(i);
+				if (entityCurrent->HasComponent<Sprite>() && SceneManager::Instance()->GetActiveScene()->HasActiveCamera()) {
+					Renderer::Instance()->RenderEntity(SceneManager::Instance()->GetActiveScene()->GetUIElement(i), true);
 				}
 			}
 

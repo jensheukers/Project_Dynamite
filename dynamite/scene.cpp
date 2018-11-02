@@ -68,6 +68,18 @@ bool Scene::HasActiveCamera() {
 	return false;
 }
 
+void Scene::AddUIElement(UIElement* element) {
+	this->uiElements.push_back(element);
+}
+
+std::vector<UIElement*> Scene::GetUIElements() {
+	return this->uiElements;
+}
+
+UIElement* Scene::GetUIElement(int index) {
+	return this->uiElements[index];
+}
+
 Scene::~Scene() {
 
 }

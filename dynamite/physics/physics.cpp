@@ -9,11 +9,11 @@
 #include "../core.h"
 #include "../scenemanager.h"
 
-bool Physics::InRange(Collider a, Collider b) {
-	Vector2 aLu = Vector2(a.GetPosition().GetX(), a.GetPosition().GetY());
-	Vector2 aRu = Vector2(a.GetPosition().GetX() + a.GetBounds().GetX(), a.GetPosition().GetY());
-	Vector2 aLd = Vector2(a.GetPosition().GetX(), a.GetPosition().GetY() + a.GetBounds().GetY());
-	Vector2 aRd = Vector2(a.GetPosition().GetX() + a.GetBounds().GetX(), a.GetPosition().GetY() + a.GetBounds().GetY());
+bool Physics::InRange(Collider* a, Collider* b) {
+	Vector2 aLu = Vector2(a->GetPosition().GetX(), a->GetPosition().GetY());
+	Vector2 aRu = Vector2(a->GetPosition().GetX() + a->GetBounds().GetX(), a->GetPosition().GetY());
+	Vector2 aLd = Vector2(a->GetPosition().GetX(), a->GetPosition().GetY() + a->GetBounds().GetY());
+	Vector2 aRd = Vector2(a->GetPosition().GetX() + a->GetBounds().GetX(), a->GetPosition().GetY() + a->GetBounds().GetY());
 
 	if (InRangePoint(aLu, b)) {
 		return true;
@@ -34,9 +34,9 @@ bool Physics::InRange(Collider a, Collider b) {
 	return false;
 }
 
-bool Physics::InRangePoint(Vector2 point, Collider collider) {
-	Vector2 colliderLu = Vector2(collider.GetPosition().GetX(), collider.GetPosition().GetY());
-	Vector2 colliderRd = Vector2(collider.GetPosition().GetX() + collider.GetBounds().GetX(), collider.GetPosition().GetY() + collider.GetBounds().GetY());
+bool Physics::InRangePoint(Vector2 point, Collider* collider) {
+	Vector2 colliderLu = Vector2(collider->GetPosition().GetX(), collider->GetPosition().GetY());
+	Vector2 colliderRd = Vector2(collider->GetPosition().GetX() + collider->GetBounds().GetX(), collider->GetPosition().GetY() + collider->GetBounds().GetY());
 
 	if (point.GetX() >= colliderLu.GetX() && point.GetY() >= colliderLu.GetY()) {
 		if (point.GetX() <= colliderRd.GetX() && point.GetY() <= colliderRd.GetY()) {
@@ -66,7 +66,7 @@ bool Physics::RayCast(Vector2 origin, Vector2 endPos, float resolution, HitData*
 		for (int ii = 0; ii < SceneManager::Instance()->GetActiveScene()->GetEntiesCount(); ii++) {
 			Entity* entityCurrent = SceneManager::Instance()->GetActiveScene()->GetEntity(ii);
 			if (entityCurrent->HasComponent<Collider>() && entityCurrent->GetComponent<Collider>() != lastCollider) {
-				if (InRangePoint(rayPos, *entityCurrent->GetComponent<Collider>())) {
+				if (InRangePoint(rayPos, entityCurrent->GetComponent<Collider>())) {
 					hitData->hits.push_back(entityCurrent->GetComponent<Collider>());
 					lastCollider = entityCurrent->GetComponent<Collider>();
 				}

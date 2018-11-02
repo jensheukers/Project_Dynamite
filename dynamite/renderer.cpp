@@ -43,7 +43,7 @@ void Renderer::Clear() {
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
+void Renderer::RenderEntity(Entity* entity, bool uiElement) {
 	glPushAttrib(GL_CURRENT_BIT);
 	if (entity->GetComponent<Sprite>()->GetTexture() == nullptr) {
 		return;
@@ -53,13 +53,18 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 
 	glEnable(GL_TEXTURE_2D);
 
-	glBindTexture(GL_TEXTURE_2D, entity->GetComponent<Sprite>()->GetTexture()->GetTexturePointer());
-	
 	//Calculate scales and camera positions
 	float scaleX = entity->GetScale().GetX();
 	float scaleY = entity->GetScale().GetY();
-	float camX = activeCamera->GetXCoord();
-	float camY = activeCamera->GetYCoord();
+	float camX = 0;
+	float camY = 0;
+	if (!uiElement) {
+		camX = SceneManager::Instance()->GetActiveScene()->GetActiveCamera()->GetXCoord();
+		camY = SceneManager::Instance()->GetActiveScene()->GetActiveCamera()->GetYCoord();
+	}
+
+
+	glBindTexture(GL_TEXTURE_2D, entity->GetComponent<Sprite>()->GetTexture()->GetTexturePointer());
 
 
 	//Rotation
