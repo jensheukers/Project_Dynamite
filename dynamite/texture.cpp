@@ -66,6 +66,20 @@ bool Texture::LoadTGA(char* filepath) {
 
 	glGenTextures(0, &this->texturePointer); // Generate OpenGL Ready Textures
 
+		// Map the surface to the texture in video memory
+	glBindTexture(GL_TEXTURE_2D, this->texturePointer); 
+
+	if (textureData->type == GL_RGB) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureData->width, textureData->height, 0, GL_BGR, GL_UNSIGNED_BYTE, textureData->imageData);
+	}
+	else {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureData->width, textureData->height, 0, GL_BGRA, GL_UNSIGNED_BYTE, textureData->imageData);
+	}
+
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	
 	std::cout << "DYNAMITE: ~Texture~ created succesfully! Texture bits per pixel = " << textureData->bpp << std::endl;
 
 	fclose(fTGA);                   // Close The File

@@ -58,18 +58,7 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 	}
 
 	glBindTexture(GL_TEXTURE_2D, entity->GetComponent<Sprite>()->GetTexture()->GetTexturePointer());
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	// Map the surface to the texture in video memory
-	if (texture->textureData->type == GL_RGB) {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture->textureData->width, texture->textureData->height, 0, GL_BGR, GL_UNSIGNED_BYTE, texture->textureData->imageData);
-	}
-	else {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->textureData->width, texture->textureData->height, 0, GL_BGRA, GL_UNSIGNED_BYTE, texture->textureData->imageData);
-	}
 	
-
 	//Calculate scales and camera positions
 	float scaleX = entity->GetScale().GetX();
 	float scaleY = entity->GetScale().GetY();
@@ -92,10 +81,10 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 
 	glEnable(GL_TEXTURE_2D);
 	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 1.0f); glVertex2f(calPos.GetX(), calPos.GetY()); //LU
-	glTexCoord2f(1.0f, 1.0f); glVertex2f(calPos.GetX() + (scaleX * texture->textureData->width), calPos.GetY()); //RU
-	glTexCoord2f(1.0f, 0.0f); glVertex2f(calPos.GetX() + (scaleX * texture->textureData->width), calPos.GetY() + (scaleY * texture->textureData->height)); //RD
-	glTexCoord2f(0.0f, 0.0f); glVertex2f(calPos.GetX(), calPos.GetY() + (scaleY * texture->textureData->height)); //LD
+		glTexCoord2f(0.0f, 1.0f); glVertex2f(calPos.GetX(), calPos.GetY()); //LU
+		glTexCoord2f(1.0f, 1.0f); glVertex2f(calPos.GetX() + (scaleX * texture->textureData->width), calPos.GetY()); //RU
+		glTexCoord2f(1.0f, 0.0f); glVertex2f(calPos.GetX() + (scaleX * texture->textureData->width), calPos.GetY() + (scaleY * texture->textureData->height)); //RD
+		glTexCoord2f(0.0f, 0.0f); glVertex2f(calPos.GetX(), calPos.GetY() + (scaleY * texture->textureData->height)); //LD
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 
