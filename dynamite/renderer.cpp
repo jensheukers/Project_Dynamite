@@ -2,7 +2,7 @@
 *	Filename: renderer.cpp
 *
 *	Description: Source file for Renderer class
-*	Version: 0.1
+*	Version: 2/11/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -52,10 +52,6 @@ void Renderer::RenderEntity(Entity* entity, Camera* activeCamera) {
 	Texture* texture = entity->GetComponent<Sprite>()->GetTexture();
 
 	glEnable(GL_TEXTURE_2D);
-
-	if (entity->GetComponent<Sprite>()->GetConvertedTexture() == NULL) {
-		entity->GetComponent<Sprite>()->GenerateConvertedTexture();
-	}
 
 	glBindTexture(GL_TEXTURE_2D, entity->GetComponent<Sprite>()->GetTexture()->GetTexturePointer());
 	
