@@ -50,7 +50,9 @@ Core::Core(char* arguments[]) {
 		return;
 	}
 
-	const char* glsl_version = "#version 130\n";
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); //OpenGL core profile
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3); //OpenGL 3+
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2); //OpenGL 3.3
 
 	window = SDL_CreateWindow(Game::GetGameName(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)Game::GetWindowDimensions().GetX(), (int)Game::GetWindowDimensions().GetY(), SDL_WINDOW_OPENGL);
 
