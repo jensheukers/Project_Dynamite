@@ -8,6 +8,7 @@
 
 
 #include "core.h"
+#include "ui\text.h"
 #include <sstream>
 
 int main(int argc, char* argv[]) {
@@ -49,10 +50,6 @@ Core::Core(char* arguments[]) {
 		std::cout << "DYNAMITE: ~Core~ SDL Could not initialize. SDL_ERROR:" << SDL_GetError() << std::endl;
 		return;
 	}
-
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); //OpenGL core profile
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3); //OpenGL 3+
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2); //OpenGL 3.3
 
 	window = SDL_CreateWindow(Game::GetGameName(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)Game::GetWindowDimensions().GetX(), (int)Game::GetWindowDimensions().GetY(), SDL_WINDOW_OPENGL);
 
@@ -154,8 +151,14 @@ Core::Core(char* arguments[]) {
 
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetUIElements().size(); i++) {
 				UIElement* entityCurrent = SceneManager::Instance()->GetActiveScene()->GetUIElement(i);
-				if (entityCurrent->HasComponent<Sprite>() && SceneManager::Instance()->GetActiveScene()->HasActiveCamera()) {
-					Renderer::Instance()->RenderEntity(SceneManager::Instance()->GetActiveScene()->GetUIElement(i), true);
+				
+				if (Text* textElement = dynamic_cast<Text*>(entityCurrent)) {
+					Renderer::Instance()->RenderText(textElement);
+				}
+				else {
+					if (entityCurrent->HasComponent<Sprite>() && SceneManager::Instance()->GetActiveScene()->HasActiveCamera()) {
+						Renderer::Instance()->RenderEntity(SceneManager::Instance()->GetActiveScene()->GetUIElement(i), true);
+					}
 				}
 			}
 

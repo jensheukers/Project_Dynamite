@@ -19,6 +19,11 @@ public:
 	Vector2 screenPosition;
 
 	/**
+	* Constructor
+	*/
+	UIElement();
+
+	/**
 	* Constructor, sets position to paramater
 	*/
 	UIElement(Vector2 position);
@@ -29,8 +34,9 @@ public:
 	*/
 	UIElement(Vector2 position, std::string path);
 
+
 	/**
-	* Update gets called every frame
+	* Handles the mouse on the element
 	*/
 	void Update() override;
 

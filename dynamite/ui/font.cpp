@@ -10,8 +10,9 @@
 
 Font::Font() {
 
-	//Set the char width to 32, assuming that a char in the font image is 32 pixels wide.
+	//Set the char width/height to 32, assuming that a char in the font image is 32 pixels by 32 pixels.
 	_charWidth = 32;
+	_charHeight = 32;
 
 	//Definitly better ways to do this, so will look into in the future. For now it wil work!
 
@@ -70,10 +71,10 @@ std::vector<Vector2> Font::GetCharacterCoordinates(char character) {
 	int characterIndex = _characters[character]; //Get the index of the character in the image
 
 	//Calculate and normalize the uv coordinates in the image
-	Vector2 LU = Vector2((characterIndex * _charWidth) / this->textureData->width, 1); //Left Up
-	Vector2 RU = Vector2(((characterIndex * _charWidth) + 32) / this->textureData->width, 1); // Right Up
-	Vector2 RD = Vector2(((characterIndex * _charWidth) + 32) / this->textureData->width, 0); // Right Down
-	Vector2 LD = Vector2((characterIndex * _charWidth) / this->textureData->width, 0); // Left Down
+	Vector2 LU = Vector2((float)(characterIndex * _charWidth) / (float)this->textureData->width, 1); //Left Up
+	Vector2 RU = Vector2(((float)(characterIndex * _charWidth) + 32) / (float)this->textureData->width, 1); // Right Up
+	Vector2 RD = Vector2(((float)(characterIndex * _charWidth) + 32) / (float)this->textureData->width, 0); // Right Down
+	Vector2 LD = Vector2((float)(characterIndex * _charWidth) / (float)this->textureData->width, 0); // Left Down
 
 	//Push backs
 	coordinates.push_back(LU);
@@ -92,4 +93,9 @@ void Font::SetColor(int b, int g, int r) {
 		this->textureData->imageData[i + 1] = g; //Set Value
 		this->textureData->imageData[i + 2] = r; //Set Value
 	}
+}
+
+Vector2 Font::GetCharSize()
+{
+	return Vector2(this->_charWidth, this->_charHeight);
 }

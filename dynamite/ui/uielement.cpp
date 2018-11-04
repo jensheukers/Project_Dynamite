@@ -15,10 +15,17 @@
 #include "../event/input.h"
 #include "../physics/physics.h"
 
+UIElement::UIElement() {
+	this->AddComponent<Collider>(); // Add a collider component
+
+	if (SceneManager::Instance()->GetActiveScene()) { // If there is a active scene
+		SceneManager::Instance()->GetActiveScene()->AddUIElement(this); // Add this to active scene
+	}
+}
+
 UIElement::UIElement(Vector2 position) {
 	this->position = position; //Set position to position parameter
 
-	this->AddComponent<Sprite>(); // Add a sprite component
 	this->AddComponent<Collider>(); // Add a collider component
 
 	if (SceneManager::Instance()->GetActiveScene()) { // If there is a active scene
@@ -39,6 +46,10 @@ UIElement::UIElement(Vector2 position, std::string path) {
 }
 
 void UIElement::SetTexture(std::string path) {
+	if (!this->HasComponent<Sprite>()) { // if there is no sprite component
+		this->AddComponent<Sprite>(); // add a sprite component
+	}
+
 	this->GetComponent<Sprite>()->SetTexture(path); // Set the texture
 	this->GetComponent<Collider>()->SetBounds(Vector2(this->GetComponent<Sprite>()->GetTexture()->textureData->width,
 		this->GetComponent<Sprite>()->GetTexture()->textureData->height)); // set the collider component bounds to texture

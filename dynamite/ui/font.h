@@ -19,7 +19,7 @@ private:
 	std::map<char, int> _characters;
 
 	/// @brief the width of the characters
-	int _charWidth;
+	int _charWidth, _charHeight;
 
 public:
 
@@ -37,4 +37,9 @@ public:
 	* Set the font color to parameters
 	*/
 	void SetColor(int b, int g, int r);
+
+	/**
+	* Returns the width of 1 character.
+	*/
+	Vector2 GetCharSize();
 };

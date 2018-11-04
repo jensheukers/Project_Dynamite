@@ -10,6 +10,7 @@
 #pragma once
 #include "SDL.h"
 #include "component\sprite.h"
+#include "ui\text.h"
 #include "entity.h"
 #include "camera.h"
 
@@ -45,6 +46,11 @@ public:
 	* Render the sprite of the entity.
 	*/
 	void RenderEntity(Entity* entity, bool uiElement);
+
+	/**
+	* Renders text on screen
+	*/
+	void RenderText(Text* text);
 
 	/**
 	* Draw all the rendered operations on screen
