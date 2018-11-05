@@ -31,7 +31,7 @@ UVData::UVData() {
 	this->_leftUp = Vector2(0.0f, 1.0f);
 	this->_rightUp = Vector2(1.0f, 1.0f);
 	this->_rightDown = Vector2(1.0f, 0.0f);
-	this->_leftDown = Vector2(0.0f, 1.0f);
+	this->_leftDown = Vector2(0.0f, 0.0f);
 }
 
 UVData::UVData(Vector2 _leftUp, Vector2 _rightUp, Vector2 _rightDown, Vector2 _leftDown) {
