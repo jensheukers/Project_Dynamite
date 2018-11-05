@@ -9,6 +9,7 @@
 
 #include "core.h"
 #include "component\sprite.h"
+#include "component\collider.h"
 #include <sstream>
 
 int main(int argc, char* argv[]) {
@@ -222,6 +223,19 @@ void Core::Log(std::string string) {
 
 void Core::PrepareAndRenderEntity(Entity* entity, bool isUI) {
 
+	Vector2 calcPos = entity->position; // The calculated position
+
+										//Check if object is a UI Element, if so we dont have to calculate the camera
+	if (!isUI) {
+		calcPos = Vector2(entity->position.GetX() - SceneManager::Instance()->GetActiveScene()->GetActiveCamera()->GetXCoord(),
+			entity->position.GetY() - SceneManager::Instance()->GetActiveScene()->GetActiveCamera()->GetYCoord());
+	}
+
+	if (DEBUG_SHOW_COLLIDERS && entity->HasComponent<Collider>()) {
+		Renderer::Instance()->RenderCube(calcPos, entity->GetComponent<Collider>()->GetBounds(),ColorRGB(0,255,0));
+	}
+
+
 	//Check if entity has a Sprite Component
 	if (!entity->HasComponent<Sprite>()) {
 		return;
@@ -230,14 +244,6 @@ void Core::PrepareAndRenderEntity(Entity* entity, bool isUI) {
 	//Check if entity has a texture
 	if (entity->GetComponent<Sprite>()->GetTexture() == nullptr) {
 		return;
-	}
-
-	Vector2 calcPos = entity->position; // The calculated position
-
-	//Check if object is a UI Element, if so we dont have to calculate the camera
-	if (!isUI) {
-		calcPos = Vector2(entity->position.GetX() - SceneManager::Instance()->GetActiveScene()->GetActiveCamera()->GetXCoord(),
-						  entity->position.GetY() - SceneManager::Instance()->GetActiveScene()->GetActiveCamera()->GetYCoord());
 	}
 
 	//See if object is actually on screen

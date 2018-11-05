@@ -77,16 +77,9 @@ void Renderer::RenderTexture(Texture* texture, Vector2 position, Vector2 scale, 
 
 	glBindTexture(GL_TEXTURE_2D, texture->GetGLTexture());
 
-	//Rotation
-	glPushMatrix();
-	glTranslatef((position.GetX() + (texture->textureData->width / 2)),
-		(position.GetY() + (texture->textureData->height / 2)), 0);
+	//TODO: ROTATION
 
-	glRotatef(rotation, 0.0, 0.0, 1.0);
 
-	glTranslatef((-position.GetX() - (texture->textureData->width / 2)),
-		(position.GetY() - (texture->textureData->height / 2)), 0);
-	
 	//Draw the mesh and handle uv's
 	glBegin(GL_QUADS);
 		glTexCoord2f(uvData._leftUp.GetX(), uvData._leftUp.GetY()); glVertex2f(position.GetX(), position.GetY()); //LU
@@ -105,7 +98,7 @@ void Renderer::RenderCube(Vector2 position, Vector2 bounds, ColorRGB color) {
 	glPushMatrix();
 
 	glLineWidth(2);
-	glColor3f((GLfloat)color.r, (GLfloat)color.b, (GLfloat)color.g);
+	glColor3f((GLfloat)color.r, (GLfloat)color.g, (GLfloat)color.b);
 	glBegin(GL_LINES);
 		glVertex2f(position.GetX(), position.GetY());
 		glVertex2f(position.GetX() + bounds.GetX(), position.GetY());
