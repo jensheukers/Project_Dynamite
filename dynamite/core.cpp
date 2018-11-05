@@ -8,6 +8,7 @@
 
 
 #include "core.h"
+#include "component\sprite.h"
 #include <sstream>
 
 int main(int argc, char* argv[]) {
@@ -141,18 +142,14 @@ Core::Core(char* arguments[]) {
 		Renderer::Instance()->Clear();
 
 		if (SceneManager::Instance()->GetActiveScene() != nullptr) {
+			//Render entities
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetEnties().size(); i++) {
-				Entity* entityCurrent = SceneManager::Instance()->GetActiveScene()->GetEnties()[i];
-				if (entityCurrent->HasComponent<Sprite>() && SceneManager::Instance()->GetActiveScene()->HasActiveCamera()) {
-					Renderer::Instance()->RenderEntity(SceneManager::Instance()->GetActiveScene()->GetEnties()[i], false);
-				}
+				this->PrepareAndRenderEntity(SceneManager::Instance()->GetActiveScene()->GetEntity(i), false);
 			}
 
+			//Render UI Objects
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetUIElements().size(); i++) {
-				UIElement* entityCurrent = SceneManager::Instance()->GetActiveScene()->GetUIElement(i);
-				if (entityCurrent->HasComponent<Sprite>() && SceneManager::Instance()->GetActiveScene()->HasActiveCamera()) {
-					Renderer::Instance()->RenderEntity(SceneManager::Instance()->GetActiveScene()->GetUIElement(i), true);
-				}
+				this->PrepareAndRenderEntity(SceneManager::Instance()->GetActiveScene()->GetUIElement(i), true);
 			}
 
 		}
@@ -221,4 +218,39 @@ void Core::Log(std::string string) {
 	std::cout << "DYNAMITE: ";
 	std::cout << Core::Instance()->GetTimeElapsed() << " : ";
 	std::cout << string.c_str() << std::endl;
+}
+
+void Core::PrepareAndRenderEntity(Entity* entity, bool isUI) {
+
+	//Check if entity has a Sprite Component
+	if (!entity->HasComponent<Sprite>()) {
+		return;
+	}
+
+	//Check if entity has a texture
+	if (entity->GetComponent<Sprite>()->GetTexture() == nullptr) {
+		return;
+	}
+
+	Vector2 calcPos = entity->position; // The calculated position
+
+	//Check if object is a UI Element, if so we dont have to calculate the camera
+	if (!isUI) {
+		calcPos = Vector2(entity->position.GetX() - SceneManager::Instance()->GetActiveScene()->GetActiveCamera()->GetXCoord(),
+						  entity->position.GetY() - SceneManager::Instance()->GetActiveScene()->GetActiveCamera()->GetYCoord());
+	}
+
+	//See if object is actually on screen
+	if (calcPos.GetX() + entity->GetComponent<Sprite>()->GetTexture()->textureData->width < 0 || calcPos.GetY() + entity->GetComponent<Sprite>()->GetTexture()->textureData->height < 0) {
+		return;
+	}
+	
+	if (calcPos.GetX() > Game::GetWindowDimensions().GetX() || calcPos.GetY() > Game::GetWindowDimensions().GetY()) {
+		return;
+	}
+
+	//TODO: IMPLEMENT UV DATA STRUCTURE IN ENTITY CLASS
+
+	//Render the texture
+	Renderer::Instance()->RenderTexture(entity->GetComponent<Sprite>()->GetTexture(), calcPos, entity->GetScale(), entity->GetRotation(), UVData());
 }

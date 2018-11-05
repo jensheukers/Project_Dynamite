@@ -9,6 +9,7 @@
 #include "scenemanager.h"
 #include "core.h"
 #include "component\collider.h"
+#include "component\sprite.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>

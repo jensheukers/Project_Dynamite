@@ -9,6 +9,7 @@
 */
 
 #include "animator.h"
+#include "../component/sprite.h"
 #include "../core.h"
 
 Animator::Animator() {

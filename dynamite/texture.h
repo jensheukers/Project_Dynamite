@@ -74,7 +74,7 @@ private:
 	TGA targa;
 
 	// The pointer to the converted OpenGL texture in memory
-	GLuint texturePointer;
+	GLuint _glTexture;
 
 public:
 	//Texture data
@@ -85,5 +85,5 @@ public:
 	*/
 	bool LoadTGA(char* filepath);
 
-	GLuint GetTexturePointer();
+	GLuint GetGLTexture();
 };

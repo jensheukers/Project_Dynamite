@@ -115,4 +115,9 @@ public:
 	* Returns the deltaTime
 	*/
 	float GetDeltaTime() { return this->deltaTime; };
+
+	/**
+	* Prepares entity for rendering, then calls renderer to render to buffer
+	*/
+	void PrepareAndRenderEntity(Entity* entity, bool isUI);
 };

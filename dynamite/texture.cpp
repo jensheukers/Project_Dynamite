@@ -64,10 +64,10 @@ bool Texture::LoadTGA(char* filepath) {
 		return false; //If we cant read the data return false
 	}
 
-	glGenTextures(1, &this->texturePointer); // Generate OpenGL Ready Textures
+	glGenTextures(1, &this->_glTexture); // Generate OpenGL Ready Textures
 
 		// Map the surface to the texture in video memory
-	glBindTexture(GL_TEXTURE_2D, this->texturePointer); 
+	glBindTexture(GL_TEXTURE_2D, this->_glTexture);
 
 	if (textureData->type == GL_RGB) {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureData->width, textureData->height, 0, GL_BGR, GL_UNSIGNED_BYTE, textureData->imageData);
@@ -86,6 +86,6 @@ bool Texture::LoadTGA(char* filepath) {
 	return true;                    // Return Success
 }
 
-GLuint Texture::GetTexturePointer() {
-	return this->texturePointer;
+GLuint Texture::GetGLTexture() {
+	return this->_glTexture;
 }
