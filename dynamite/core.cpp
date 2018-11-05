@@ -8,7 +8,6 @@
 
 
 #include "core.h"
-#include "ui\text.h"
 #include <sstream>
 
 int main(int argc, char* argv[]) {
@@ -151,14 +150,8 @@ Core::Core(char* arguments[]) {
 
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetUIElements().size(); i++) {
 				UIElement* entityCurrent = SceneManager::Instance()->GetActiveScene()->GetUIElement(i);
-				
-				if (Text* textElement = dynamic_cast<Text*>(entityCurrent)) {
-					Renderer::Instance()->RenderText(textElement);
-				}
-				else {
-					if (entityCurrent->HasComponent<Sprite>() && SceneManager::Instance()->GetActiveScene()->HasActiveCamera()) {
-						Renderer::Instance()->RenderEntity(SceneManager::Instance()->GetActiveScene()->GetUIElement(i), true);
-					}
+				if (entityCurrent->HasComponent<Sprite>() && SceneManager::Instance()->GetActiveScene()->HasActiveCamera()) {
+					Renderer::Instance()->RenderEntity(SceneManager::Instance()->GetActiveScene()->GetUIElement(i), true);
 				}
 			}
 

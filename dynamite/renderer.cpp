@@ -12,7 +12,6 @@
 #include <SDL_opengl.h>
 #include "../game/game.h"
 #include "component/collider.h"
-#include "ui\font.h"
 
 Renderer* Renderer::_instance;
 
@@ -117,27 +116,6 @@ void Renderer::RenderEntity(Entity* entity, bool uiElement) {
 
 	glPopAttrib();
 	glPopMatrix();
-}
-
-void Renderer::RenderText(Text* text) {
-	Font* font = text->GetFont();
-
-	glEnable(GL_TEXTURE_2D);
-
-	glBindTexture(GL_TEXTURE_2D, font->GetTexturePointer());
-
-	glBegin(GL_QUADS);
-	for (int i = 0; i < text->GetLenght(); i++) {
-		std::vector<Vector2> coords = font->GetCharacterCoordinates(text->GetChar(i));
-		glTexCoord2f(coords[0].GetX(), coords[0].GetY()); glVertex2f(text->position.GetX() * i, text->position.GetY()); //LU
-		glTexCoord2f(coords[1].GetX(), coords[1].GetY()); glVertex2f(text->position.GetX() + font->GetCharSize().GetX() * i, text->position.GetY());//RU
-		glTexCoord2f(coords[2].GetX(), coords[2].GetY()); glVertex2f(text->position.GetX() + font->GetCharSize().GetX() * i, text->position.GetY() + font->GetCharSize().GetY());//RD
-		glTexCoord2f(coords[3].GetX(), coords[3].GetY()); glVertex2f(text->position.GetX() * i, text->position.GetY() + font->GetCharSize().GetY());//LD
-		}
-	glEnd();
-
-	glDisable(GL_TEXTURE_2D);
-
 }
 
 void Renderer::Draw(SDL_Window* window) {
