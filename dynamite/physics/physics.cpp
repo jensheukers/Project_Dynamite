@@ -47,38 +47,3 @@ bool Physics::InRangePoint(Vector2 point, Collider* collider) {
 
 	return false;
 }
-
-bool Physics::RayCast(Vector2 origin, Vector2 endPos, float resolution, HitData* hitData) {
-	if (SceneManager::Instance()->GetActiveScene() == nullptr) {
-		Core::Log("~RayCast~ Cannot shoot raycast, No Active Scene...");
-		return false;
-	}
-	unsigned startTime = Core::Instance()->GetTimeElapsed();
-
-	if (resolution > 1) {
-		resolution = 1;
-	}
-
-	Collider* lastCollider = nullptr;
-
-	for (float i = 0; i < 1; i += resolution) {
-		Vector2 rayPos = Vector2::Lerp(origin, endPos, i);
-		for (int ii = 0; ii < SceneManager::Instance()->GetActiveScene()->GetEntiesCount(); ii++) {
-			Entity* entityCurrent = SceneManager::Instance()->GetActiveScene()->GetEntity(ii);
-			if (entityCurrent->HasComponent<Collider>() && entityCurrent->GetComponent<Collider>() != lastCollider) {
-				if (InRangePoint(rayPos, entityCurrent->GetComponent<Collider>())) {
-					hitData->hits.push_back(entityCurrent->GetComponent<Collider>());
-					lastCollider = entityCurrent->GetComponent<Collider>();
-				}
-			}
-		}
-	}
-
-	hitData->time = Core::Instance()->GetTimeElapsed() - startTime;
-	if (hitData->hits.size() > 0) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}

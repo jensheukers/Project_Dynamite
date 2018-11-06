@@ -35,9 +35,4 @@ public:
 	* Returns true, if point is inside collider
 	*/
 	static bool InRangePoint(Vector2 point, Collider* collider);
-
-	/**
-	* Shoot a raycast between 2 points, returns true if succes else returns false, Updates HitData with colliders hit
-	*/
-	static bool RayCast(Vector2 origin, Vector2 endPos, float resolution, HitData* data);
 };
