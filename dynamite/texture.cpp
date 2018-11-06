@@ -10,6 +10,20 @@
 
 #include "texture.h"
 
+void Texture::BGR2RGB() {
+	int bufferSize = (this->textureData->width * this->textureData->height) * this->textureData->bytesPerPixel;
+
+	for (int i = 0; i < bufferSize; i += this->textureData->bytesPerPixel) {
+		int b = this->textureData->imageData[i];
+		int g = this->textureData->imageData[i + 1];
+		int r = this->textureData->imageData[i + 2];
+
+		this->textureData->imageData[i] = r;
+		this->textureData->imageData[i + 1] = g;
+		this->textureData->imageData[i + 2] = b;
+	}
+}
+
 bool Texture::LoadTGA(char* filepath) {
 	FILE* fTGA; //Declare file pointer
 	fTGA = fopen(filepath, "rb"); //Open file for reading
@@ -52,6 +66,8 @@ bool Texture::LoadTGA(char* filepath) {
 	targa.bytesPerPixel = (targa.bpp / 8); // Calculate the BYTES per pixel
 	targa.imageSize = (targa.bytesPerPixel * targa.width * targa.height); //Calculate the memory needed to store the image
 
+	textureData->bytesPerPixel = targa.bytesPerPixel;
+
 	textureData->imageData = (GLubyte*)malloc(targa.imageSize); //Allocate memory
 
 	if (textureData->imageData == NULL) { // Check if imageData was allocated correctly
@@ -64,16 +80,18 @@ bool Texture::LoadTGA(char* filepath) {
 		return false; //If we cant read the data return false
 	}
 
+	this->BGR2RGB(); //Convert from BGR to RGB
+
 	glGenTextures(1, &this->_glTexture); // Generate OpenGL Ready Textures
 
 		// Map the surface to the texture in video memory
 	glBindTexture(GL_TEXTURE_2D, this->_glTexture);
 
 	if (textureData->type == GL_RGB) {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureData->width, textureData->height, 0, GL_BGR, GL_UNSIGNED_BYTE, textureData->imageData);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureData->width, textureData->height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureData->imageData);
 	}
 	else {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureData->width, textureData->height, 0, GL_BGRA, GL_UNSIGNED_BYTE, textureData->imageData);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureData->width, textureData->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData->imageData);
 	}
 
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

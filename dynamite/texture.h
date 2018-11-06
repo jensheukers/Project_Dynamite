@@ -21,6 +21,9 @@ typedef struct {
 	/** Holds all the color values for the image*/
 	GLubyte * imageData;
 
+	/** Holds the number of bytes per pixel*/
+	GLuint bytesPerPixel;
+
 	/** Holds the number of bits per pixel*/
 	GLuint bpp;
 
@@ -76,6 +79,11 @@ private:
 	// The pointer to the converted OpenGL texture in memory
 	GLuint _glTexture;
 
+	/**
+	* Converts BGR to RGB
+	*/
+	void BGR2RGB();
+
 public:
 	//Texture data
 	TextureData * textureData;
@@ -85,5 +93,8 @@ public:
 	*/
 	bool LoadTGA(char* filepath);
 
+	/**
+	* Returns the OpenGL Ready Texture
+	*/
 	GLuint GetGLTexture();
 };
