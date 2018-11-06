@@ -35,11 +35,11 @@ target_link_libraries(Project_Dynamite SDL2 SDL2main opengl32.lib glew32.lib gle
 # TODO: Set Commands
 add_custom_command(TARGET Project_Dynamite POST_BUILD 
 					COMMAND ${CMAKE_COMMAND} -E copy
-						${CMAKE_SOURCE_DIR}/SDL2.dll $<TARGET_FILE_DIR:Project_Dynamite>)
+						${CMAKE_SOURCE_DIR}/external/SDL2/lib/x64/SDL2.dll $<TARGET_FILE_DIR:Project_Dynamite>)
 
 add_custom_command(TARGET Project_Dynamite POST_BUILD 
 					COMMAND ${CMAKE_COMMAND} -E copy
-						${CMAKE_SOURCE_DIR}/glew32.dll $<TARGET_FILE_DIR:Project_Dynamite>)
+						${CMAKE_SOURCE_DIR}/external/glew/bin/x64/glew32.dll $<TARGET_FILE_DIR:Project_Dynamite>)
 						
 						
 add_custom_command(TARGET Project_Dynamite POST_BUILD 
