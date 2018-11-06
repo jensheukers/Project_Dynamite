@@ -26,6 +26,14 @@ const char* Sprite::GetSurfacePath() {
 	return this->texturePath;
 }
 
+UVData Sprite::GetUVData() {
+	return this->uvData;
+}
+
+void Sprite::SetUVData(UVData data) {
+	this->uvData = data;
+}
+
 Component* Sprite::Copy() {
 	Component* component = new Sprite();
 	return component;

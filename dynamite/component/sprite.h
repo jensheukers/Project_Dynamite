@@ -13,6 +13,7 @@
 #include "component.h"
 #include "../math/vector2.h"
 #include "../resourcemanager.h"
+#include "../renderer.h"
 #include "../texture.h"
 #include "../core.h"
 
@@ -23,11 +24,14 @@ private:
 
 	/// @brief the texture pointer
 	Texture* texture;
+
+	/// @brief structure containing all the UV Data
+	UVData uvData;
 public:
 	/**
 	* Default Constructor
 	*/
-	Sprite() { this->typeName = typeid(*this).name(); this->texture = nullptr; };
+	Sprite() { this->typeName = typeid(*this).name(); this->texture = nullptr; this->uvData = UVData(); };
 
 	/**
 	* Returns the surface if found, returns nullptr if failed
@@ -39,8 +43,28 @@ public:
 	*/
 	void SetTexture(std::string path);
 
+	/**
+	* Returns the surface Path
+	*/
 	const char* GetSurfacePath();
 
+	/**
+	* Returns the UV Data
+	*/
+	UVData GetUVData();
+
+	/**
+	* Sets the UV Data
+	*/
+	void SetUVData(UVData data);
+
+	/**
+	* Copy constructor
+	*/
 	Component* Copy();
+
+	/**
+	* Called when the component gets loaded
+	*/
 	void OnLoad(const char* data);
 };

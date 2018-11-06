@@ -12,5 +12,5 @@
 Game::Game() {
 }
 
-void Game::Update() {
+void Game::Update() {	
 }

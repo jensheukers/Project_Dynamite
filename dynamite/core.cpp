@@ -255,8 +255,6 @@ void Core::PrepareAndRenderEntity(Entity* entity, bool isUI) {
 		return;
 	}
 
-	//TODO: IMPLEMENT UV DATA STRUCTURE IN ENTITY CLASS
-
 	//Render the texture
-	Renderer::Instance()->RenderTexture(entity->GetComponent<Sprite>()->GetTexture(), calcPos, entity->GetScale(), entity->GetRotation(), UVData());
+	Renderer::Instance()->RenderTexture(entity->GetComponent<Sprite>()->GetTexture(), calcPos, entity->GetScale(), entity->GetRotation(), entity->GetComponent<Sprite>()->GetUVData());
 }
