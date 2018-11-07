@@ -3,7 +3,7 @@
 *
 *	Description: Main Header for Texture class.
 *
-*   Version: 1/11/2018
+*   Version: 7/11/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -97,4 +97,9 @@ public:
 	* Returns the OpenGL Ready Texture
 	*/
 	GLuint GetGLTexture();
+
+	/**
+	* Returns the channel value of pixel + offset
+	*/
+	int GetPixelData(int x, int y, int offset);
 };

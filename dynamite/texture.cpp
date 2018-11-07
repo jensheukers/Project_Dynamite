@@ -3,7 +3,7 @@
 *
 *	Description: Source file for Texture class.
 *
-*	Version: 2/11/2018
+*	Version: 7/11/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -106,4 +106,19 @@ bool Texture::LoadTGA(char* filepath) {
 
 GLuint Texture::GetGLTexture() {
 	return this->_glTexture;
+}
+
+int Texture::GetPixelData(int x, int y, int offset) {
+	if (offset > (this->textureData->bytesPerPixel - 1)) {
+		offset = (this->textureData->bytesPerPixel - 1);
+	}
+
+	if (offset < 0) {
+		offset = 0;
+	}
+
+	int height = (y * this->textureData->width) * this->textureData->bytesPerPixel;
+	int width = x * this->textureData->bytesPerPixel;
+
+	return this->textureData->imageData[(width + height) + offset];
 }
