@@ -9,6 +9,7 @@
 */
 
 #include "texture.h"
+#include "renderer.h"
 
 void Texture::BGR2RGB() {
 	int bufferSize = (this->textureData->width * this->textureData->height) * this->textureData->bytesPerPixel;
@@ -22,6 +23,27 @@ void Texture::BGR2RGB() {
 		this->textureData->imageData[i + 1] = g;
 		this->textureData->imageData[i + 2] = b;
 	}
+}
+
+void Texture::UploadToGPU() {
+	if (_glTexture) {
+		glDeleteTextures(1, &this->_glTexture); // Delete the texture if already uploaded before
+	}
+
+	glGenTextures(1, &this->_glTexture); // Generate OpenGL Ready Textures
+
+										 // Map the surface to the texture in video memory
+	glBindTexture(GL_TEXTURE_2D, this->_glTexture);
+
+	if (textureData->type == GL_RGB) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureData->width, textureData->height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureData->imageData);
+	}
+	else {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureData->width, textureData->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData->imageData);
+	}
+
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
 bool Texture::LoadTGA(char* filepath) {
@@ -81,23 +103,8 @@ bool Texture::LoadTGA(char* filepath) {
 	}
 
 	this->BGR2RGB(); //Convert from BGR to RGB
+	this->UploadToGPU();
 
-	glGenTextures(1, &this->_glTexture); // Generate OpenGL Ready Textures
-
-		// Map the surface to the texture in video memory
-	glBindTexture(GL_TEXTURE_2D, this->_glTexture);
-
-	if (textureData->type == GL_RGB) {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureData->width, textureData->height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureData->imageData);
-	}
-	else {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureData->width, textureData->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData->imageData);
-	}
-
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	
 	std::cout << "DYNAMITE: ~Texture~ created succesfully! Texture bits per pixel = " << textureData->bpp << std::endl;
 
 	fclose(fTGA);                   // Close The File
@@ -109,7 +116,7 @@ GLuint Texture::GetGLTexture() {
 }
 
 int Texture::GetPixelData(int x, int y, int offset) {
-	if (offset > (this->textureData->bytesPerPixel - 1)) {
+	if (offset > ((int)this->textureData->bytesPerPixel - 1)) {
 		offset = (this->textureData->bytesPerPixel - 1);
 	}
 
@@ -121,4 +128,19 @@ int Texture::GetPixelData(int x, int y, int offset) {
 	int width = x * this->textureData->bytesPerPixel;
 
 	return this->textureData->imageData[(width + height) + offset];
+}
+
+void Texture::SetColor(ColorRGB color) {
+	int bufferSize = (this->textureData->height * this->textureData->width) * this->textureData->bytesPerPixel; // Get the buffer size
+	for (int i = 0; i < bufferSize; i += this->textureData->bytesPerPixel) { // For every pixel
+		if (this->textureData->imageData[i] == 0 && this->textureData->imageData[i + 1] == 0 && this->textureData->imageData[i + 2] == 0) { // If a pixel has no color
+			continue; //Continue
+		}
+
+		this->textureData->imageData[i] = color.r; // Set Red
+		this->textureData->imageData[i + 1] = color.g; // Set Green
+		this->textureData->imageData[i + 2] = color.b; // Set Blue
+	}
+
+	this->UploadToGPU(); //Re-Upload the texture
 }

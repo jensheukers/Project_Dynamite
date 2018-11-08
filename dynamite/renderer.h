@@ -21,6 +21,7 @@ class Text; ///@brief forward declaration
 */
 struct ColorRGB {
 	unsigned r, g, b;
+	ColorRGB();
 	ColorRGB(int r, int g, int b);
 }; 
 
@@ -29,6 +30,7 @@ struct ColorRGB {
 */
 struct ColorRGBA {
 	unsigned r, g, b, a;
+	ColorRGBA();
 	ColorRGBA(int r, int g, int b, int a);
 }; 
 

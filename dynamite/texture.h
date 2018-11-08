@@ -17,6 +17,8 @@
 #include <iostream>
 #include <vector>
 
+struct ColorRGB; ///@brief forward declaration
+
 typedef struct {
 	/** Holds all the color values for the image*/
 	GLubyte * imageData;
@@ -84,6 +86,11 @@ private:
 	*/
 	void BGR2RGB();
 
+	/**
+	* Uploads the texture to the GPU, and sets the _glTexture pointer
+	*/
+	void UploadToGPU();
+
 public:
 	//Texture data
 	TextureData * textureData;
@@ -102,4 +109,9 @@ public:
 	* Returns the channel value of pixel + offset
 	*/
 	int GetPixelData(int x, int y, int offset);
+
+	/**
+	* Set the color of the font
+	*/
+	void SetColor(ColorRGB color);
 };

@@ -14,10 +14,23 @@
 #include "component/collider.h"
 #include "ui/text.h"
 
+ColorRGB::ColorRGB() {
+	this->r = 255;
+	this->g = 255;
+	this->b = 255;
+}
+
 ColorRGB::ColorRGB(int r, int g, int b) {
 	this->r = r;
 	this->g = g;
 	this->b = b;
+}
+
+ColorRGBA::ColorRGBA() {
+	this->r = 255;
+	this->g = 255;
+	this->b = 255;
+	this->a = 255;
 }
 
 ColorRGBA::ColorRGBA(int r, int g, int b, int a) {
