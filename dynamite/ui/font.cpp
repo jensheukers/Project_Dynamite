@@ -3,7 +3,7 @@
 *
 *	Description: Source file for Font class.
 *
-*	Version: 7/11/2018
+*	Version: 8/11/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -72,7 +72,7 @@ Font::Font(std::string texturePath, std::string csvPath) {
 	this->LoadTGA((char*)texturePath.c_str()); // Load the texture
 
 	if (this->textureData->width != this->textureData->height) { // Check if texture dimensions are equal
-		std::cout << "DYNAMITE: ~Font~ Cannot load font texture dimensions not the same or incorrect!" << std::endl; // If not print error
+		std::cout << "DYNAMITE: ~Font~ Cannot load Font, texture dimensions not the same or incorrect!" << std::endl; // If not print error
 		return; // Return
 	}
 
@@ -85,13 +85,35 @@ Font::Font(std::string texturePath, std::string csvPath) {
 	//Only have to check for cellHeight as we previously checked if the dimensions were equal
 	int amountCharsOnLine = this->textureData->height / this->celHeight;
 
+
 	//We have read the csvFile and the TGA File, we can now continue on to set all the uv data ect.
-	for (int y = 0; y < amountCharsOnLine; y++) {
-		for (int x = 0; x < amountCharsOnLine; x++) {
-			FontChar* fontChar = new FontChar();
-			fontChar->ascii = this->startChar + (x + (y * amountCharsOnLine));
-		
-			//TODO: HANDLE UV DATA
+	for (int y = 0; y < amountCharsOnLine + 1; y++) {
+		for (int x = 0; x < amountCharsOnLine + 1; x++) {
+			if (this->startChar + (x + (y * amountCharsOnLine)) <= 251) {
+				FontChar* fontChar = new FontChar();
+				fontChar->ascii = this->startChar + (x + (y * amountCharsOnLine));
+				fontChar->width = widths[fontChar->ascii];
+				fontChar->height = this->celHeight;
+
+				//Handle UV data
+				float _calculatedX = (float)(x * this->celHeight) / this->textureData->width;
+				float _calculatedY = (float)(y * this->celHeight) / this->textureData->width;
+				float _calculatedWidth = (float)widths[fontChar->ascii] / this->textureData->width;
+				float _calculatedHeight = (float)this->celHeight / this->textureData->height;
+
+				fontChar->uvData = UVData(
+					Vector2(_calculatedX, _calculatedY + _calculatedHeight), // LU
+					Vector2(_calculatedX + _calculatedWidth, _calculatedY + _calculatedHeight), // RU
+					Vector2(_calculatedX + _calculatedWidth, _calculatedY), // RD
+					Vector2(_calculatedX, _calculatedY) // LD
+				);
+
+				fontCharacters.push_back(fontChar);
+			}
 		}
 	}
+}
+
+FontChar* Font::GetFontCharacter(int ascii) {
+	return fontCharacters[ascii];
 }

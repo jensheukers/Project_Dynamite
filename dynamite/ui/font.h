@@ -7,7 +7,7 @@
 *				 All fonts can be generated using Codehead's bitmap font generator (http://www.codehead.co.uk/cbfg/) 				
 *				 Export as TGA32 & CSV
 *
-*	Version: 7/11/2018
+*	Version: 8/11/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -17,6 +17,8 @@
 
 struct FontChar {
 	int ascii; /// @brief The ascii value of the character 
+	int width; /// @brief The width of the character in pixels
+	int height; ///@brief The height of the character in pixels
 	UVData uvData; /// @brief the UV data of the character
 };
 
@@ -34,8 +36,14 @@ private:
 	*/
 	bool ReadCSVFile(std::string path);
 public:
+
 	/**
 	* Constructor
 	*/
 	Font(std::string texturePath, std::string csvPath);
+	
+	/**
+	* Get the character at given ASCII index
+	*/
+	FontChar* GetFontCharacter(int ascii);
 };

@@ -94,6 +94,9 @@ Core::Core(char* arguments[]) {
 	//Game loop
 	while (IsRunning()) {
 
+		//Clear the screen for the next render
+		Renderer::Instance()->Clear();
+
 		//Handle Time
 		timeCurrent = (unsigned)std::chrono::time_point_cast<std::chrono::milliseconds>(Time::now()).time_since_epoch().count();
 		float _delta = (float)timeCurrent;
@@ -138,9 +141,6 @@ Core::Core(char* arguments[]) {
 
 		//Update the game
 		game->Update();
-
-		//Handle rendering to screen
-		Renderer::Instance()->Clear();
 
 		if (SceneManager::Instance()->GetActiveScene() != nullptr) {
 			//Render entities

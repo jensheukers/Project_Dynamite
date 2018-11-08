@@ -2,7 +2,7 @@
 *	Filename: renderer.h
 *
 *	Description: Header file for Renderer class
-*	Version: 5/11/2018
+*	Version: 8/11/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -11,6 +11,8 @@
 #include "SDL.h"
 #include "texture.h"
 #include "math\vector2.h"
+
+class Font;
 
 /**
 * Basic structure for rgb color
@@ -79,6 +81,9 @@ public:
 	* Renders a cube of lines to the screen
 	*/
 	void RenderCube(Vector2 position, Vector2 bounds, ColorRGB color);
+
+
+	void RenderLetter(Font* font,int ascii, Vector2 position);
 
 	/**
 	* Draw all the rendered operations on screen
