@@ -12,7 +12,9 @@
 #include "texture.h"
 #include "math\vector2.h"
 
-class Font;
+class Font; ///@brief forward declaration
+struct FontChar; ///@brief forward declaration
+class Text; ///@brief forward declaration
 
 /**
 * Basic structure for rgb color
@@ -82,8 +84,15 @@ public:
 	*/
 	void RenderCube(Vector2 position, Vector2 bounds, ColorRGB color);
 
+	/**
+	* Renders text on screen
+	*/
+	void RenderText(Text* text);
 
-	void RenderLetter(Font* font,int ascii, Vector2 position);
+	/**
+	* Render a character using texture at position
+	*/
+	void RenderLetter(FontChar* character, Texture* texture, Vector2 position);
 
 	/**
 	* Draw all the rendered operations on screen

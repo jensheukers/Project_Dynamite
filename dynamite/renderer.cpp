@@ -12,7 +12,7 @@
 #include <SDL_opengl.h>
 #include "../game/game.h"
 #include "component/collider.h"
-#include "ui/font.h"
+#include "ui/text.h"
 
 ColorRGB::ColorRGB(int r, int g, int b) {
 	this->r = r;
@@ -122,13 +122,21 @@ void Renderer::RenderCube(Vector2 position, Vector2 bounds, ColorRGB color) {
 	glPopMatrix();
 }
 
+void Renderer::RenderText(Text* text) {
+
+	int currentWidth = 0; // Set the current width to 0 for the first character
+
+	for (unsigned i = 0; i < text->GetLenght(); i++) { // For every character
+		RenderLetter(text->GetCharacter(i), text->GetFont(), Vector2(text->position.GetX() + currentWidth, text->position.GetY())); // Render the letter
+		currentWidth += text->GetCharacter(i)->width; // Set current character width to width.
+	}
+}
+
 //NOTE: needs to be upgraded to "modern" OpenGL
-void Renderer::RenderLetter(Font* font,int ascii, Vector2 position) {
-	FontChar* character = font->GetFontCharacter(ascii);
-	
+void Renderer::RenderLetter(FontChar* character, Texture* texture, Vector2 position) {
 	glPushAttrib(GL_CURRENT_BIT);
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, font->GetGLTexture());
+	glBindTexture(GL_TEXTURE_2D, texture->GetGLTexture());
 	glPushMatrix();
 	glBegin(GL_QUADS);
 		glTexCoord2f(character->uvData._leftUp.GetX(), character->uvData._leftUp.GetY()); 

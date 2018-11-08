@@ -10,6 +10,7 @@
 #include "core.h"
 #include "component\sprite.h"
 #include "component\collider.h"
+#include "ui\text.h"
 #include <sstream>
 
 int main(int argc, char* argv[]) {
@@ -150,7 +151,13 @@ Core::Core(char* arguments[]) {
 
 			//Render UI Objects
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetUIElements().size(); i++) {
-				this->PrepareAndRenderEntity(SceneManager::Instance()->GetActiveScene()->GetUIElement(i), true);
+				Text* text = dynamic_cast<Text*>(SceneManager::Instance()->GetActiveScene()->GetUIElement(i));
+				if (text) {
+					Renderer::Instance()->RenderText(text);
+				}
+				else {
+					this->PrepareAndRenderEntity(SceneManager::Instance()->GetActiveScene()->GetUIElement(i), true);
+				}
 			}
 
 		}
