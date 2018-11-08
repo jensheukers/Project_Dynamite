@@ -24,8 +24,9 @@ struct FontChar {
 
 class Font : public Texture {
 private:
-	int widths[255]; /// @brief array of widths (amount of space between character for each character)
-	int celWidth, celHeight; ///@brief the width & heights of the cel's
+	int* widths; /// @brief array of widths (amount of space between character for each character)
+	int celWidth; ///@brief the width of the cel's
+	int celHeight; ///@brief the Height of the cel's
 	int startChar; ///@brief the ascii index of the first character of the font image
 	std::string fontName; ///@brief the name of the font used
 

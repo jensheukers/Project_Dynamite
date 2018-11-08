@@ -53,6 +53,8 @@ Renderer* Renderer::Instance() {
 
 //NOTE: needs to be upgraded to "modern" OpenGL
 void Renderer::InitOpenGL() {
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glOrtho(0.0f, (int)Game::GetWindowDimensions().GetX(), (int)Game::GetWindowDimensions().GetY(), 0.0f, 0.0f, 1.0f);
 
 	glClearColor(0.f,0.f,0.f,1.f);

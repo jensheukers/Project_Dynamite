@@ -33,30 +33,26 @@ bool Font::ReadCSVFile(std::string csvPath) {
 				segments.push_back(segment);
 			}
 
-			switch (i) { // Switch the current line
-				case 2:
-					this->celWidth = std::stoi(segments[1]); // Set cel width
-					break;	
-
-				case 3:
-					this->celHeight = std::stoi(segments[1]); // Set cel height
-					break;
-
-				case 4:
-					this->startChar = std::stoi(segments[1]); // Set the starting integer
-					break;
-
-				case 5:
-					this->fontName = segments[1]; // Set the font name
-					break;
+			if (i == 2) {
+				this->celWidth = std::stoi(segments[1]); // Set cel width
 			}
 
+			if (i == 3) {
+				this->celHeight = std::stoi(segments[1]); // Set cel height
+			}
 
-			if (i > 7 && ii <= 255) {
+			if (i == 4) {
+				this->startChar = std::stoi(segments[1]); // Set the starting integer
+			}
+			
+			if (i == 5) {
+				this->fontName = segments[1]; // Set the font name
+			}
+
+			if (i > 7 && ii < 256) {
 				widths[ii] = std::stoi(segments[1]); //Set the widths at index ii to value
 				ii++; //Increment ii
 			}
-
 			i++; //Increment i
 		}
 	}
@@ -76,8 +72,17 @@ Font::Font(std::string texturePath, std::string csvPath) {
 		return; // Return
 	}
 
+	widths = new int[255]; // Create instance of array of integers (to store the character widths)
+
 	if (!this->ReadCSVFile(csvPath)) { //Can we read the csv file?
 		std::cout << "DYNAMITE: ~Font~ Cannot read CSV File" << std::endl; // If not print error
+		delete widths;
+		return; // Return
+	}
+
+	if (this->celHeight != this->celWidth) { //Does the cel height match the cel Width?
+		std::cout << "DYNAMITE: ~Font~ celHeight  does not equal celWidth!" << std::endl; // If not print error
+		delete widths;
 		return; // Return
 	}
 
@@ -85,35 +90,45 @@ Font::Font(std::string texturePath, std::string csvPath) {
 	//Only have to check for cellHeight as we previously checked if the dimensions were equal
 	int amountCharsOnLine = this->textureData->height / this->celHeight;
 
+	// Index to keep track where we are iterating
+	int index = this->startChar;
 
 	//We have read the csvFile and the TGA File, we can now continue on to set all the uv data ect.
-	for (int y = 0; y < amountCharsOnLine + 1; y++) {
-		for (int x = 0; x < amountCharsOnLine + 1; x++) {
-			if (this->startChar + (x + (y * amountCharsOnLine)) <= 251) {
-				FontChar* fontChar = new FontChar();
-				fontChar->ascii = this->startChar + (x + (y * amountCharsOnLine));
-				fontChar->width = widths[fontChar->ascii];
-				fontChar->height = this->celHeight;
+	for (int y = amountCharsOnLine - 1; y > -1; y--) { //Iterate from up to down
+		for (int x = 0; x < amountCharsOnLine; x++) { //Iterate from left to right
+			FontChar* fontChar = new FontChar(); // Create a new font character instance
+			fontChar->ascii = index; //Set font char ASCII index to index.
+			fontChar->width = this->widths[fontChar->ascii]; // Get the width of the character
+			fontChar->height = this->celHeight; //Set character height to cel height
+			
+			float _calculatedX = (float)(x * this->celWidth) / this->textureData->width; // Calculate the X position to "texture" space and normalize between 0-1
+			float _calculatedY = (float)(y * this->celWidth) / this->textureData->height; // Calculate the Y position to "texture" space and normalize between 0-1
+			float _calculatedWidth = (float)fontChar->width / this->textureData->width; // Calculate the Width to "texture" space and normalize between 0-1
+			float _calculatedHeight = (float)fontChar->height / this->textureData->height; // Calculate the Height to "texture" space and normalize between 0-1
 
-				//Handle UV data
-				float _calculatedX = (float)(x * this->celHeight) / this->textureData->width;
-				float _calculatedY = (float)(y * this->celHeight) / this->textureData->width;
-				float _calculatedWidth = (float)widths[fontChar->ascii] / this->textureData->width;
-				float _calculatedHeight = (float)this->celHeight / this->textureData->height;
+			//Set the UV Data
+			fontChar->uvData = UVData(
+				Vector2(_calculatedX, _calculatedY + _calculatedHeight), // _LeftUp
+				Vector2(_calculatedX + _calculatedWidth, _calculatedY + _calculatedHeight), // _RightUp
+				Vector2(_calculatedX + _calculatedWidth, _calculatedY), // _RightDown
+				Vector2(_calculatedX, _calculatedY)  // _LeftDown
+			);
 
-				fontChar->uvData = UVData(
-					Vector2(_calculatedX, _calculatedY + _calculatedHeight), // LU
-					Vector2(_calculatedX + _calculatedWidth, _calculatedY + _calculatedHeight), // RU
-					Vector2(_calculatedX + _calculatedWidth, _calculatedY), // RD
-					Vector2(_calculatedX, _calculatedY) // LD
-				);
-
-				fontCharacters.push_back(fontChar);
-			}
+			this->fontCharacters.push_back(fontChar); //Add the character to the fontCharacters Array
+			index++; //Increment
 		}
 	}
+
+	//Cleanup
+	delete widths;
 }
 
 FontChar* Font::GetFontCharacter(int ascii) {
-	return fontCharacters[ascii];
+	for (int i = 0; i < fontCharacters.size(); i++) { //For every font Character
+		if (fontCharacters[i]->ascii == ascii) { // if found
+			return fontCharacters[i]; // return
+		}
+	}
+
+	return nullptr;
 }
