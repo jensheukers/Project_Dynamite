@@ -127,17 +127,22 @@ void Renderer::RenderText(Text* text) {
 	int currentWidth = 0; // Set the current width to 0 for the first character
 
 	for (unsigned i = 0; i < text->GetLenght(); i++) { // For every character
-		RenderLetter(text->GetCharacter(i), text->GetFont(), Vector2(text->position.GetX() + currentWidth, text->position.GetY())); // Render the letter
+		RenderLetter(text->GetCharacter(i), text->GetFont(), Vector2(text->position.GetX() + currentWidth, text->position.GetY()), text->GetRotation()); // Render the letter
 		currentWidth += text->GetCharacter(i)->width; // Set current character width to width.
 	}
 }
 
 //NOTE: needs to be upgraded to "modern" OpenGL
-void Renderer::RenderLetter(FontChar* character, Texture* texture, Vector2 position) {
+void Renderer::RenderLetter(FontChar* character, Texture* texture, Vector2 position, float rotation) {
 	glPushAttrib(GL_CURRENT_BIT);
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texture->GetGLTexture());
+
 	glPushMatrix();
+
+	glRotatef(rotation, 0.0, 0.0, 1.0);
+
+
 	glBegin(GL_QUADS);
 		glTexCoord2f(character->uvData._leftUp.GetX(), character->uvData._leftUp.GetY()); 
 		glVertex2f(position.GetX(), position.GetY());

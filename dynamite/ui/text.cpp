@@ -45,5 +45,5 @@ FontChar* Text::GetCharacter(int index) {
 }
 
 Font* Text::GetFont() {
-	return this->font;
+	return this->font; // Return the font
 }

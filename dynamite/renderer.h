@@ -92,7 +92,7 @@ public:
 	/**
 	* Render a character using texture at position
 	*/
-	void RenderLetter(FontChar* character, Texture* texture, Vector2 position);
+	void RenderLetter(FontChar* character, Texture* texture, Vector2 position, float rotation);
 
 	/**
 	* Draw all the rendered operations on screen

@@ -19,6 +19,7 @@ class Text : public UIElement {
 private:
 	std::vector<FontChar*> characters; ///@brief Vector containing all the characters of the string
 	unsigned lenght; ///@brief The lenght of the text
+	unsigned scale; ///@brief the scale of the text
 	Font* font; ///@brief Pointer to font used
 public:
 	/**
