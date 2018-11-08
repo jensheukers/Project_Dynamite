@@ -2,7 +2,7 @@
 *	Filename: entity.cpp
 *
 *	Description: Source file for entity class
-*	Version: 21/10/2018
+*	Version: 8/11/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -149,11 +149,5 @@ void Entity::SetZLayer(unsigned layer) {
 
 	if (SceneManager::Instance()->GetActiveScene() != nullptr) {
 		SceneManager::Instance()->GetActiveScene()->SortLayers();
-	}
-}
-
-Entity::~Entity() {
-	for (unsigned i = 0; i < components.size(); i++) {
-		delete components[i];
 	}
 }

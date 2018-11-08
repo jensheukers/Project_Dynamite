@@ -2,7 +2,7 @@
 *	Filename: uielement.h
 *
 *	Description: Header file for User Interface Element class
-*	Version: 2/11/2018
+*	Version: 8/11/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -34,6 +34,10 @@ public:
 	*/
 	UIElement(Vector2 position, std::string path);
 
+	/**
+	* Virtual Destructor
+	*/
+	virtual ~UIElement() {};
 
 	/**
 	* Handles the mouse on the element

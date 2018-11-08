@@ -42,9 +42,14 @@ public:
 	* Constructor
 	*/
 	Font(std::string texturePath, std::string csvPath);
-	
+
 	/**
 	* Get the character at given ASCII index
 	*/
 	FontChar* GetFontCharacter(int ascii);
+
+	/**
+	* Destructor
+	*/
+	~Font();
 };

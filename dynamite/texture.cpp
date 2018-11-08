@@ -3,7 +3,7 @@
 *
 *	Description: Source file for Texture class.
 *
-*	Version: 7/11/2018
+*	Version: 8/11/2018
 *
 *	© 2018, Jens Heukers
 */

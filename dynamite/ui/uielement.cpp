@@ -2,7 +2,7 @@
 *	Filename: uielement.cpp
 *
 *	Description: Source file for User Interface Element class
-*	Version: 2/11/2018
+*	Version: 8/11/2018
 *
 *	© 2018, Jens Heukers
 */

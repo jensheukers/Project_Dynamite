@@ -1,6 +1,16 @@
+/**
+*	Filename: scene.cpp
+*
+*	Description: Source file for User Scene class
+*	Version: 8/11/2018
+*
+*	© 2018, Jens Heukers
+*/
+
 #include "scene.h"
 #include "scenemanager.h"
 #include "core.h"
+#include "ui\text.h"
 
 Scene::Scene(SceneManager* manager) {
 	this->manager = manager;
@@ -81,5 +91,10 @@ UIElement* Scene::GetUIElement(int index) {
 }
 
 Scene::~Scene() {
-
+	for (int i = 0; i < uiElements.size(); i++) {
+		Text* text = dynamic_cast<Text*>(uiElements[i]);
+		if (text) {
+			delete text;
+		}
+	}
 }

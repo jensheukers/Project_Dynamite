@@ -166,6 +166,15 @@ Core::Core(char* arguments[]) {
 		//Calculate DeltaTime
 		deltaTime = (std::chrono::time_point_cast<std::chrono::milliseconds>(Time::now()).time_since_epoch().count() - _delta) / 100;
 	}
+
+	// Cleanup
+	delete Input::Instance();
+	delete Renderer::Instance();
+	delete SceneManager::Instance();
+
+	SDL_GL_DeleteContext(context);
+	SDL_DestroyWindow(window);
+	SDL_Quit();
 }
 
 std::string Core::GetResourceDirectory() {

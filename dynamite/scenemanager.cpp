@@ -176,5 +176,7 @@ void SceneManager::SetActiveScene(std::string name) {
 }
 
 SceneManager::~SceneManager() {
-
+	for (int i = 0; i < this->loadedScenes.size(); i++) {
+		delete this->loadedScenes[i];
+	}
 }

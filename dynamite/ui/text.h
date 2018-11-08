@@ -28,6 +28,11 @@ public:
 	Text(Font* font);
 
 	/**
+	* Destructor
+	*/
+	~Text();
+
+	/**
 	* Set the text to parameter
 	*/
 	void SetText(std::string text);

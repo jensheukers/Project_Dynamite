@@ -47,3 +47,11 @@ FontChar* Text::GetCharacter(int index) {
 Font* Text::GetFont() {
 	return this->font; // Return the font
 }
+
+Text::~Text() {
+	for (int i = 0; i < this->characters.size(); i++) {
+		this->characters.erase(this->characters.begin() + i);
+	}
+
+	delete this->font;
+}

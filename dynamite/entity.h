@@ -3,7 +3,7 @@
 *
 *	Description: Header file for entity class, containing component system
 *
-*	Version: 21/10/2018
+*	Version: 8/11/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -233,9 +233,4 @@ public:
 	* Return the z layer
 	*/
 	unsigned GetZLayer() { return this->z_layer; }
-
-	/**
-	* Destructor
-	*/
-	~Entity();
 };

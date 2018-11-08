@@ -132,3 +132,9 @@ FontChar* Font::GetFontCharacter(int ascii) {
 
 	return nullptr;
 }
+
+Font::~Font() {
+	for (int i = 0; i < fontCharacters.size(); i++) { //For every font Character
+		delete fontCharacters[i]; // Free memory
+	}
+}
