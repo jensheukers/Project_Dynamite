@@ -17,20 +17,11 @@
 
 UIElement::UIElement() {
 	this->AddComponent<Collider>(); // Add a collider component
-
-	if (SceneManager::Instance()->GetActiveScene()) { // If there is a active scene
-		SceneManager::Instance()->GetActiveScene()->AddUIElement(this); // Add this to active scene
-	}
 }
 
 UIElement::UIElement(Vector2 position) {
 	this->position = position; //Set position to position parameter
-
 	this->AddComponent<Collider>(); // Add a collider component
-
-	if (SceneManager::Instance()->GetActiveScene()) { // If there is a active scene
-		SceneManager::Instance()->GetActiveScene()->AddUIElement(this); // Add this to active scene
-	}
 }
 
 UIElement::UIElement(Vector2 position, std::string path) {
@@ -39,10 +30,6 @@ UIElement::UIElement(Vector2 position, std::string path) {
 	this->AddComponent<Sprite>()->SetTexture(path); // Add a sprite component and set the texture
 	this->AddComponent<Collider>()->SetBounds(Vector2((float)this->GetComponent<Sprite>()->GetTexture()->textureData->width,  // Add a collider component, and set bounds
 													  (float)this->GetComponent<Sprite>()->GetTexture()->textureData->height)); 
-
-	if (SceneManager::Instance()->GetActiveScene()) { // If there is a active scene
-		SceneManager::Instance()->GetActiveScene()->AddUIElement(this); // Add this to active scene
-	}
 }
 
 void UIElement::SetTexture(std::string path) {
