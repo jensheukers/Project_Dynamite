@@ -74,7 +74,13 @@ void Entity::AddChild(Entity* entity) {
 	}
 
 	if (!entityFound) {
-		SceneManager::Instance()->GetActiveScene()->AddEntity(entity);
+		UIElement* isUI = dynamic_cast<UIElement*>(this);
+		if (isUI) {
+			SceneManager::Instance()->GetActiveScene()->AddUIElement(dynamic_cast<UIElement*>(entity));
+		}
+		else {
+			SceneManager::Instance()->GetActiveScene()->AddEntity(entity);
+		}
 	}
 	
 	entity->SetParent(this);
