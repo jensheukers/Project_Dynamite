@@ -122,7 +122,7 @@ Core::Core(char* arguments[]) {
 		//Update the components of entities 
 		if (SceneManager::Instance()->GetActiveScene() != nullptr) {
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetEnties().size(); i++) {
-				if (!SceneManager::Instance()->GetActiveScene()->GetEntity(i)->active) {
+				if (!SceneManager::Instance()->GetActiveScene()->GetEntity(i)->IsActive()) {
 					continue;
 				}
 
@@ -135,7 +135,7 @@ Core::Core(char* arguments[]) {
 			}
 
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetUIElements().size(); i++) {
-				if (!SceneManager::Instance()->GetActiveScene()->GetUIElement(i)->active) {
+				if (!SceneManager::Instance()->GetActiveScene()->GetUIElement(i)->IsActive()) {
 					continue;
 				}
 
@@ -154,7 +154,7 @@ Core::Core(char* arguments[]) {
 		if (SceneManager::Instance()->GetActiveScene() != nullptr) {
 			//Render entities
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetEnties().size(); i++) {
-				if (!SceneManager::Instance()->GetActiveScene()->GetEntity(i)->active) {
+				if (!SceneManager::Instance()->GetActiveScene()->GetEntity(i)->IsActive()) {
 					continue;
 				}
 
@@ -163,7 +163,7 @@ Core::Core(char* arguments[]) {
 
 			//Render UI Objects
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetUIElements().size(); i++) {
-				if (!SceneManager::Instance()->GetActiveScene()->GetUIElement(i)->active) {
+				if (!SceneManager::Instance()->GetActiveScene()->GetUIElement(i)->IsActive()) {
 					continue;
 				}
 

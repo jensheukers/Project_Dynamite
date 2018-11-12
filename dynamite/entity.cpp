@@ -2,7 +2,7 @@
 *	Filename: entity.cpp
 *
 *	Description: Source file for entity class
-*	Version: 8/11/2018
+*	Version: 12/11/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -41,6 +41,14 @@ Entity::Entity(Vector2 position) {
 
 	this->unique_id = next_unique_id;
 	next_unique_id++;
+}
+
+void Entity::SetActive(bool state) {
+	for (int i = 0; i < this->children.size(); i++) {
+		this->GetChild(i)->SetActive(state);
+	}
+
+	this->active = state;
 }
 
 Entity* Entity::GetParent() {

@@ -3,7 +3,7 @@
 *
 *	Description: Header file for entity class, containing component system
 *
-*	Version: 8/11/2018
+*	Version: 12/11/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -45,15 +45,15 @@ private:
 
 	/// @brief The z_layer to for the renderer, the higher the number, the more to the foreground
 	unsigned z_layer;
+
+	/// @brief If enabled Entity will be rendered and updated, else it will not
+	bool active;
 public:
 	/// @brief The position Vector2 in local space*/
 	Vector2 localPosition;
 
 	/// @brief The position Vector2 in global space*/
 	Vector2 position;
-
-	/// @brief If enabled Entity will be rendered and updated, else it will not
-	bool active;
 
 	/// @brief enable if you want the entity to ignore the scaling of the parent
 	bool ignoreParentScaling;
@@ -77,6 +77,16 @@ public:
 	* Returns the unique id of this entity
 	*/
 	unsigned GetUniqueId() { return this->unique_id; };
+
+	/**
+	* Returns true if active, else returns false
+	*/
+	bool IsActive() { return this->active; };
+
+	/**
+	* Set active to either true or false
+	*/
+	void SetActive(bool state);
 
 	/**
 	* Returns the parent object if entity has a parent, else returns nullptr
