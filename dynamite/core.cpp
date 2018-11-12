@@ -122,6 +122,10 @@ Core::Core(char* arguments[]) {
 		//Update the components of entities 
 		if (SceneManager::Instance()->GetActiveScene() != nullptr) {
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetEnties().size(); i++) {
+				if (!SceneManager::Instance()->GetActiveScene()->GetEntity(i)->active) {
+					continue;
+				}
+
 				SceneManager::Instance()->GetActiveScene()->GetEntity(i)->Update();
 				SceneManager::Instance()->GetActiveScene()->GetEntity(i)->UpdateComponents();
 
@@ -130,12 +134,16 @@ Core::Core(char* arguments[]) {
 				}
 			}
 
-			for (int ii = 0; ii < SceneManager::Instance()->GetActiveScene()->GetUIElements().size(); ii++) {
-				SceneManager::Instance()->GetActiveScene()->GetUIElement(ii)->Update();
-				SceneManager::Instance()->GetActiveScene()->GetUIElement(ii)->UpdateComponents();
+			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetUIElements().size(); i++) {
+				if (!SceneManager::Instance()->GetActiveScene()->GetUIElement(i)->active) {
+					continue;
+				}
 
-				if (!SceneManager::Instance()->GetActiveScene()->GetUIElement(ii)->HasParent()) {
-					SceneManager::Instance()->GetActiveScene()->GetUIElement(ii)->UpdateChildren();
+				SceneManager::Instance()->GetActiveScene()->GetUIElement(i)->Update();
+				SceneManager::Instance()->GetActiveScene()->GetUIElement(i)->UpdateComponents();
+
+				if (!SceneManager::Instance()->GetActiveScene()->GetUIElement(i)->HasParent()) {
+					SceneManager::Instance()->GetActiveScene()->GetUIElement(i)->UpdateChildren();
 				}
 			}
 		}
@@ -146,11 +154,19 @@ Core::Core(char* arguments[]) {
 		if (SceneManager::Instance()->GetActiveScene() != nullptr) {
 			//Render entities
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetEnties().size(); i++) {
+				if (!SceneManager::Instance()->GetActiveScene()->GetEntity(i)->active) {
+					continue;
+				}
+
 				this->PrepareAndRenderEntity(SceneManager::Instance()->GetActiveScene()->GetEntity(i), false);
 			}
 
 			//Render UI Objects
 			for (int i = 0; i < SceneManager::Instance()->GetActiveScene()->GetUIElements().size(); i++) {
+				if (!SceneManager::Instance()->GetActiveScene()->GetUIElement(i)->active) {
+					continue;
+				}
+
 				Text* text = dynamic_cast<Text*>(SceneManager::Instance()->GetActiveScene()->GetUIElement(i));
 				if (text) {
 					Renderer::Instance()->RenderText(text);

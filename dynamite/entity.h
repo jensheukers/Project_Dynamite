@@ -46,11 +46,14 @@ private:
 	/// @brief The z_layer to for the renderer, the higher the number, the more to the foreground
 	unsigned z_layer;
 public:
-	/** The position Vector2 in local space*/
+	/// @brief The position Vector2 in local space*/
 	Vector2 localPosition;
 
-	/** The position Vector2 in global space*/
+	/// @brief The position Vector2 in global space*/
 	Vector2 position;
+
+	/// @brief If enabled Entity will be rendered and updated, else it will not
+	bool active;
 
 	/**
 	* Constructor

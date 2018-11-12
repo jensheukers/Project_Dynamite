@@ -14,6 +14,7 @@
 unsigned Entity::next_unique_id = 0;
 
 Entity::Entity() {
+	this->active = true;
 	this->parent = nullptr;
 	this->position = Vector2(0, 0); 
 	this->localPosition = Vector2(0,0);
@@ -27,6 +28,7 @@ Entity::Entity() {
 }
 
 Entity::Entity(Vector2 position) {
+	this->active = true;
 	this->parent = nullptr;
 	this->position = position;
 	this->localPosition = position;
