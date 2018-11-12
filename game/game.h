@@ -10,8 +10,6 @@
 #pragma once
 #include "..\dynamite\math\vector2.h"
 
-class Core;
-
 class Game {
 protected:
 
