@@ -55,6 +55,9 @@ public:
 	/// @brief If enabled Entity will be rendered and updated, else it will not
 	bool active;
 
+	/// @brief enable if you want the entity to ignore the scaling of the parent
+	bool ignoreParentScaling;
+
 	/**
 	* Constructor
 	*/

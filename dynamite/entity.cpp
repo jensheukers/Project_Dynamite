@@ -22,6 +22,7 @@ Entity::Entity() {
 	this->rotation = 0; 
 	this->z_layer = 0;
 	this->scale = Vector2(1, 1);
+	this->ignoreParentScaling = false;
 
 	this->unique_id = next_unique_id;
 	next_unique_id++;
@@ -36,6 +37,7 @@ Entity::Entity(Vector2 position) {
 	this->rotation = 0;
 	this->z_layer = 0;
 	this->scale = Vector2(1,1);
+	this->ignoreParentScaling = false;
 
 	this->unique_id = next_unique_id;
 	next_unique_id++;
@@ -96,7 +98,10 @@ void Entity::RemoveChild(int index) {
 void Entity::UpdateChildren() {
 	if (HasParent()) {
 		this->position = Vector2(parent->position.GetX() + this->localPosition.GetX(), parent->position.GetY() + this->localPosition.GetY());
-		this->scale = Vector2(this->scale.GetX() * parent->GetScale().GetX(), this->scale.GetY() * parent->GetScale().GetY());
+
+		if (!this->ignoreParentScaling) {
+			this->scale = Vector2(this->scale.GetX() * parent->GetScale().GetX(), this->scale.GetY() * parent->GetScale().GetY());
+		}
 	}
 
 	for (int i = 0; i < children.size(); i++) {
