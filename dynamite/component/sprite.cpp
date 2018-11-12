@@ -17,7 +17,13 @@ Texture* Sprite::GetTexture() {
 }
 
 void Sprite::SetTexture(std::string path) {
-	this->texture = ResourceManager::Instance()->GetTexture(path.c_str());
+	this->texture = ResourceManager::Instance()->GetTexture(path.c_str(), false);
+
+	this->texturePath = path.c_str();
+}
+
+void Sprite::CreateTexture(std::string path) {
+	this->texture = ResourceManager::Instance()->GetTexture(path.c_str(), true);
 
 	this->texturePath = path.c_str();
 }

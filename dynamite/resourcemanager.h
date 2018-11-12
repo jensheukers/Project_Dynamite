@@ -30,7 +30,7 @@ public:
 	static ResourceManager* Instance();
 
 	/**
-	* Returns Surface if found, otherwise creates a new entry then returns
+	* Returns Surface if found, otherwise creates a new entry then returns, If allocate is true, it will allocate new memory for the resource
 	*/
-	Texture* GetTexture(std::string path);
+	Texture* GetTexture(std::string path, bool allocate);
 };

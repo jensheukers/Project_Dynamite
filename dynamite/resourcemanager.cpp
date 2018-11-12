@@ -17,18 +17,22 @@ ResourceManager* ResourceManager::Instance() {
 	return _instance;
 }
 
-Texture* ResourceManager::GetTexture(std::string path) {
+Texture* ResourceManager::GetTexture(std::string path, bool allocate) {
 
 	//printf("DYNAMITE: ~ResourceManager~ Searching texture: %s\n",path.c_str());
 
 	//Search if surface already exists
-	if (textures[path] != NULL) {
+	if (textures[path] != NULL && !allocate) {
 		//printf("DYNAMITE: ~ResourceManager~ Ok\n");
 		return textures[path];
 	}
 	
-
-	printf("DYNAMITE: ~ResourceManager~ Texture not found, Attempting to create texture : %s\n", path.c_str());
+	if (!allocate) {
+		printf("DYNAMITE: ~ResourceManager~ Texture not found, Attempting to create texture : %s\n", path.c_str());
+	}
+	else {
+		printf("DYNAMITE: ~ResourceManager~ Attempting to create texture : %s\n", path.c_str());
+	}
 
 	//else create a new surface
 	Texture* texture = new Texture();

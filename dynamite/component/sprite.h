@@ -39,9 +39,14 @@ public:
 	Texture* GetTexture();
 	
 	/**
-	* Creates a new surface, by loading image bmp file
+	* Creates a new surface, by getting texture data from ResourceManager
 	*/
 	void SetTexture(std::string path);
+
+	/**
+	* Creates a new surface, by creating a new texture in ResourceManager
+	*/
+	void CreateTexture(std::string path);
 
 	/**
 	* Returns the surface Path
