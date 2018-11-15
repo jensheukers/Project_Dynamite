@@ -1,4 +1,10 @@
 #cmake . -DCMAKE_GENERATOR_PLATFORM=x64
+
+if(NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
+    message("Cannot build for x86, Please run cmake with following parameter: -DCMAKE_GENERATOR_PLATFORM=x64, or run build.bat")
+    return()
+endif()
+
 cmake_minimum_required(VERSION 2.8.9)
 
 set(CMAKE_SUPPRESS_REGENERATION true) 
