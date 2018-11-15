@@ -7,6 +7,8 @@
 */
 
 #include "resourcemanager.h"
+#include "texture.h"
+#include "ui/font.h"
 
 ResourceManager* ResourceManager::_instance;
 
@@ -51,4 +53,30 @@ Texture* ResourceManager::GetTexture(std::string path, bool allocate) {
 		return texture;
 	}
 	return nullptr;
+}
+
+
+bool ResourceManager::AddFont(std::string tag,std::string bitmapPath, std::string csvFile) {
+	Font* font = new Font(bitmapPath,csvFile); // Attempt to create the font
+
+	if (!font) { // If failure
+		std::cout << "DYNAMITE ~ResourceManager~ Failed to create font" << std::endl; // Print error
+		return false; // Return
+	}
+
+	fonts[tag] = font; // add font to map
+}
+
+bool ResourceManager::HasFont(std::string tag) {
+	if (fonts[tag]) { // If tag found
+		return true; // return true
+	}
+	return false; // else return false
+}
+
+Font* ResourceManager::GetFont(std::string tag) {
+	if (HasFont(tag)) { // If HasTag()
+		return fonts[tag]; // return font
+	}
+	return nullptr; // else return nullptr
 }
