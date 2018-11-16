@@ -2,7 +2,7 @@
 *	Filename: input.cpp
 *
 *	Description: Main Source file for Input class.
-*	Version: 31/10/2018
+*	Version: 16/11/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -20,23 +20,23 @@ Input* Input::Instance() {
 }
 
 Input::Input() {
-	for (int i = 0; i < 284; i++) {
+	for (int i = 0; i < 285; i++) {
 		keys[i] = false;
 		keysLast[i] = false;
 	}
 
-	for (int ii = 0; ii < 5; ii++) {
+	for (int ii = 0; ii < 6; ii++) {
 		buttons[ii] = false;
 		buttonsLast[ii] = false;
 	}
 }
 
 void Input::Handle() {
-	for (int i = 0; i < 284; i++) {
+	for (int i = 0; i < 285; i++) {
 		keysLast[i] = keys[i];
 	}
 
-	for (int ii = 0; ii < 5; ii++) {
+	for (int ii = 0; ii < 6; ii++) {
 		buttonsLast[ii] = buttons[ii];
 	}
 }
@@ -80,14 +80,15 @@ bool Input::KeyUp(int key) {
 }
 
 bool Input::ButtonPressed(int buttonCode) {
-	return buttons[buttonCode];
-}
-
-bool Input::ButtonDown(int buttonCode) {
 	if (buttons[buttonCode] && !buttonsLast[buttonCode]) {
 		return true;
 	}
 	return false;
+
+}
+
+bool Input::ButtonDown(int buttonCode) {
+	return buttons[buttonCode];
 }
 
 bool Input::ButtonUp(int buttonCode) {

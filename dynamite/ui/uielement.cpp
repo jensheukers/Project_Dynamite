@@ -47,15 +47,15 @@ void UIElement::Update() {
 
 		this->OnHover(); // Call OnHover() Method
 
-		if (Input::Instance()->ButtonDown(1)) { //If clicked
+		if (Input::Instance()->ButtonPressed(1)) { //If clicked
 			this->OnClick(1); //Call OnClick() Method
 		}
 
-		if (Input::Instance()->ButtonDown(2)) { //If clicked
+		if (Input::Instance()->ButtonPressed(2)) { //If clicked
 			this->OnClick(2); //Call OnClick() Method
 		}
 
-		if (Input::Instance()->ButtonDown(3)) { //If clicked
+		if (Input::Instance()->ButtonPressed(3)) { //If clicked
 			this->OnClick(3); //Call OnClick() Method
 		}
 
