@@ -2,14 +2,13 @@
 *	Filename: inputfield.h
 *
 *	Description: Header file for InputField class, Use this class as a "Template" as the full functionality is mostly up to the user
-*	Version: 16/11/2018
+*	Version: 19/11/2018
 *
 *	© 2018, www.jensheukers.nl
 */
 #pragma once
 #include "uielement.h"
-
-class Text; /// @brief Forward declaration
+#include "text.h"
 
 class InputField : public UIElement {
 private:
@@ -22,7 +21,7 @@ public:
 	InputField(Text* text);
 
 	/**
-	* Set the Input field text, please note that
+	* Set the Input field text
 	*/
 	void SetText(std::string text);
 	

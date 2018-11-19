@@ -2,7 +2,7 @@
 *	Filename: uielement.h
 *
 *	Description: Header file for User Interface Element class
-*	Version: 8/11/2018
+*	Version: 19/11/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -13,7 +13,8 @@
 
 class UIElement : public Entity {
 private:
-	bool entered;
+	bool entered; /// @brief True when ther user has entered the element.
+	bool clicked; /// @brief True when the user has clicked on the element.
 public:
 	/// @brief The position of the ui element on screen.
 	Vector2 screenPosition;
@@ -69,4 +70,9 @@ public:
 	* Triggered when user leaves the UI Element with mouse.
 	*/
 	virtual void OnLeave() {};
+
+	/**
+	* Returns true if clicked else returns false.
+	*/
+	bool Clicked() { return this->clicked; };
 };
