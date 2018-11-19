@@ -2,9 +2,9 @@
 *	Filename: input.cpp
 *
 *	Description: Main Source file for Input class.
-*	Version: 16/11/2018
+*	Version: 19/11/2018
 *
-*	© 2018, Jens Heukers
+*	© 2018, www.jensheukers.nl
 */
 
 #include "input.h"
@@ -29,6 +29,9 @@ Input::Input() {
 		buttons[ii] = false;
 		buttonsLast[ii] = false;
 	}
+
+	this->_keysPressed = false;
+	this->_buttonsPressed = false;
 }
 
 void Input::Handle() {
@@ -39,10 +42,15 @@ void Input::Handle() {
 	for (int ii = 0; ii < 6; ii++) {
 		buttonsLast[ii] = buttons[ii];
 	}
+	this->_keysPressed = false;
+	this->_buttonsPressed = false;
 }
 
 void Input::HandleKeyPressEvent(int key) {
 	keys[key] = true;
+	this->_lastKey = key;
+	this->_keysPressed = true;
+	
 }
 
 void Input::HandleKeyReleaseEvent(int key) {
@@ -51,6 +59,8 @@ void Input::HandleKeyReleaseEvent(int key) {
 
 void Input::HandleButtonPressEvent(int button) {
 	buttons[button] = true;
+	this->_lastButton = button;
+	this->_buttonsPressed = true;
 }
 
 void Input::HandleButtonReleaseEvent(int button) {
@@ -98,22 +108,6 @@ bool Input::ButtonUp(int buttonCode) {
 	return false;
 }
 
-void Input::AddAxis(std::string name, int positive, int negative) {
-	axises[name] = Axis(name, positive, negative);
-}
-
-float Input::GetAxis(std::string name) {
-	if (KeyDown(axises[name].GetPositive())) {
-		return 1;
-	}
-
-	if (KeyDown(axises[name].GetNegative())) {
-		return -1;
-	}
-
-	return 0;
-}
-
 Vector2 Input::GetMousePosition() {
 	if (SceneManager::Instance()->GetActiveScene()) {
 		if (SceneManager::Instance()->GetActiveScene()->HasActiveCamera()) {
@@ -129,3 +123,22 @@ Vector2 Input::GetMousePositionRelativeToScreen() {
 	return this->mousePosition;
 }
 
+int Input::GetLastKeyPressed() {
+	return this->_lastKey;
+}
+
+int Input::GetLastButtonPressed() {
+	return this->_lastButton;
+}
+
+bool Input::AreKeysPressed() {
+	return this->_keysPressed;
+}
+
+bool Input::AreButtonsPressed() {
+	return this->_buttonsPressed;
+}
+
+const char* Input::GetKeyName(int key) {
+	return SDL_GetKeyName(key);
+}

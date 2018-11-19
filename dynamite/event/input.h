@@ -2,8 +2,9 @@
 *	Filename: input.h
 *
 *	Description: Main Header file for Input class.
+*	Version: 19/11/2018
 *
-*	© 2018, Jens Heukers
+*	© 2018, www.jensheukers.nl
 */
 
 
@@ -151,51 +152,29 @@ enum KeyCode {
 	//---------------------
 };
 
-class Axis {
-private:
-	std::string name;
-	int positive;
-	int negative;
-public:
-	Axis() {};
-
-	/**
-	* Constructor
-	*/
-	Axis(std::string name, int positive, int negative) {
-		this->name = name;
-		this->positive = positive;
-		this->negative = negative;
-	}
-
-	/**
-	* Returns the positive Keycode value/
-	*/
-	int GetPositive() { return this->positive; }
-
-	/**
-	* Returns the negative Keycode value.
-	*/
-	int GetNegative() { return this->negative; }
-};
-
 class Input {
 private:
 	//Constructor private due to singleton
 	Input();
 
-	static Input* _instance;
-	std::map<std::string, Axis> axises;
-	bool keys[284];
-	bool keysLast[284];
-	bool buttons[5];
-	bool buttonsLast[5];
+	static Input* _instance; /// @brief the singleton instance
+	bool keys[284]; /// @brief all the keys currently pressed
+	bool keysLast[284]; /// @brief all the keys active in last frame and not active in this frame
+	bool buttons[5]; /// @brief All buttons currently pressed
+	bool buttonsLast[5]; /// @brief All buttons active in last frame and not active in this frame
 
-	Vector2 mousePosition;
+	Vector2 mousePosition; /// @brief The mouse position, relative to the canvas
+	int _lastKey; /// @brief the last key pressed in the frame.
+	int _lastButton; /// @brief the last button pressed in the frame.
+
+	bool _keysPressed; /// @brief true if keys are pressed this frame, else fals
+	bool _buttonsPressed; /// @brief true if buttons are pressed this frame, else false
 public:
 
+	/**
+	* Returns the currently active Input instance
+	*/
 	static Input* Instance();
-
 
 	/**
 	* Handles all the keys, buttons each frame sets Key[Key] to KeyLast[Key] & Button[Int] to ButtonLast[Int].
@@ -258,16 +237,6 @@ public:
 	bool ButtonUp(int buttonCode);
 
 	/**
-	* Adds a new axis to the axises list.
-	*/
-	void AddAxis(std::string name, int positive, int negative);
-
-	/**
-	* Returns 1 if positive axis key is pressed, returns -1 if negative axis key is pressed, otherwise returns 0.
-	*/
-	float GetAxis(std::string name);
-
-	/**
 	* Returns the mouse position on screen, if a camera is present, it will also include the camera position
 	*/
 	Vector2 GetMousePosition();
@@ -276,4 +245,29 @@ public:
 	* Returns the mouse position on screen.
 	*/
 	Vector2 GetMousePositionRelativeToScreen();
+
+	/**
+	* Returns the id of the last key pressed
+	*/
+	int GetLastKeyPressed();
+
+	/**
+	* Returns the id of the last button pressed
+	*/
+	int GetLastButtonPressed();
+
+	/**
+	* Returns true if keys are pressed this frame, else returns false
+	*/
+	bool AreKeysPressed();
+
+	/**
+	* Returns true if buttons are pressed this frame, else returns false
+	*/
+	bool AreButtonsPressed();
+
+	/**
+	* Returns a UTF-8 string with the character that matches the key
+	*/
+	const char* GetKeyName(int key);
 };
