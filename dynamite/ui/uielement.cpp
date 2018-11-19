@@ -22,7 +22,6 @@ UIElement::UIElement() {
 UIElement::UIElement(Vector2 position) {
 	this->position = position; //Set position to position parameter
 	this->AddComponent<Collider>(); // Add a collider component
-	this->clicked = false;
 }
 
 UIElement::UIElement(Vector2 position, std::string path) {
