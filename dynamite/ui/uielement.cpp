@@ -22,6 +22,7 @@ UIElement::UIElement() {
 UIElement::UIElement(Vector2 position) {
 	this->position = position; //Set position to position parameter
 	this->AddComponent<Collider>(); // Add a collider component
+	this->clicked = false;
 }
 
 UIElement::UIElement(Vector2 position, std::string path) {
@@ -49,33 +50,14 @@ void UIElement::Update() {
 
 		if (Input::Instance()->ButtonPressed(1)) { //If clicked
 			this->OnClick(1); //Call OnClick() Method
-			if (!clicked) { //If not yet clicked
-				clicked = true; //Set clicked to true.
-			}
-			else {
-				clicked = false; //If clicked before set clicked back to false
-			}
 		}
 
 		if (Input::Instance()->ButtonPressed(2)) { //If clicked
 			this->OnClick(2); //Call OnClick() Method
-			if (!clicked) { //If not yet clicked
-				clicked = true; //Set clicked to true.
-			}
-			else {
-				clicked = false; //If clicked before set clicked back to false
-			}
 		}
 
 		if (Input::Instance()->ButtonPressed(3)) { //If clicked
 			this->OnClick(3); //Call OnClick() Method
-
-			if (!clicked) { //If not yet clicked
-				clicked = true; //Set clicked to true.
-			}
-			else {
-				clicked = false; //If clicked before set clicked back to false
-			}
 		}
 
 		if (!entered) { //if not yet entered

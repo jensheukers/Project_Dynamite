@@ -14,7 +14,6 @@
 class UIElement : public Entity {
 private:
 	bool entered; /// @brief True when ther user has entered the element.
-	bool clicked; /// @brief True when the user has clicked on the element.
 public:
 	/// @brief The position of the ui element on screen.
 	Vector2 screenPosition;
@@ -72,7 +71,7 @@ public:
 	virtual void OnLeave() {};
 
 	/**
-	* Returns true if clicked else returns false.
+	* Returns true if mouse entered else returns false.
 	*/
-	bool Clicked() { return this->clicked; };
+	bool HasEntered() { return this->entered; };
 };
