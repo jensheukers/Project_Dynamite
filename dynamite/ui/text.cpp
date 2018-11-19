@@ -3,7 +3,7 @@
 *
 *	Description: Source file for Text class.
 *
-*	Version: 9/11/2018
+*	Version: 19/11/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -62,6 +62,11 @@ void Text::Append(std::string text) {
 	}
 
 	this->lenght += lenght; // Add to lenght
+}
+
+void Text::RemoveLast() {
+	this->characters.erase(this->characters.begin() + (this->characters.size() - 1)); // Erase the last character
+	this->lenght -= 1; // Set Lenght
 }
 
 unsigned Text::GetUnicode(char character) {

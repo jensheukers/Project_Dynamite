@@ -3,7 +3,7 @@
 *
 *	Description: Header file for Text class.
 *
-*	Version: 9/11/2018
+*	Version: 19/11/2018
 *
 *	© 2018, Jens Heukers
 */
@@ -43,6 +43,11 @@ public:
 	* Append to the already existing text
 	*/
 	void Append(std::string text);
+
+	/**
+	* Removes the last character of the text
+	*/
+	void RemoveLast();
 
 	/**
 	* Get the unicode of the given character
